@@ -23,6 +23,7 @@
                 if (this.status >= 200 && this.status < 300) {
                     var res = JSON.parse(this.response);
                     searchData = res instanceof Array ? res : res.posts;
+                    console.log(searchData)
                     success(searchData);
                 } else {
                     console.error(this.statusText);
