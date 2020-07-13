@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://zev_gitee.gitee.io/2020/03/15/jvm/lifecircle.jpg">
 <meta property="og:image" content="http://zev_gitee.gitee.io/2020/03/15/jvm/classLoader.jpg">
 <meta property="article:published_time" content="2020-03-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-13T10:06:41.074Z">
+<meta property="article:modified_time" content="2020-07-13T12:11:46.046Z">
 <meta property="article:author" content="张治峰">
 <meta property="article:tag" content="jdk">
 <meta property="article:tag" content="java">
@@ -162,7 +162,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JVM组成"><span class="post-toc-number">1.</span> <span class="post-toc-text">JVM组成</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类加载机制"><span class="post-toc-number">2.</span> <span class="post-toc-text">类加载机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类的生命周期"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">类的生命周期</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类加载器"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">类加载器</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JVM组成"><span class="post-toc-number">1.</span> <span class="post-toc-text">JVM组成</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类加载机制"><span class="post-toc-number">2.</span> <span class="post-toc-text">类加载机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类的生命周期"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">类的生命周期</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类加载器"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">类加载器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类加载机制-1"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">类加载机制</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -223,7 +223,16 @@
                     <img src="/2020/03/15/jvm/classLoader.jpg" alt title>
                 </div>
                 <div class="image-caption"></div>
-            </figure></li>
+            </figure>
+
+</li>
+</ul>
+<h3 id="类加载机制-1"><a href="#类加载机制-1" class="headerlink" title="类加载机制"></a>类加载机制</h3><ol>
+<li>全盘负责委托机制<br>当一个ClassLoader加载一个类的时候，除非显示的使用另一个ClassLoader，该类所依赖和引用的类也由这个ClassLoader载入</li>
+<li>双亲委派机制<br>指先委托父类加载器寻找目标类，在找不到的情况下载自己的路径中查找并载入目标类</li>
+</ol>
+<ul>
+<li>双亲委派的优势<br>沙箱安全机制：比如自己写的String.class类不会被加载，这样可以防止核心库被随意篡改<br>避免类的重复加载：当父ClassLoader已经加载了该类的时候，就不需要子ClassLoader再加载一次</li>
 </ul>
 
         </div>
@@ -233,7 +242,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-13T10:06:41.074Z" itemprop="dateUpdated">2020-07-13 18:06:41</time>
+    最后更新时间：<time datetime="2020-07-13T12:11:46.046Z" itemprop="dateUpdated">2020-07-13 20:11:46</time>
 </span><br>
 
 
