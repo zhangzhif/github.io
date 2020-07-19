@@ -14,7 +14,7 @@
     
     
     
-    <title>张治峰的博客 | 一只程序员~</title>
+    <title>标签: 并发 | 张治峰的博客 | 一只程序员~</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -23,7 +23,7 @@
     <meta name="keywords" content="">
     <meta property="og:type" content="website">
 <meta property="og:title" content="张治峰的博客">
-<meta property="og:url" content="http://zev_gitee.gitee.io/index.html">
+<meta property="og:url" content="http://zev_gitee.gitee.io/tags/%E5%B9%B6%E5%8F%91/index.html">
 <meta property="og:site_name" content="张治峰的博客">
 <meta property="article:author" content="张治峰">
 <meta name="twitter:card" content="summary">
@@ -59,7 +59,7 @@
     <div class="scroll-wrap flex-col">
       <ul class="nav">
         
-            <li class="waves-block waves-effect active">
+            <li class="waves-block waves-effect">
               <a href="/"  >
                 <i class="icon icon-lg icon-home"></i>
                 主页
@@ -73,7 +73,7 @@
               </a>
             </li>
         
-            <li class="waves-block waves-effect">
+            <li class="waves-block waves-effect active">
               <a href="/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 标签
@@ -105,7 +105,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">张治峰的博客</div>
+        <div class="flex-col header-title ellipsis">标签: 并发</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -124,40 +124,64 @@
         
     </div>
 </header>
-<header class="content-header index-header">
+<header class="content-header tags-header">
 
     <div class="container fade-scale">
-        <h1 class="title">张治峰的博客</h1>
+        <h1 class="title">标签: 并发</h1>
         <h5 class="subtitle">
-            
-                一只程序员~
             
         </h5>
     </div>
 
     
+<div class="tabs-bar container">
+    <nav class="tags-list">
+        <a href="/tags" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
+            ">全部</a>
+        
+
+            <a href="/tags/%E9%9A%8F%E7%AC%94/" style="-webkit-order:2;order:2" class="tags-list-item waves-effect waves-button waves-light">随笔</a>
+
+        
+
+            <a href="/tags/jdk/" style="-webkit-order:3;order:3" class="tags-list-item waves-effect waves-button waves-light">jdk</a>
+
+        
+
+            <a href="/tags/java/" style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light">java</a>
+
+        
+
+            <a href="/tags/%E5%B9%B6%E5%8F%91/" style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light active">并发</a>
+
+        
+    </nav>
+    <!-- PC show more-->
+    <div class="tags-list-more">
+        <a href="javascript:;" onclick="BLOG.tabBar(this)" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
+    </div>
+</div>
+
 
 
 </header>
 
-<div class="container body-wrap">
-
-    <ul class="post-list">
+<div class="container body-wrap fade">
     
-        <li class="post-list-item fade">
-            <article id="post-synchronized"
-  class="article-card article-type-post" itemprop="blogPost">
+            <div class="waterfall">
+          
 
+            <div class="waterfall-item">
+  <article class="article-card archive-article">
     <div class="post-meta">
-        <time class="post-time" title="2020-04-01 00:00:00" datetime="2020-03-31T16:00:00.000Z"  itemprop="datePublished">2020-04-01</time>
+      <time class="post-time" title="2020-04-01 00:00:00" datetime="2020-03-31T16:00:00.000Z"  itemprop="datePublished">2020-04-01</time>
 
-        
+      
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
 
 
 
     </div>
-
     
 
 
@@ -169,23 +193,6 @@
 
 
 
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        锁状态概述
-无锁 没有synchronized关键字修饰
-偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）
-轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用join().-自旋锁也是产生轻量级锁的一个方式
-重量级锁  多个线程调用同步代码，且存在锁竞争
-
-验证对象头介绍   锁状态的标记就在对象头当中。网上32位操作系统对象头的文档很多，下面使用的是64位...
-    
-
-        <a href="/2020/04/01/synchronized/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
     
     <div class="post-footer">
         
@@ -193,118 +200,15 @@
 
     </div>
     
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-jvm"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-03-15 00:00:00" datetime="2020-03-14T16:00:00.000Z"  itemprop="datePublished">2020-03-15</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/15/jvm/">JVM虚拟机</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。
-JVM组成JVM的主要由三部分组成
-
-类加载子系统
-运行时数据区（内存结构）
-执行引擎
-             ...
-    
-
-        <a href="/2020/03/15/jvm/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdk/" rel="tag">jdk</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-introduce"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-03-02 21:01:24" datetime="2020-03-02T13:01:24.000Z"  itemprop="datePublished">2020-03-02</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/02/introduce/">大家好～</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        我就是江湖上人见人爱、花见花开、车见车载，人称上天入地、无所不能、英俊潇洒、风流倜傥、玉树临风、学富五车、高大威猛、阅代码无数、迷倒万千少女,号称一朵梨花压海棠的java程序猿，帅到掉榨!。来和我一起学习吧。
-技术点JVMJVM线程模型垃圾回收器垃圾回收算法JVM类加载机制JVM调优工具GC日志分析1学习使我快乐
-
-
-
-
-    
-
-        <a href="/2020/03/02/introduce/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-    </ul>
-
-    
-
+  </article>
 </div>
+
+        
+            </div>
+        
+    
+</div>
+
 
         <!--<footer class="footer">-->
 <!--    <div class="top">-->
@@ -334,7 +238,7 @@ JVM组成JVM的主要由三部分组成
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/&title=张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/tags/%E5%B9%B6%E5%8F%91/&title=张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -344,22 +248,22 @@ JVM组成JVM的主要由三部分组成
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/&title=张治峰的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/tags/%E5%B9%B6%E5%8F%91/&title=张治峰的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/tags/%E5%B9%B6%E5%8F%91/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=张治峰的博客&url=http://zev_gitee.gitee.io/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=张治峰的博客&url=http://zev_gitee.gitee.io/tags/%E5%B9%B6%E5%8F%91/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/tags/%E5%B9%B6%E5%8F%91/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -370,7 +274,7 @@ JVM组成JVM的主要由三部分组成
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://zev_gitee.gitee.io/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://zev_gitee.gitee.io/tags/%E5%B9%B6%E5%8F%91/" alt="微信分享二维码">
 </div>
 
 
