@@ -21,14 +21,14 @@
     
     
     <meta name="keywords" content="java,并发">
-    <meta name="description" content="锁状态概述 无锁 没有synchronized关键字修饰 偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件） 轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用join().-自旋锁也是产生轻量级锁的一个方式 重量级锁  多个线程调用同步代码，且存在锁竞争  验证对象头介绍   锁状态的标记就在对象头当中。网上32位操作系统对象头的文档很多，下面使用的是64位操作系">
+    <meta name="description" content="锁状态概述 无锁 没有synchronized关键字修饰 偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级] 轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用joi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="synchronized锁状态及性能对比">
 <meta property="og:url" content="http://zev_gitee.gitee.io/2020/04/01/synchronized/index.html">
 <meta property="og:site_name" content="张治峰的博客">
-<meta property="og:description" content="锁状态概述 无锁 没有synchronized关键字修饰 偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件） 轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用join().-自旋锁也是产生轻量级锁的一个方式 重量级锁  多个线程调用同步代码，且存在锁竞争  验证对象头介绍   锁状态的标记就在对象头当中。网上32位操作系统对象头的文档很多，下面使用的是64位操作系">
+<meta property="og:description" content="锁状态概述 无锁 没有synchronized关键字修饰 偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级] 轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用joi">
 <meta property="article:published_time" content="2020-03-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-19T05:45:36.686Z">
+<meta property="article:modified_time" content="2020-07-21T13:23:19.010Z">
 <meta property="article:author" content="张治峰">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="并发">
@@ -182,7 +182,7 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <h2 id="锁状态"><a href="#锁状态" class="headerlink" title="锁状态"></a>锁状态</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
 <li>无锁<br> <em>没有synchronized关键字修饰</em></li>
-<li>偏向锁<br>  <em>JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）</em></li>
+<li>偏向锁<br>  <em>JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级]</em></li>
 <li>轻量级锁<br>  <em>多个线程调用同步代码，但是线程之间交替执行例如调用join().-自旋锁也是产生轻量级锁的一个方式</em></li>
 <li>重量级锁<br>  <em>多个线程调用同步代码，且存在锁竞争</em></li>
 </ul>
@@ -484,7 +484,7 @@ public class Demo4 {
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-19T05:45:36.686Z" itemprop="dateUpdated">2020-07-19 13:45:36</time>
+    最后更新时间：<time datetime="2020-07-21T13:23:19.010Z" itemprop="dateUpdated">2020-07-21 21:23:19</time>
 </span><br>
 
 
@@ -565,7 +565,14 @@ public class Demo4 {
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/08/09/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">类加载器子系统</h4>
+      </a>
+    </div>
   
 
   
