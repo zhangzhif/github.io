@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="java,并发">
+    <meta name="keywords" content="javase,并发">
     <meta name="description" content="锁状态概述 无锁 没有synchronized关键字修饰 偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级] 轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用joi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="synchronized锁状态及性能对比">
@@ -28,9 +28,9 @@
 <meta property="og:site_name" content="张治峰的博客">
 <meta property="og:description" content="锁状态概述 无锁 没有synchronized关键字修饰 偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级] 轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用joi">
 <meta property="article:published_time" content="2020-03-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-21T13:23:19.010Z">
+<meta property="article:modified_time" content="2020-09-04T06:29:10.042Z">
 <meta property="article:author" content="张治峰">
-<meta property="article:tag" content="java">
+<meta property="article:tag" content="javase">
 <meta property="article:tag" content="并发">
 <meta name="twitter:card" content="summary">
     
@@ -484,7 +484,7 @@ public class Demo4 {
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-07-21T13:23:19.010Z" itemprop="dateUpdated">2020-07-21 21:23:19</time>
+    最后更新时间：<time datetime="2020-09-04T06:29:10.042Z" itemprop="dateUpdated">2020-09-04 14:29:10</time>
 </span><br>
 
 
@@ -510,7 +510,7 @@ public class Demo4 {
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javase/" rel="tag">javase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li></ul>
 
 
             
