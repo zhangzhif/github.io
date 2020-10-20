@@ -493,8 +493,8 @@ public ExtClassLoader(File[] dirs) throws IOException {
     // Note: on bugid 4256530
     // Prior implementations of this doPrivileged() block supplied
     // a rather restrictive ACC via a call to the private method
-    // AppClassLoader.getContext(). This proved overly restrictive
-    // when loading  classes. Specifically it prevent
+    // AppClassLoader.getContext().This proved overly restrictive
+    // when loading  classes.Specifically it prevent
     // accessClassInPackage.sun.* grants from being honored.
     //
     return AccessController.doPrivileged(
