@@ -21,14 +21,14 @@
     
     
     <meta name="keywords" content="开发手册">
-    <meta name="description" content="前言并发编程的本质(多线程编程) 同步: 线程间的协作 互斥: 独占锁 分工: 大任务拆解并发学什么 JMM模型 java线程内存模型  特性:原子性、有序性、可见性 硬件:机械同感   线程 内核级线程 1 new Thread() 和普通对象的区别?thread.start() 是本地方法即调用JVM的c++方法 2 为什么java 线程是内核级线程-JVM不具有调度CPU的权限 new Th">
+    <meta name="description" content="前言并发编程的本质(多线程编程) 同步: 线程间的协作 互斥: 独占锁 分工: 大任务拆解并发学什么 JMM模型 java线程内存模型  特性:原子性、有序性、可见性 硬件:机械同感   线程 内核级线程2.1 new Thread() 和普通对象的区别?thread.start() 是本地方法即调用JVM的c++方法2.2 为什么java 线程是内核级线程-JVM不具有调度CPU的权限 new">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发应该学习什么">
-<meta property="og:url" content="http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/index.html">
+<meta property="og:url" content="http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/index.html">
 <meta property="og:site_name" content="张治峰的博客">
-<meta property="og:description" content="前言并发编程的本质(多线程编程) 同步: 线程间的协作 互斥: 独占锁 分工: 大任务拆解并发学什么 JMM模型 java线程内存模型  特性:原子性、有序性、可见性 硬件:机械同感   线程 内核级线程 1 new Thread() 和普通对象的区别?thread.start() 是本地方法即调用JVM的c++方法 2 为什么java 线程是内核级线程-JVM不具有调度CPU的权限 new Th">
+<meta property="og:description" content="前言并发编程的本质(多线程编程) 同步: 线程间的协作 互斥: 独占锁 分工: 大任务拆解并发学什么 JMM模型 java线程内存模型  特性:原子性、有序性、可见性 硬件:机械同感   线程 内核级线程2.1 new Thread() 和普通对象的区别?thread.start() 是本地方法即调用JVM的c++方法2.2 为什么java 线程是内核级线程-JVM不具有调度CPU的权限 new">
 <meta property="article:published_time" content="2020-07-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-19T05:23:50.666Z">
+<meta property="article:modified_time" content="2021-01-19T11:16:01.336Z">
 <meta property="article:author" content="张治峰">
 <meta property="article:tag" content="开发手册">
 <meta name="twitter:card" content="summary">
@@ -162,7 +162,7 @@
     </aside>
 
 
-<article id="post-并发编程之JMM&amp;Volatile底层原理剖析"
+<article id="post-aboutConcurrency"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
@@ -188,16 +188,15 @@
 <li>硬件:机械同感</li>
 </ul>
 </li>
-<li>线程 内核级线程</li>
-<li>1 new Thread() 和普通对象的区别?<br>thread.start() 是本地方法即调用JVM的c++方法</li>
-<li>2 为什么java 线程是内核级线程<br>-JVM不具有调度CPU的权限 new Thread()只是一个java对象start() 实际调用操作系统中p_thread方法。java 线程只是作用与线程绑定.过程为javaThread–osThread–内核线程（p_thread）</li>
-</ol>
-<p>2.3 线程池-线程复用<br>  由于java线程需要与内核线程进行绑定，创建、连接、销毁都损性能，所以线程池就是为了减少开销提升性能。<br>2.4 锁机制 （加锁是为了序列化的访问临界资源）<br>JVM内置锁: synchronized,包含四种状态 无锁、偏向锁、轻量级锁、重量级锁。（锁膨胀过程、object monitor 机制）<br>JUC包: 独占锁、共享锁、读写锁，公平锁、非公平锁（AQS）<br>等待唤醒机制（wait/notify、park/unpark<br>2.5 工具类&amp;并发容器<br>2.6 并行 （forkjoin）</p>
-<h3 id="并发的风险"><a href="#并发的风险" class="headerlink" title="并发的风险"></a>并发的风险</h3><ol>
+<li>线程 内核级线程<br>2.1 new Thread() 和普通对象的区别?<br>thread.start() 是本地方法即调用JVM的c++方法<br>2.2 为什么java 线程是内核级线程<br>-JVM不具有调度CPU的权限 new Thread()只是一个java对象start() 实际调用操作系统中p_thread方法。java 线程只是作用与线程绑定.过程为javaThread–osThread–内核线程（p_thread）<br>2.3 线程池-线程复用<br>由于java线程需要与内核线程进行绑定，创建、连接、销毁都损性能，所以线程池就是为了减少开销提升性能。<br>2.4 锁机制 （加锁是为了序列化的访问临界资源）<br> JVM内置锁: synchronized,包含四种状态 无锁、偏向锁、轻量级锁、重量级锁。（锁膨胀过程、object monitor 机制）<br> JUC包: 独占锁、共享锁、读写锁，公平锁、非公平锁（AQS）<br> 等待唤醒机制（wait/notify、park/unpark<br>2.5 工具类&amp;并发容器<br>2.6 并行 （forkjoin）<br>2.7 并发设计模式<br>不变性、copyonwrite<br>等待唤醒机制<br>生产者消费者模式<h3 id="并发的风险"><a href="#并发的风险" class="headerlink" title="并发的风险"></a>并发的风险</h3></li>
 <li>性能问题: 上下文频繁切换<br>线程切换是时候需要对线程1的状态进行保存例如 程序执行的行号、变量值等，而线程2需要恢复线程上一次获取到cpu的执行状态</li>
-<li>活跃性问题:<br>死锁: 线程相互等待。例子 面试官问:你给我解释下死锁。你答:你录取我我就告诉你。<br>活锁: 线程相互谦让。例子 过马路，你迎面遇到一辆车，两个人相互让道，但每次都没让开。<br>饥饿: 一个线程执行时优先级高 反复获取资源导致其他线程不能执行</li>
+<li>活跃性问题:<ul>
+<li>死锁: 线程相互等待。例子 面试官问:你给我解释下死锁。你答:你录取我我就告诉你。</li>
+<li>活锁: 线程相互谦让。例子 过马路，你迎面遇到一辆车，两个人相互让道，但每次都没让开。</li>
+<li>饥饿: 一个线程执行时优先级高 反复获取资源导致其他线程不能执行</li>
+</ul>
+</li>
 <li>线程安全<br>加锁、三大特性、happens-before(八大原则+六条推论)</li>
-<li>7 并发设计模式<br>不变性、copyonwrite<br>等待唤醒机制<br>生产者消费者模式</li>
 </ol>
 
         </div>
@@ -207,7 +206,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2021-01-19T05:23:50.666Z" itemprop="dateUpdated">2021-01-19 13:23:50</time>
+    最后更新时间：<time datetime="2021-01-19T11:16:01.336Z" itemprop="dateUpdated">2021-01-19 19:16:01</time>
 </span><br>
 
 
@@ -243,7 +242,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/&title=《并发应该学习什么》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -253,22 +252,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/&title=《并发应该学习什么》 — 张治峰的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发应该学习什么》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发应该学习什么》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -291,9 +290,9 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2020/08/09/%E6%95%B0%E6%8D%AE%E8%B4%A8%E6%A3%80%E5%AE%9E%E6%88%98%E8%A7%A3%E6%9E%90/" id="post-prev" class="post-nav-link">
+      <a href="/2020/08/09/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">数据质检实战解析</h4>
+        <h4 class="title">类加载器子系统</h4>
       </a>
     </div>
   
@@ -415,7 +414,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/&title=《并发应该学习什么》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -425,22 +424,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/&title=《并发应该学习什么》 — 张治峰的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发应该学习什么》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发应该学习什么》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -451,7 +450,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://zev_gitee.gitee.io/2020/07/20/aboutConcurrency/" alt="微信分享二维码">
 </div>
 
 
