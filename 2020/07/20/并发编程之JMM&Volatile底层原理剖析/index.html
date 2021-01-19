@@ -14,21 +14,23 @@
     
     
     
-    <title>模拟Spring框架核心逻辑 | 张治峰的博客 | 一只程序员~</title>
+    <title>并发应该学习什么 | 张治峰的博客 | 一只程序员~</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="spring">
-    <meta property="og:type" content="article">
-<meta property="og:title" content="模拟Spring框架核心逻辑">
-<meta property="og:url" content="http://zev_gitee.gitee.io/2019/11/01/myspring/index.html">
+    <meta name="keywords" content="开发手册">
+    <meta name="description" content="前言并发编程的本质(多线程编程) 同步: 线程间的协作 互斥: 独占锁 分工: 大任务拆解并发学什么 JMM模型 java线程内存模型  特性:原子性、有序性、可见性 硬件:机械同感   线程 内核级线程 1 new Thread() 和普通对象的区别?thread.start() 是本地方法即调用JVM的c++方法 2 为什么java 线程是内核级线程-JVM不具有调度CPU的权限 new Th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发应该学习什么">
+<meta property="og:url" content="http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/index.html">
 <meta property="og:site_name" content="张治峰的博客">
-<meta property="article:published_time" content="2019-11-01T02:01:24.000Z">
-<meta property="article:modified_time" content="2020-10-09T02:56:58.974Z">
+<meta property="og:description" content="前言并发编程的本质(多线程编程) 同步: 线程间的协作 互斥: 独占锁 分工: 大任务拆解并发学什么 JMM模型 java线程内存模型  特性:原子性、有序性、可见性 硬件:机械同感   线程 内核级线程 1 new Thread() 和普通对象的区别?thread.start() 是本地方法即调用JVM的c++方法 2 为什么java 线程是内核级线程-JVM不具有调度CPU的权限 new Th">
+<meta property="article:published_time" content="2020-07-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-19T05:23:50.666Z">
 <meta property="article:author" content="张治峰">
-<meta property="article:tag" content="spring">
+<meta property="article:tag" content="开发手册">
 <meta name="twitter:card" content="summary">
     
     <link rel="shortcut icon" href="/favicon.ico">
@@ -108,7 +110,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">模拟Spring框架核心逻辑</div>
+        <div class="flex-col header-title ellipsis">并发应该学习什么</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -130,15 +132,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">模拟Spring框架核心逻辑</h1>
+        <h1 class="title">并发应该学习什么</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-11-01T02:01:24.000Z" itemprop="datePublished" class="page-time">
-  2019-11-01
+                <time datetime="2020-07-19T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2020-07-20
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring%E4%B8%93%E9%A2%98/">spring专题</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java%E5%B9%B6%E5%8F%91/">java并发</a></li></ul>
 
             
         </h5>
@@ -152,17 +154,24 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#并发编程的本质-多线程编程"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">并发编程的本质(多线程编程)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#并发学什么"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">并发学什么</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#并发的风险"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">并发的风险</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-myspring"
+
+<article id="post-并发编程之JMM&amp;Volatile底层原理剖析"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">模拟Spring框架核心逻辑</h1>
+        <h1 class="post-card-title">并发应该学习什么</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-11-01 10:01:24" datetime="2019-11-01T02:01:24.000Z"  itemprop="datePublished">2019-11-01</time>
+            <time class="post-time" title="2020-07-20 00:00:00" datetime="2020-07-19T16:00:00.000Z"  itemprop="datePublished">2020-07-20</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring%E4%B8%93%E9%A2%98/">spring专题</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java%E5%B9%B6%E5%8F%91/">java并发</a></li></ul>
 
 
 
@@ -170,7 +179,27 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="并发编程的本质-多线程编程"><a href="#并发编程的本质-多线程编程" class="headerlink" title="并发编程的本质(多线程编程)"></a>并发编程的本质(多线程编程)</h3><ol>
+<li>同步: 线程间的协作</li>
+<li>互斥: 独占锁</li>
+<li>分工: 大任务拆解<h3 id="并发学什么"><a href="#并发学什么" class="headerlink" title="并发学什么"></a>并发学什么</h3></li>
+<li>JMM模型 java线程内存模型 <ul>
+<li>特性:原子性、有序性、可见性</li>
+<li>硬件:机械同感</li>
+</ul>
+</li>
+<li>线程 内核级线程</li>
+<li>1 new Thread() 和普通对象的区别?<br>thread.start() 是本地方法即调用JVM的c++方法</li>
+<li>2 为什么java 线程是内核级线程<br>-JVM不具有调度CPU的权限 new Thread()只是一个java对象start() 实际调用操作系统中p_thread方法。java 线程只是作用与线程绑定.过程为javaThread–osThread–内核线程（p_thread）</li>
+</ol>
+<p>2.3 线程池-线程复用<br>  由于java线程需要与内核线程进行绑定，创建、连接、销毁都损性能，所以线程池就是为了减少开销提升性能。<br>2.4 锁机制 （加锁是为了序列化的访问临界资源）<br>JVM内置锁: synchronized,包含四种状态 无锁、偏向锁、轻量级锁、重量级锁。（锁膨胀过程、object monitor 机制）<br>JUC包: 独占锁、共享锁、读写锁，公平锁、非公平锁（AQS）<br>等待唤醒机制（wait/notify、park/unpark<br>2.5 工具类&amp;并发容器<br>2.6 并行 （forkjoin）</p>
+<h3 id="并发的风险"><a href="#并发的风险" class="headerlink" title="并发的风险"></a>并发的风险</h3><ol>
+<li>性能问题: 上下文频繁切换<br>线程切换是时候需要对线程1的状态进行保存例如 程序执行的行号、变量值等，而线程2需要恢复线程上一次获取到cpu的执行状态</li>
+<li>活跃性问题:<br>死锁: 线程相互等待。例子 面试官问:你给我解释下死锁。你答:你录取我我就告诉你。<br>活锁: 线程相互谦让。例子 过马路，你迎面遇到一辆车，两个人相互让道，但每次都没让开。<br>饥饿: 一个线程执行时优先级高 反复获取资源导致其他线程不能执行</li>
+<li>线程安全<br>加锁、三大特性、happens-before(八大原则+六条推论)</li>
+<li>7 并发设计模式<br>不变性、copyonwrite<br>等待唤醒机制<br>生产者消费者模式</li>
+</ol>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -178,7 +207,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-10-09T02:56:58.974Z" itemprop="dateUpdated">2020-10-09 10:56:58</time>
+    最后更新时间：<time datetime="2021-01-19T05:23:50.666Z" itemprop="dateUpdated">2021-01-19 13:23:50</time>
 </span><br>
 
 
@@ -204,7 +233,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" rel="tag">开发手册</a></li></ul>
 
 
             
@@ -214,7 +243,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2019/11/01/myspring/&title=《模拟Spring框架核心逻辑》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -224,22 +253,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2019/11/01/myspring/&title=《模拟Spring框架核心逻辑》 — 张治峰的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2019/11/01/myspring/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《模拟Spring框架核心逻辑》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2019/11/01/myspring/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发应该学习什么》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2019/11/01/myspring/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -262,18 +291,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/12/01/springioc/" id="post-prev" class="post-nav-link">
+      <a href="/2020/08/09/%E6%95%B0%E6%8D%AE%E8%B4%A8%E6%A3%80%E5%AE%9E%E6%88%98%E8%A7%A3%E6%9E%90/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Spring容器及Spring Bean</h4>
+        <h4 class="title">数据质检实战解析</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/03/02/introduce/" id="post-next" class="post-nav-link">
+      <a href="/2020/06/01/ot-vpn/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">大家好～</h4>
+        <h4 class="title">vpn配置</h4>
       </a>
     </div>
   
@@ -386,7 +415,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2019/11/01/myspring/&title=《模拟Spring框架核心逻辑》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -396,22 +425,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2019/11/01/myspring/&title=《模拟Spring框架核心逻辑》 — 张治峰的博客&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&title=《并发应该学习什么》 — 张治峰的博客&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2019/11/01/myspring/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《模拟Spring框架核心逻辑》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2019/11/01/myspring/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《并发应该学习什么》 — 张治峰的博客&url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2019/11/01/myspring/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -422,7 +451,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://zev_gitee.gitee.io/2019/11/01/myspring/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://zev_gitee.gitee.io/2020/07/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BJMM&Volatile%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/" alt="微信分享二维码">
 </div>
 
 
