@@ -62,6 +62,19 @@
       </tags>
   </entry>
   <entry>
+    <title>Spring中Bean的生命周期</title>
+    <url>/2020/10/20/Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+    <content><![CDATA[<p><strong><em>Spring最重要的功能就是创建管理Bean(IOC),所以在学习Spring</em></strong></p>
+<p>1.ASM技术 直接解析class文件不会加载类</p>
+]]></content>
+      <categories>
+        <category>spring源码</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CopyOnWriteArrayList源码解析</title>
     <url>/2019/12/08/CopyOnWriteArrayList/</url>
     <content><![CDATA[<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CopyOnWriteArrayList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
@@ -96,32 +109,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Spring中Bean的生命周期</title>
-    <url>/2020/10/20/Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
-    <content><![CDATA[<p><strong><em>Spring最重要的功能就是创建管理Bean(IOC),所以在学习Spring</em></strong></p>
-<p>1.ASM技术 直接解析class文件不会加载类</p>
-]]></content>
-      <categories>
-        <category>spring源码</category>
-      </categories>
-      <tags>
-        <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>大家好～</title>
-    <url>/2019/03/02/introduce/</url>
-    <content><![CDATA[<p>没啥介绍的，干就完了。</p>
-<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><h4 id="JVM线程模型"><a href="#JVM线程模型" class="headerlink" title="JVM线程模型"></a><a href="#/">JVM线程模型</a></h4><h4 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h4><h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><h4 id="JVM类加载机制"><a href="#JVM类加载机制" class="headerlink" title="JVM类加载机制"></a>JVM类加载机制</h4><h4 id="JVM调优工具"><a href="#JVM调优工具" class="headerlink" title="JVM调优工具"></a>JVM调优工具</h4><h4 id="GC日志分析"><a href="#GC日志分析" class="headerlink" title="GC日志分析"></a>GC日志分析</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">学习使我快乐</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>并发应该学习什么</title>
     <url>/2020/07/20/aboutConcurrency/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="并发编程的本质-多线程编程"><a href="#并发编程的本质-多线程编程" class="headerlink" title="并发编程的本质(多线程编程)"></a>并发编程的本质(多线程编程)</h3><ol>
@@ -146,6 +133,225 @@
 ]]></content>
       <categories>
         <category>java并发</category>
+      </categories>
+      <tags>
+        <tag>开发手册</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大家好～</title>
+    <url>/2019/03/02/introduce/</url>
+    <content><![CDATA[<p>没啥介绍的，干就完了。</p>
+<h2 id="技术点"><a href="#技术点" class="headerlink" title="技术点"></a>技术点</h2><h3 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h3><h4 id="JVM线程模型"><a href="#JVM线程模型" class="headerlink" title="JVM线程模型"></a><a href="#/">JVM线程模型</a></h4><h4 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h4><h4 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h4><h4 id="JVM类加载机制"><a href="#JVM类加载机制" class="headerlink" title="JVM类加载机制"></a>JVM类加载机制</h4><h4 id="JVM调优工具"><a href="#JVM调优工具" class="headerlink" title="JVM调优工具"></a>JVM调优工具</h4><h4 id="GC日志分析"><a href="#GC日志分析" class="headerlink" title="GC日志分析"></a>GC日志分析</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">学习使我快乐</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JVM虚拟机</title>
+    <url>/2020/03/15/jvm/</url>
+    <content><![CDATA[<p>java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。</p>
+<h2 id="JVM组成"><a href="#JVM组成" class="headerlink" title="JVM组成"></a>JVM组成</h2><p>JVM的主要由三部分组成</p>
+<ul>
+<li>类加载子系统</li>
+<li>运行时数据区（内存结构）</li>
+<li>执行引擎<br><img src="/2020/03/15/jvm/jvm.jpg" alt="jvm结构"></li>
+</ul>
+<h2 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h2><p><img src="/2020/03/15/jvm/lifecircle.jpg" alt="生命周期"><br>1.加载<br>    <em>将class文件读取到内存</em><br>2.连接<br>    2.1 验证<br>    <em>验证字节码文件的正确性</em><br>    2.2  准备<br>    <em>给类的静态变量分配内存，并赋予默认值</em><br>    2.3 解析<br>    <em>类装载器装入类所引用的其它所有类</em><br>3.初始化<br>    <em>为类的静态变量赋予正确的初始值，上述的准备阶段为静态变量赋予的是虚拟机默认的初始值，此处赋予的才是程序编写者为变量分配的真正的初始值，执行静态代码块</em><br>4.使用<br>5.卸载</p>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><ul>
+<li>启动类加载器(Bootstrap ClassLoader)<br>  <em>负责加载JRE的核心类库，如JRE目标下的rt.jar，charsets.jar等</em></li>
+<li>扩展类加载器(Extension ClassLoader)<br>  <em>负责加载JRE扩展目录ext中jar类包</em></li>
+<li>系统类加载器(Application ClassLoader)<br>  <em>负责加载ClassPath路径下的类包</em></li>
+<li>用户自定义加载器(User ClassLoader)<br>  <em>负责加载用户自定义路径下的类包</em><br><img src="/2020/03/15/jvm/classLoader.jpg" alt></li>
+</ul>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><p>1.全盘负责委托机制<br>    <em>当一个ClassLoader加载一个类的时候，除非显示的使用另一个ClassLoader，该类所依赖和引用的类也由这个ClassLoader载入</em><br>2.双亲委派机制<br>    <em>指先委托父类加载器寻找目标类，在找不到的情况下才会到自己的路径中查找并载入目标类</em><br> 双亲委派的优势<br>    + <em>沙箱安全机制：比如自己写的String.class类不会被加载，这样可以防止核心库被随意篡改</em><br>    + <em>避免类的重复加载：当父ClassLoader已经加载了该类的时候，就不需要子ClassLoader再加载一次</em></p>
+<h2 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h2><p>1.方法区（Method Area）<br>    <em>类的所有字段和方法字节码，以及一些特殊方法如构造函数，接口代码也在这里定义。简单来说，所有定义的方法的信息都保存在该区域，静态变量+常量+类信息（构造方法/接口定义）+运行时常量池都存在方法区中，虽然Java虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做Non-Heap（非堆），目的应该是为了和Java的堆区分开(jdk1.8以前hotspot虚拟机叫永久代、持久代，jdk1.8时叫元空间)</em><br>2.堆（Heap）<br>    <em>虚拟机启动时自动分配创建，用于存放对象的实例，几乎所有对象都在堆上分配内存，当对象无法在该空间申请到内存是将抛出OutOfMemoryError异常。同时也是垃圾收集器管理的主要区域。</em></p>
+<pre><code>2.1 新生代
+*类出生、成长、消亡的区域，一个类在这里产生，应用，最后被垃圾回收器收集，结束生命。新生代分为两部分：伊甸区（Eden space）和幸存者区（Survivor space），所有的类都是在伊甸区被new出来的。幸存区又分为From和To区。当Eden区的空间用完是，程序又需要创建对象，JVM的垃圾回收器将Eden区进行垃圾回收（Minor GC），将Eden区中的不再被其它对象应用的对象进行销毁。然后将Eden区中剩余的对象移到From Survivor区。若From Survivor区也满了，再对该区进行垃圾回收，然后移动到To Survivor区。*
+2.2 老年代
+*新生代经过多次GC仍然存货的对象移动到老年区。若老年代也满了，这时候将发生Major GC（也可以叫Full GC），进行老年区的内存清理。若老年区执行了Full GC之后发现依然无法进行对象的保存，就会抛出OOM（OutOfMemoryError）异常*
+2.3 元空间
+*在JDK1.8之后，元空间替代了永久代，它是对JVM规范中方法区的实现，区别在于元数据区不在虚拟机当中，而是用的本地内存，永久代在虚拟机当中，永久代逻辑结构上也属于堆，但是物理上不属于。*</code></pre><p>3.栈 (Stack)<br>    <em>Java线程执行方法的内存模型，一个线程对应一个栈，每个方法在执行的同时都会创建一个栈帧（用于存储局部变量表，操作数栈，动态链接，方法出口等信息）不存在垃圾回收问题，只要线程一结束该栈就释放，生命周期和线程一致</em><br>4.本地方法栈 (Native Method Stack)<br>    <em>类似栈，java栈服务于java方法，而本地方法栈服务于native方法。</em><br>5.程序计数器 (Program Counter Register)<br>    <em>就是一个指针，指向下一跳指令的地址，就是即将要执行的指令，由执行引擎进行读取，所占的内存空间很小，几乎可以忽略不计</em></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JAVA开发规范-阿里规约</title>
+    <url>/2020/10/20/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</url>
+    <content><![CDATA[<p>原文地址: <a href="http://www.azhangzhifeng.cn/" target="_blank" rel="noopener">zhangzhifeng的主页</a></p>
+<h2 id="编程规约"><a href="#编程规约" class="headerlink" title="编程规约"></a>编程规约</h2><h3 id="命名规约"><a href="#命名规约" class="headerlink" title="命名规约"></a>命名规约</h3><p>1.所有编程相关命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例： _name </span></span><br><span class="line">         __name </span><br><span class="line">         $Object</span><br><span class="line">         name_ </span><br><span class="line">         name$</span><br><span class="line">         Object$</span><br></pre></td></tr></table></figure>
+
+<p>2.所有编程相关的命名严禁使用拼音与英文混合的方式，更不允许直接使用中文的方式。说明：正确的英文拼写和语法可以让阅读者易于理解，避免歧义。注意，即使纯拼音命名方式也要避免采用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">反例 </span><br><span class="line">    DaZhePromotion [打折] getPingfenByName() [评分] <span class="keyword">int</span> 变量 = <span class="number">3</span>;</span><br><span class="line">正例</span><br><span class="line">    ali/alibaba/taobao/cainiao/aliyun/youku/hangzhou等国际通用的名称，可视为英文。</span><br></pre></td></tr></table></figure>
+
+<p>3.类名使用UpperCamelCase风格，必须遵从驼峰形式，但以下情形例外：（领域模型的相关命名）DO / DTO / VO / DAO等。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line">    macroPolo / UserDo/XMLService / TCPUDPDeal / TAPromotion</span><br><span class="line">正例：</span><br><span class="line">    MarcoPolo / UserDO / XmlService /TcpUdpDeal / TaPromotion</span><br></pre></td></tr></table></figure>
+
+<p>4.方法名、参数名、成员变量、局部变量都统一使用lowerCamelCase风格，必须遵从驼峰形式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例：</span><br><span class="line">    localValue / getHttpMessage() /inputUserId</span><br></pre></td></tr></table></figure>
+
+<p>5.常量命名全部大写，单词间用下划线隔开，力求语义表达完整清楚，不要嫌名字长。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例： MAX_STOCK_COUNT </span><br><span class="line">反例： MAX_COUNT</span><br></pre></td></tr></table></figure>
+
+<p>6.抽象类命名使用Abstract或Base开头；异常类命名使用Exception结尾；测试类命名以它要测试的类的名称开始，以Test结尾。<br>7.中括号是数组类型的一部分，数组定义如下：String[] args; 反例：请勿使用Stringargs[]的方式来定义<br>8.POJO类中的任何布尔类型的变量，都不要加is，否则部分框架解析会引起序列化错误。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：定义为基本数据类型boolean isSuccess；的属性，它的方法也是isSuccess()，</span><br><span class="line">RPC框架在反向解析的时候，“以为”对应的属性名称是success，导致属性获取不到，进而抛出异常。</span><br></pre></td></tr></table></figure>
+
+<p>9.包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用单数形式，但是类名如果有复数含义，类名可以使用复数形式。<br><em>正例： 应用工具类包名为com.oceandatum.mpp.util、类名为MessageUtils（此规则参考spring 的框架结构)</em></p>
+<p>10.杜绝完全不规范的缩写，避免望文不知义。<br><em>反例：&lt;某业务代码&gt;AbstractClass“缩写”命名成AbsClass；condition“缩写”命名成 condi，此类随意缩写严重降低了代码的可阅读性</em></p>
+<p>11.如果使用到了设计模式，建议在类名中体现出具体模式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderFactory</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginProxy</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResourceObserver</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>将设计模式体现在名字中，有利于阅读者快速理解架构设计思想</em><br>12.接口类中的方法和属性不要加任何修饰符号（public 也不要加），保持代码的简洁性，并加上有效的javadoc注释。尽量不要在接口里定义变量，如果一定要定义变量，肯定是与接口方法相关，并且是整个应用的基础常量。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例：接口方法签名：<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">     接口基础常量表示：String COMPANY =<span class="string">"oceandatum"</span>;</span><br><span class="line">反例：接口方法定义：<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p><em>说明：JDK8中接口允许有默认实现，那么这个default方法，是对所有实现类都有价值的默认实现。</em><br>13.接口和实现类的命名有两套规则：</p>
+<p>1) 对于Service和DAO类，基于SOA的理念，暴露出来的服务一定是接口，内部的实现类用Impl的后缀与接口区别。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 正例: CacheServiceImpl实现CacheService</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheServiceImpl</span> <span class="keyword">implements</span> <span class="title">CacheService</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2）如果是形容能力的接口名称，取对应的形容词做接口名（通常是–able的形式）。<br><em>正例：AbstractTranslator实现 Translatable。</em></p>
+<p>14.枚举类名建议带上Enum后缀，枚举成员名称需要全大写，单词间用下划线隔开。(枚举其实就是特殊的常量类，且构造方法被默认强制是私有。)<br><em>正例：枚举名字：DealStatusEnum；成员名称：SUCCESS / UNKOWN_REASON。</em></p>
+<p>15.各层命名规约：</p>
+<ul>
+<li>Service/DAO/Mapper层方法命名规约<br>  1） 获取单个对象的方法用get做前缀。<br>  2） 获取多个对象的方法用list做前缀。<br>  3） 获取统计值的方法用count做前缀。<br>  4） 插入的方法用save做前缀。<br>  5） 删除的方法用remove做前缀。<br>  6） 修改的方法用update做前缀。</li>
+<li>领域模型命名规约<br> 1） 数据对象：xxxDO，xxx即为数据表名。<br> 2） 数据传输对象：xxxDTO，xxx为业务领域相关的名称。<br> 3） 展示对象：xxxVO，xxx一般为网页名称。<br> 4） POJO是DO/DTO/BO/VO的统称，禁止命名成xxxPOJO。</li>
+</ul>
+<h3 id="常量定义"><a href="#常量定义" class="headerlink" title="常量定义"></a>常量定义</h3><p>1.不允许出现任何魔法值（即未经定义的常量）直接出现在代码中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例</span></span><br><span class="line">String key=<span class="string">"Id#taobao_"</span>+tradeId；</span><br></pre></td></tr></table></figure>
+
+<p>2.long或者Long初始赋值时，必须使用大写的L，不能是小写的l，小写容易跟数字1 混淆，造成误解。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例</span></span><br><span class="line">Long a = <span class="number">2l</span>;<span class="comment">// 写的是数字的21，还是Long型的2?</span></span><br></pre></td></tr></table></figure>
+
+<p>3.【推荐】不要使用一个常量类维护所有常量，应该按常量功能进行归类，分开维护。如：缓存相关的常量放在类：CacheConsts下；系统配置相关的常量放在类：ConfigConsts下。</p>
+<ul>
+<li>大而全的常量类，非得ctrl+f才定位到修改的常量，不利于理解，也不利于维护。</li>
+</ul>
+<p>4.【推荐】常量的复用层次有五层：跨应用共享常量、应用内共享常量、子工程内共享常量、包内共享常量、类内共享常量。</p>
+<ul>
+<li>跨应用共享常量：放置在二方库中，通常是client.jar中的const目录下。</li>
+<li>应用内共享常量：放置在一方库的modules中的const目录下。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*反例：易懂变量也要统一定义成应用内共享常量，两位攻城师在两个类中分别定义了表示“是”的变量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> 类A中：<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String YES =<span class="string">"yes"</span>; </span><br><span class="line"> 类B中：<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String YES =<span class="string">"y"</span>;</span><br><span class="line">       A.YES.equals(B.YES);<span class="comment">//预期是true，但实际返回为false，导致产生线上问题。</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>子工程内部共享常量：即在当前子工程的const目录下。</li>
+<li>包内共享常量：即在当前包下单独的const目录下。</li>
+<li>类内共享常量：直接在类内部private static final定义。</li>
+</ul>
+<p>5.【推荐】如果变量值仅在一个范围内变化用Enum类。如果还带有名称之外的延伸属性，必须使用Enum类，下面正例中的数字就是延伸信息，表示星期几。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*正例</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> Enum Week&#123;</span><br><span class="line">    MONDAY(<span class="number">1</span>), </span><br><span class="line">    TUESDAY(<span class="number">2</span>),</span><br><span class="line">    WEDNESDAY(<span class="number">3</span>),</span><br><span class="line">    THURSDAY(<span class="number">4</span>),</span><br><span class="line">    FRIDAY(<span class="number">5</span>),</span><br><span class="line">    SATURDAY(<span class="number">6</span>),</span><br><span class="line">    SUNDAY(<span class="number">7</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="格式规约"><a href="#格式规约" class="headerlink" title="格式规约"></a>格式规约</h3><p>1.大括号的使用约定。如果是大括号内为空，则简洁地写成{}即可，不需要换行；如果是非空代码块则：</p>
+<ul>
+<li>左大括号前不换行。</li>
+<li>左大括号后换行。</li>
+<li>右大括号前换行。  </li>
+<li>右大括号后还有else等代码则不换行；表示终止右大括号后必须换行。</li>
+</ul>
+<p>2.左括号和后一个字符之间不出现空格；同样，右括号和前一个字符之间也不出现空格。详见第5条下方正例提示。<br>3.if/for/while/switch/do等保留字与左右括号之间都必须加空格。<br>4.任何运算符左右必须加一个空格。<br>    <em>说明：运算符包括赋值运算符=、逻辑运算符&amp;&amp;、加减乘除符号、三目运行符等。</em><br>5.代码块缩进4个空格，如果使用tab缩进，请设置成1个tab为4个空格。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 正例：（涉及1-5点）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(Stringargs[])</span></span>&#123;     </span><br><span class="line">    <span class="comment">// 缩进4个空格     </span></span><br><span class="line">    String say=<span class="string">"hello"</span>;     </span><br><span class="line">    <span class="comment">// 运算符的左右必须有一个空格     </span></span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">0</span>;    </span><br><span class="line">    <span class="comment">// 关键词if与括号之间必须有一个空格，括号内f与左括号，1与右括号不需要空格     </span></span><br><span class="line">    <span class="keyword">if</span>(flag== <span class="number">0</span>) &#123;         </span><br><span class="line">        System.out.println(say);     </span><br><span class="line">    &#125;              </span><br><span class="line">    <span class="comment">// 左大括号前加空格且不换行；左大括号后换行     </span></span><br><span class="line">    <span class="keyword">if</span> (flag ==<span class="number">1</span>)&#123;         </span><br><span class="line">        System.out.println(<span class="string">"world"</span>);     </span><br><span class="line">    <span class="comment">// 右大括号前换行，右大括号后有else，不用换行     </span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;           </span><br><span class="line">        System.out.println(<span class="string">"ok"</span>);     </span><br><span class="line">    <span class="comment">// 右大括号做为结束，必须换行      </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>6.单行字符数限制不超过120个，超出需要换行，换行时，遵循如下原则：  </p>
+<p>1) 换行时相对上一行缩进4个空格。<br>2）运算符与下文一起换行。<br>3）方法调用的点符号与下文一起换行。<br>4）在多个参数超长，逗号后进行换行。<br>5）在括号前不要换行，见反例。正例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例子</span></span><br><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(); </span><br><span class="line"><span class="comment">//超过120个字符的情况下，换行缩进4个空格，并且方法前的点符号一起换行  </span></span><br><span class="line">sb.append(<span class="string">"zi"</span>).append(<span class="string">"xin"</span>)…    </span><br><span class="line">.append(<span class="string">"huang"</span>); </span><br><span class="line">反例：</span><br><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(); </span><br><span class="line"><span class="comment">//超过120个字符的情况下，不要在括号前换行 </span></span><br><span class="line">sb.append(<span class="string">"zi"</span>).append(<span class="string">"xin"</span>)…append</span><br><span class="line">(<span class="string">"huang"</span>);  </span><br><span class="line"><span class="comment">//参数很多的方法调用也超过120个字符，逗号后才是换行处 </span></span><br><span class="line">method(args1,args2,args3, ...  </span><br><span class="line">,argsX);</span><br></pre></td></tr></table></figure>
+<p>7.方法参数在定义和传入时，多个参数逗号后边必须加空格。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例 下例中实参的"a",后边必须要有一个空格。</span></span><br><span class="line">method(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>8.没有必要增加若干空格来使某一行的字符与上一行的相应字符对齐。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">3</span>; </span><br><span class="line"><span class="keyword">long</span> b = <span class="number">4L</span>; </span><br><span class="line"><span class="keyword">float</span> c = <span class="number">5F</span>; </span><br><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br></pre></td></tr></table></figure>
+<p><strong><em>说明：增加sb这个变量，如果需要对齐，则给a、b、c都要增加几个空格，在变量比较多的情况下，是一种累赘的事情。</em></strong><br>9.方法体内的执行语句组、变量的定义语句组、不同的业务逻辑之间或者不同的语义之间插入一个空行。相同业务逻辑和语义之间不需要插入空行(没有必要插入多行空格进行隔开)</p>
+<h3 id="OOP规约"><a href="#OOP规约" class="headerlink" title="OOP规约"></a>OOP规约</h3><p>1.避免通过一个类的对象引用访问此类的静态变量或静态方法，无谓增加编译器解析成本，直接用类名来访问即可。<br>2.所有的覆写方法，必须加@Override注解。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line">getObject()与get0bject()的问题。</span><br><span class="line">一个是字母的O，一个是数字的0，加@Override可以准确判断是否覆盖成功。</span><br><span class="line">另外，如果在抽象类中对方法签名进行修改，其实现类会马上编译报错。</span><br></pre></td></tr></table></figure>
+
+<p>3.相同参数类型，相同业务含义，才可以使用Java的可变参数，避免使用Object。<br><strong><em>说明：可变参数必须放置在参数列表的最后。（提倡同学们尽量不用可变参数编程）</em></strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUsers</span><span class="params">(Stringtype,Integer... ids)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>4.对外暴露的接口签名，原则上不允许修改方法签名，避免对接口调用方产生影响。接口过时必须加@Deprecated注解，并清晰地说明采用的新接口或者新服务是什么。<br>5.不能使用过时的类或方法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java.net.URLDecoder 中的方法decode(StringencodeStr) 这个方法已经过时，</span><br><span class="line">应该使用双参数decode(String source, Stringencode)。接口提供方既然明确是过时接口，</span><br><span class="line">那么有义务同时提供新的接口；作为调用方来说，有义务去考证过时方法的新实现是什么。</span><br></pre></td></tr></table></figure>
+<p>6.Object的equals方法容易抛空指针异常，应使用常量或确定有值的对象来调用equals。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例 </span></span><br><span class="line"><span class="string">"test"</span>.equals(object);</span><br><span class="line"><span class="comment">// 反例</span></span><br><span class="line">object.equals(<span class="string">"test"</span>);</span><br></pre></td></tr></table></figure>
+<p><strong><em>推荐使用java.util.Objects#equals （JDK7引入的工具类）</em></strong><br>7.所有的相同类型的包装类对象之间值的比较，全部使用equals方法比较。<br><strong><em>对于Integer var=?在-128至127之间的赋值，Integer对象是在IntegerCache.cache 产生，会复用已有对象，这个区间内的Integer值可以直接使用==进行判断，但是这个区间之外的所有数据，都会在堆上产生，并不会复用已有对象，这是一个大坑，推荐使用equals方法进行判断。</em></strong></p>
+<p>8.关于基本数据类型与包装数据类型的使用标准如下：</p>
+<pre><code>1) 所有的POJO类属性必须使用包装数据类型。
+2) RPC方法的返回值和参数必须使用包装数据类型。
+3） 所有的局部变量推荐使用基本数据类型。</code></pre><p><strong><em>POJO类属性没有初值是提醒使用者在需要使用时，必须自己显式地进行赋值，任何NPE问题，或者入库检查，都由使用者来保证。</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正例：数据库的查询结果可能是null，因为自动拆箱，用基本数据类型接收有NPE风险。</span><br><span class="line">反例：某业务的交易报表上显示成交总额涨跌情况，即正负x%，x为基本数据类型，</span><br><span class="line">     调用的RPC服务，调用不成功时，返回的是默认值，页面显示：0%，这是不合理的，应该显示成中划线-。</span><br><span class="line">     所以包装数据类型的null值，能够表示额外的信息，如：远程调用失败，异常退出。</span><br></pre></td></tr></table></figure>
+<p>9.定义DO/DTO/VO等POJO类时，不要设定任何属性默认值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line">某业务的DO的gmtCreate默认值为newDate();但是这个属性在数据提取时并没有置入具体值，</span><br><span class="line">在更新其它字段时又附带更新了此字段，导致创建时间被修改成当前时间。</span><br></pre></td></tr></table></figure>
+
+<p>10.序列化类新增属性时，请不要修改serialVersionUID字段，避免反序列失败；如果完全不兼容升级，避免反序列化混乱，那么请修改serialVersionUID值。<br><strong><em>注意serialVersionUID不一致会抛出序列化运行时异常。</em></strong><br>11.构造方法里面禁止加入任何业务逻辑，如果有初始化逻辑，请放在init方法中。<br>12.POJO类必须写toString方法。使用工具类source&gt; generate toString时，如果继承了另一个POJO类，注意在前面加一下super.toString。<br><strong><em>在方法执行抛出异常时，可以直接调用POJO的toString()方法打印其属性值，便于排查问题。</em></strong><br>13.使用索引访问用String的split方法得到的数组时，需做最后一个分隔符后有无内容的检查，否则会有抛IndexOutOfBoundsException的风险。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">"a,b,c,,"</span>;</span><br><span class="line">String[]ary =str.split(<span class="string">","</span>); </span><br><span class="line"><span class="comment">//预期大于3，结果是3</span></span><br><span class="line">System.out.println(ary.length);</span><br></pre></td></tr></table></figure>
+<p>14.当一个类有多个构造方法，或者多个同名方法，这些方法应该按顺序放置在一起，便于阅读。<br>15.类内方法定义顺序依次是：公有方法或保护方法 &gt; 私有方法 &gt; getter/setter方法。<br><strong><em>公有方法是类的调用者和维护者最关心的方法，首屏展示最好；保护方法虽然只是子类关心，也可能是“模板设计模式”下的核心方法；而私有方法外部一般不需要特别关心，是一个黑盒实现；因为方法信息价值较低，所有Service和DAO的getter/setter方法放在类体最后。</em></strong><br>16.setter方法中，参数名称与类成员变量名称一致，this.成员名=参数名。在 getter/setter方法中，尽量不要增加业务逻辑，增加排查问题难度。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">getData</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> data +<span class="number">100</span>; </span><br><span class="line">  &#125; <span class="keyword">else</span>  &#123;</span><br><span class="line">         <span class="keyword">return</span> data- <span class="number">100</span>;</span><br><span class="line">          &#125;  </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>17.循环体内，字符串的联接方式，使用StringBuilder的append方法进行扩展。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str=<span class="string">"start"</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">   str = str+<span class="string">"hello"</span>;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>反编译出的字节码文件显示每次循环都会new出一个StringBuilder对象，然后进行 append操作，最后通过toString方法返回String对象，造成内存资源浪费。</em></strong><br>18.final可提高程序响应效率，声明成final的情况：<br>1）不需要重新赋值的变量，包括类属性、局部变量。<br>2）对象参数前加final，表示不允许修改引用的指向。<br>3）类方法确定不允许被重写。</p>
+<p>19.慎用Object的clone方法来拷贝对象。<br><strong><em>对象的clone方法默认是浅拷贝，若想实现深拷贝需要重写clone方法实现属性对象的拷贝</em></strong></p>
+<p>20.类成员与方法访问控制从严<br>1） 如果不允许外部直接通过new来创建对象，那么构造方法必须是private。<br>2） 工具类不允许有public或default构造方法。<br>3） 类非static成员变量并且与子类共享，必须是protected。<br>4） 类非static成员变量并且仅在本类使用，必须是private。<br>5） 类static成员变量如果仅在本类使用，必须是private。<br>6） 若是static成员变量，必须考虑是否为final。<br>7） 类成员方法只供类内部调用，必须是private。<br>8） 类成员方法只对继承类公开，那么限制为protected。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">任何类、方法、参数、变量，严控访问范围。过宽泛的访问范围，不利于模块解耦。</span><br><span class="line">思考：如果是一个private的方法，想删除就删除，可是一个public的Service方法，</span><br><span class="line">或者一个public的成员变量，删除一下，不得手心冒点汗吗？变量像自己的小孩，尽量在自己的视线内，</span><br><span class="line">变量作用域太大，如果无限制的到处跑，那么你会担心的。</span><br></pre></td></tr></table></figure>
+
+<h3 id="集合处理"><a href="#集合处理" class="headerlink" title="集合处理"></a>集合处理</h3><p>1.Map/Set的key为自定义对象时，必须重写hashCode和equals。<br><strong><em>String重写了hashCode和equals方法，所以我们可以非常愉快地使用String对象作为key来使用。</em></strong><br>2.ArrayList的subList结果不可强转成ArrayList，否则会抛出ClassCastException 异常：java.util.RandomAccessSubList cannot be cast tojava.util.ArrayList; 说明：subList 返回的是 ArrayList 的内部类 SubList，并不是 ArrayList ，而是 ArrayList 的一个视图，对于SubList子列表的所有操作最终会反映到原列表上。<br>3.在subList场景中，高度注意对原集合元素个数的修改，会导致子列表的遍历、增加、删除均产生ConcurrentModificationException 异常。<br>4.使用集合转数组的方法，必须使用集合的toArray(T[] array)，传入的是类型完全一样的数组，大小就是list.size()。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例：直接使用toArray无参方法存在问题，此方法返回值只能是Object[]类，若强转其它类型数组将出现ClassCastException错误。</span></span><br><span class="line"><span class="comment">//正例</span></span><br><span class="line">List&lt;String&gt; list =newArrayList&lt;String&gt;(<span class="number">2</span>);     </span><br><span class="line">list.add(<span class="string">"guan"</span>);     </span><br><span class="line">list.add(<span class="string">"bao"</span>);      </span><br><span class="line">String[] array =newString[list.size()];     </span><br><span class="line">array=list.toArray(array);</span><br></pre></td></tr></table></figure>
+<p><strong><em>使用toArray带参方法，入参分配的数组空间不够大时，toArray方法内部将重新分配内存空间，并返回新数组地址；如果数组元素大于实际所需，下标为[ list.size() ]的数组元素将被置为null，其它数组元素保持原值，因此最好将方法入参数组大小定义与集合元素个数一致。</em></strong><br>5.使用工具类Arrays.asList()把数组转换成集合时，不能使用其修改集合相关的方法，它的add/remove/clear方法会抛出UnsupportedOperationException异常。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// asList的返回对象是一个Arrays内部类，并没有实现集合的修改方法。</span></span><br><span class="line"><span class="comment">// Arrays.asList 体现的是适配器模式，只是转换接口，后台的数据仍是数组。</span></span><br><span class="line">String[] str = newString[] &#123;<span class="string">"a"</span>, <span class="string">"b"</span> &#125;;</span><br><span class="line">List list =Arrays.asList(str);</span><br><span class="line"><span class="comment">// 第一种情况：list.add("c");运行时异常。</span></span><br><span class="line"><span class="comment">// 第二种情况：str[0]= "gujin"; 那么list.get(0)也会随之修改。</span></span><br></pre></td></tr></table></figure>
+<p>6.泛型通配符&lt;? extends T&gt;来接收返回的数据，此写法的泛型集合不能使用add方法。说明：苹果装箱后返回一个&lt;? extends Fruits&gt;对象，此对象就不能往里加任何水果，包括苹果。<br>7.不要在foreach循环里进行元素的remove/add操作。remove元素请使用Iterator 方式，如果并发操作，需要对Iterator对象加锁。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例</span></span><br><span class="line">List&lt;String&gt; a =newArrayList&lt;String&gt;();     </span><br><span class="line">a.add(<span class="string">"1"</span>);     </span><br><span class="line">a.add(<span class="string">"2"</span>);</span><br><span class="line"><span class="keyword">for</span>(String temp : a)&#123;</span><br><span class="line">   <span class="keyword">if</span>(<span class="string">"1"</span>.equals(temp))&#123;             </span><br><span class="line">      a.remove(temp);         </span><br><span class="line">   &#125;      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>这个例子的执行结果会出乎大家的意料，那么试一下把“1”换成“2”，会是同样的结果吗?</em></strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例</span></span><br><span class="line">Iterator&lt;String&gt; it =a.iterator(); <span class="keyword">while</span>(it.hasNext())&#123;             </span><br><span class="line">    String temp =  it.next();                       </span><br><span class="line">    <span class="keyword">if</span>(删除元素的条件)&#123;                            </span><br><span class="line">        it.remove();                </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>8.在JDK7版本以上，Comparator要满足自反性，传递性，对称性，不然Arrays.sort,Collections.sort会报IllegalArgumentException异常。<br>1） 自反性：x，y的比较结果和y，x的比较结果相反。<br>2） 传递性：x&gt;y,y&gt;z,则x&gt;z。<br>3） 对称性：x=y,则x,z比较结果和y，z比较结果相同。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例：下例中没有处理相等的情况，实际使用中可能会出现异常：</span></span><br><span class="line">newComparator&lt;Student&gt;()&#123;          </span><br><span class="line">    <span class="meta">@Override</span>         </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Student o1, Studento2)</span></span>&#123;</span><br><span class="line">         returno1.getId() &gt; o2.getId() ? <span class="number">1</span> :-<span class="number">1</span>;         </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>9.集合初始化时，尽量指定集合初始值大小。说明：ArrayList尽量使用ArrayList(int initialCapacity) 初始化。</p>
+<p>10.使用entrySet遍历Map类集合KV，而不是keySet方式进行遍历。<br><strong><em>keySet其实是遍历了2次，一次是转为Iterator对象，另一次是从hashMap中取出key 所对应的value。而entrySet只是遍历了一次就把key和value都放到了entry中，效率更高。如果是JDK8，使用Map.foreach方法。</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正例：values()返回的是V值集合，是一个list集合对象；</span><br><span class="line">     keySet()返回的是K值集合，是一个Set集合对象；</span><br><span class="line">     entrySet()返回的是K-V值组合集合。</span><br></pre></td></tr></table></figure>
+
+<p>11.【参考】合理利用好集合的有序性(sort)和稳定性(order)，避免集合的无序性(unsort)和不稳定性(unorder)带来的负面影响。<br><strong><em>稳定性指集合每次遍历的元素次序是一定的。有序性是指遍历的结果是按某种比较规则依次排列的。如：ArrayList是order/unsort；HashMap是unorder/unsort；TreeSet是 order/sort。</em></strong></p>
+<p>12.【参考】利用Set元素唯一的特性，可以快速对另一个集合进行去重操作，避免使用List的 contains方法进行遍历去重操作。</p>
+<h3 id="并发处理"><a href="#并发处理" class="headerlink" title="并发处理"></a>并发处理</h3><p>1.获取单例对象要线程安全。在单例对象里面做操作也要保证线程安全。<br><strong><em>资源驱动类、工具类、单例工厂类都需要注意。</em></strong><br>2.线程资源必须通过线程池提供，不允许在应用中自行显式创建线程。<br><strong><em>使用线程池的好处是减少在创建和销毁线程上所花的时间以及系统资源的开销，解决资源不足的问题。如果不使用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者“过度切换”的问题。</em></strong><br>3.SimpleDateFormat 是线程不安全的类，一般不要定义为static变量，如果定义为 static，必须加锁，或者使用DateUtils工具类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例：注意线程安全，使用DateUtils。亦推荐如下处理：</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> finalThreadLocal&lt;DateFormat&gt; df =<span class="keyword">new</span> ThreadLocal&lt;DateFormat&gt;()&#123;      </span><br><span class="line">    <span class="meta">@Override</span>       </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">DateFormatinitialValue</span><span class="params">()</span></span>&#123;           </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd"</span>);       </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong><em>如果是JDK8的应用，可以使用instant代替Date，Localdatetime代替Calendar，Datetimeformatter代替Simpledateformatter，官方给出的解释：simple beautifulstrong immutable thread-safe。</em></strong><br>4.高并发时，同步调用应该去考量锁的性能损耗。能用无锁数据结构，就不要用锁；能锁区块，就不要锁整个方法体；能用对象锁，就不要用类锁。<br>5.对多个资源、数据库表、对象同时加锁时，需要保持一致的加锁顺序，否则可能会造成死锁。<br><strong><em>线程一需要对表A、B、C依次全部加锁后才可以进行更新操作，那么线程二的加锁顺序也必须是A、B、C，否则可能出现死锁。</em></strong><br>6.并发修改同一记录时，避免更新丢失，要么在应用层加锁，要么在缓存加锁，要么在数据库层使用乐观锁，使用version作为更新依据。说明：如果每次访问冲突概率小于20%，推荐使用乐观锁，否则使用悲观锁。乐观锁的重试次数不得小于3次。</p>
+<p>7.多线程并行处理定时任务时，Timer运行多个TimeTask时，只要其中之一没有捕获抛出的异常，其它任务便会自动终止运行，使用ScheduledExecutorService则没有这个问题。</p>
+<p>8.线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。Executors各个方法的弊端：<br>1）new FixedThreadPool和newSingleThreadExecutor:主要问题是堆积的请求处理队列可能会耗费非常大的内存，甚至OOM。<br>2）new CachedThreadPool和newScheduledThreadPool:主要问题是线程数最大数是Integer.MAX_VALUE，可能会创建数量非常多的线程，甚至OOM。<br>9.创建线程或线程池时请指定有意义的线程名称，方便出错时回溯。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimerTaskThread</span> <span class="title">extendsThread</span></span>&#123;     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TimerTaskThread</span><span class="params">()</span></span>&#123;         </span><br><span class="line">        <span class="keyword">super</span>.setName(<span class="string">"TimerTaskThread"</span>);… </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>10.使用CountDownLatch进行异步转同步操作，每个线程退出前必须调用countDown方法，线程执行代码注意catch异常，确保countDown方法可以执行，避免主线程无法执行至 countDown方法，直到超时才返回结果。说明：注意，子线程抛出异常堆栈，不能在主线程try-catch到。<br>11.避免Random实例被多线程使用，虽然共享该实例是线程安全的，但会因竞争同一seed 导致的性能下降。说明：Random实例包括java.util.Random 的实例或者 Math.random()实例。<br><strong><em>在JDK7之后，可以直接使用API ThreadLocalRandom，在 JDK7之前，可以做到每个线程一个实例。</em></strong><br>12.通过双重检查锁（double-checked locking）（在并发场景）实现延迟初始化的优化问题隐患(可参考 The “Double-Checked Locking is Broken” Declaration),推荐问题解决方案中较为简单一种（适用于jdk5及以上版本），将目标属性声明为 volatile型（比如反例中修改helper的属性声明为privatevolatile Helper helper= null;）；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Helper helper= <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Helper <span class="title">getHelper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (helper ==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (helper==<span class="keyword">null</span>)</span><br><span class="line">                    helper =newHelper();</span><br><span class="line"></span><br><span class="line">            &#125;      returnhelper; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other functions and members... </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>13.volatile解决多线程内存不可见问题。对于一写多读，是可以解决变量同步问题，但是如果多写，同样无法解决线程安全问题。如果想取回count++数据，使用如下类实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AtomicIntegercount = <span class="keyword">new</span> AtomicInteger();</span><br><span class="line">count.addAndGet(<span class="number">1</span>); </span><br><span class="line">count++操作如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。</span><br></pre></td></tr></table></figure>
+<p>14.注意HashMap的扩容死链，导致CPU飙升的问题。<br>15.ThreadLocal无法解决共享对象的更新问题，ThreadLocal对象建议使用static修饰。这个变量是针对一个线程内所有操作共有的，所以设置为静态变量，所有此类实例共享此静态变量 ，也就是说在类第一次被使用时装载，只分配一块存储空间，所有此类的对象(只要是这个线程内定义的)都可以操控这个变量。</p>
+<h3 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h3><p>1.在一个switch块内，每个case要么通过break/return来终止，要么注释说明程序将继续执行到哪一个case为止；在一个switch块内，都必须包含一个default语句并且放在最后，即使它什么代码也没有。<br>2.在if/else/for/while/do语句中必须使用大括号，即使只有一行代码，避免使用下面的形式：if (condition) statements;<br>3.推荐尽量少用else， if-else的方式可以改写成</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(condition)&#123;             </span><br><span class="line">    …            </span><br><span class="line">    <span class="keyword">return</span> obj;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>如果使用要if-else if-else方式表达逻辑，请勿超过3层，超过请使用状态设计模式。</em></strong><br>4.除常用方法（如getXxx/isXxx）等外，不要在条件判断中执行复杂的语句，以提高可读性。正例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 伪代码如下</span></span><br><span class="line">InputStream stream =file.open(fileName,<span class="string">"w"</span>);</span><br><span class="line">    <span class="keyword">if</span> (stream != <span class="keyword">null</span>) &#123;</span><br><span class="line">    …</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="comment">//反例：</span></span><br><span class="line">    <span class="keyword">if</span> (file.open(fileName, <span class="string">"w"</span>) !=<span class="keyword">null</span>))&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5.循环体中的语句要考量性能，以下操作尽量移至循环体外处理，如定义对象、变量、获取数据库连接，进行不必要的try-catch操作（这个try-catch是否可以移至循环体外）。<br>6.接口入参保护，这种场景常见的是用于做批量操作的接口。<br>7.方法中需要进行参数校验的场景：<br>    1）调用频次低的方法。<br>    2）执行时间开销很大的方法，参数校验时间几乎可以忽略不计，但如果因为参数错误导致中间执行回退，或者错误，那得不偿失。<br>    3）需要极高稳定性和可用性的方法。<br>    4）对外提供的开放接口，不管是RPC/API/HTTP接口。<br>8.方法中不需要参数校验的场景：<br>    1）极有可能被循环调用的方法，不建议对参数进行校验。但在方法说明里必须注明外部参数检查。<br>    2）底层的方法调用频度都比较高，一般不校验。毕竟是像纯净水过滤的最后一道，参数错误不太可能到底层才会暴露问题。一般DAO层与Service层都在同一个应用中，部署在同一台服务器中，所以DAO的参数校验，可以省略。<br>    3）被声明成private只会被自己代码所调用的方法，如果能够确定调用方法的代码传入参数已经做过检查或者肯定不会有问题，此时可以不校验参数。</p>
+<h3 id="注释规约"><a href="#注释规约" class="headerlink" title="注释规约"></a>注释规约</h3><p><strong><em>统一发放模版</em></strong></p>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>1.在使用正则表达式时，利用好其预编译功能，可以有效加快正则匹配速度。<br><strong><em>不要在方法体内定义：Pattern pattern =Pattern.compile(规则);</em></strong><br>2.避免用Apache Beanutils进行属性的copy。<br><strong><em>Apache BeanUtils性能较差，可以使用其他方案比如SpringBeanUtils, Cglib BeanCopier。</em></strong><br>3.velocity调用POJO类的属性时，建议直接使用属性名取值即可，模板引擎会自动按规范调用POJO的getXxx()，如果是boolean基本数据类型变量（注意，boolean命名不需要加is前缀），会自动调用isXxx()方法。<br><strong><em>注意如果是Boolean包装类对象，优先调用getXxx()的方法。</em></strong><br>4.后台输送给页面的变量必须加$!{var}——中间的感叹号。<br><strong><em>如果var=null或者不存在，那么${var}会直接显示在页面上。</em></strong><br>5.注意 Math.random() 这个方法返回是double类型，注意取值范围 0≤x&lt;1（能够取到零值，注意除零异常），如果想获取整数类型的随机数，不要将x放大10的若干倍然后取整，直接使用Random对象的nextInt或者nextLong方法。<br>6.获取当前毫秒数：System.currentTimeMillis(); 而不是newDate().getTime(); 说明：如果想获取更加精确的纳秒级时间值，用System.nanoTime。在JDK8中，针对统计时间等场景，推荐使用Instant类。<br>7.尽量不要在vm中加入变量声明、逻辑运算符，更不要在vm模板中加入任何复杂的逻辑。<br>8.任何数据结构的使用都应限制大小。<br><strong><em>这点很难完全做到，但很多次的故障都是因为数据结构自增长，结果造成内存被吃光。</em></strong><br>9.对于“明确停止使用的代码和配置”，如方法、变量、类、配置文件、动态配置属性等要坚决从程序中清理出去，避免造成过多垃圾。清理这类垃圾代码是技术气场，不要有这样的观念：“不做不错，多做多错”。</p>
+<h2 id="异常日志"><a href="#异常日志" class="headerlink" title="异常日志"></a>异常日志</h2><h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>1.不要捕获Java类库中定义的继承自RuntimeException的运行时异常类，如：IndexOutOfBoundsException/NullPointerException，这类异常由程序员预检查来规避，保证程序健壮性。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例：<span class="keyword">if</span>(obj != <span class="keyword">null</span>) &#123;...&#125;</span><br><span class="line">反例：<span class="keyword">try</span> &#123; obj.method()&#125;<span class="keyword">catch</span>(NullPointerException e)&#123;…&#125;</span><br></pre></td></tr></table></figure>
+<p>2.异常不要用来做流程控制，条件控制，因为异常的处理效率比条件分支低。<br>3.对大段代码进行try-catch，这是不负责任的表现。catch时请分清稳定代码和非稳定代码，稳定代码指的是无论如何不会出错的代码。对于非稳定代码的catch尽可能进行区分异常类型，再做对应的异常处理。<br>4.捕获异常是为了处理它，不要捕获了却什么都不处理而抛弃之，如果不想处理它，请将该异常抛给它的调用者。最外层的业务使用者，必须处理异常，将其转化为用户可以理解的内容。<br>5.有try块放到了事务代码中，catch异常后，如果需要回滚事务，一定要注意手动回滚事务。<br>6.finally块必须对资源对象、流对象进行关闭，有异常也要做try-catch。<br><strong><em>如果JDK7，可以使用try-with-resources方法。</em></strong><br>7.不能在finally块中使用return，finally块中的return返回后方法结束执行，不会再执行try块中的return语句。<br>8.捕获异常与抛异常，必须是完全匹配，或者捕获异常是抛异常的父类。<br><strong><em>如果预期抛的是绣球，实际接到的是铅球，就会产生意外情况。</em></strong><br>9.方法的返回值可以为null，不强制返回空集合，或者空对象等，必须添加注释充分说明什么情况下会返回null值。调用方需要进行null判断防止NPE问题。<br><strong><em>本规约明确防止NPE是调用者的责任。即使被调用方法返回空集合或者空对象，对调用者来说，也并非高枕无忧，必须考虑到远程调用失败，运行时异常等场景返回null的情况。</em></strong><br>10.【推荐】防止NPE，是程序员的基本修养，注意NPE产生的场景：<br>1）返回类型为包装数据类型，有可能是null，返回int值时注意判空。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例：如果为null，自动解箱抛NPE。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Integer 对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2）数据库的查询结果可能为null。<br>3）集合里的元素即使isNotEmpty，取出的数据元素也可能为null。<br>4）远程调用返回对象，一律要求进行NPE判断。<br>5）对于Session中获取的数据，建议NPE检查，避免空指针。<br>6）级联调用obj.getA().getB().getC()；一连串调用，易产生NPE。<br>11.【推荐】在代码中使用“抛异常”还是“返回错误码”，对于公司外的http/api开放接口必须使用“错误码”；而应用内部推荐异常抛出；跨应用间RPC调用优先考虑使用Result方式，封装isSuccess、“错误码”、“错误简短信息”。<br><strong><em>关于RPC方法返回方式使用Result方式的理由：</em></strong><br>1）使用抛异常返回方式，调用方如果没有捕获到就会产生运行时错误。<br>2）如果不加栈信息，只是new自定义异常，加入自己的理解的error message，对于调用端解决问题的帮助不会太多。如果加了栈信息，在频繁调用出错的情况下，数据序列化和传输的性能损耗也是问题。<br>12.定义时区分unchecked / checked 异常，避免直接使用RuntimeException抛出，更不允许抛出Exception或者Throwable，应使用有业务含义的自定义异常。推荐业界已定义过的自定义异常，如：DaoException / ServiceException等。<br>13.避免出现重复的代码（Don’tRepeat Yourself），即DRY原则。<br><strong><em>[强制]随意复制和粘贴代码，必然会导致代码的重复，在以后需要修改时，需要修改所有的副本，容易遗漏。必要时抽取共性方法，或者抽象公共类，甚至是共用模块。</em></strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个类中有多个public方法，都需要进行数行相同的参数校验操作，这个时候请抽取</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">checkParam</span><span class="params">(DTOdto)</span></span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="日志规约"><a href="#日志规约" class="headerlink" title="日志规约"></a>日志规约</h3><p>1.应用中不可直接使用日志系统（Log4j、Logback）中的API，而应依赖使用日志框架SLF4J中的API，使用门面模式的日志框架，有利于维护和各个类的日志处理方式统一。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger; </span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger=LoggerFactory.getLogger(Abc<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>2.日志文件推荐至少保存15天，因为有些异常具备以“周”为频次发生的特点。<br>3.应用中的扩展日志（如打点、临时监控、访问日志等）命名方式：appName_logType_logName.log。logType:日志类型，推荐分类有stats/desc/monitor/visit 等；logName:日志描述。这种命名的好处：通过文件名就可知道日志文件属于什么应用，什么类型，什么目的，也有利于归类查找。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正例：mppserver应用中单独监控时区转换异常 </span><br><span class="line">如：mppserver_monitor_timeZoneConvert.log</span><br></pre></td></tr></table></figure>
+<p><strong><em>推荐对日志进行分类，错误日志和业务日志尽量分开存放，便于开发人员查看，也便于通过日志对系统进行及时监控。</em></strong><br>4.对trace/debug/info级别的日志输出，必须使用条件输出形式或者使用占位符的方式。<br>说明：logger.debug(“Processingtrade withid: “ + id + “ symbol: “ + symbol); 如果日志级别是warn，上述日志不会打印，但是会执行字符串拼接操作，如果symbol是对象，会执行toString()方法，浪费了系统资源，执行了上述操作，最终日志却没有打印。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例：（条件）</span></span><br><span class="line"><span class="keyword">if</span> (logger.isDebugEnabled())&#123;   </span><br><span class="line">logger.debug(<span class="string">"Processing trade with id:"</span> +id + <span class="string">" symbol: "</span> + symbol);  </span><br><span class="line">&#125;      </span><br><span class="line"><span class="comment">// 正例：（占位符）</span></span><br><span class="line">logger.debug(<span class="string">"Processing trade with id:&#123;&#125; andsymbol : &#123;&#125; "</span>, id, symbol);</span><br></pre></td></tr></table></figure>
+<p>5.避免重复打印日志，浪费磁盘空间，务必在log4j.xml中设置additivity=false。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;loggername&#x3D;&quot;com.taobao.ecrm.member.config&quot;additivity&#x3D;&quot;false&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>6.异常信息应该包括两类信息：案发现场信息和异常堆栈信息。如果不处理，那么往上抛。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;正例</span><br><span class="line">logger.error(各类参数或者对象toString +&quot;_&quot; + e.getMessage(), e);</span><br></pre></td></tr></table></figure>
+<p>7.输出的POJO类必须重写toString方法，否则只输出此对象的hashCode值（地址值），没啥参考意义。<br>8.可以使用warn日志级别来记录用户输入参数错误的情况，避免用户投诉时，无所适从。注意日志输出的级别，error级别只记录系统逻辑出错、异常、或者重要的错误信息。如非必要，请不要在此场景打出error级别，避免频繁报警。<br>9.谨慎地记录日志。生产环境禁止输出debug日志；有选择地输出info日志；如果使用warn来记录刚上线时的业务行为信息，一定要注意日志输出量的问题，避免把服务器磁盘撑爆，并记得及时删除这些观察日志。<br><strong><em>大量地输出无效日志，不利于系统性能提升，也不利于快速定位错误点。纪录日志时请思考：这些日志真的有人看吗？看到这条日志你能做什么？能不能给问题排查带来好处？</em></strong></p>
+<p>10.如果日志用英文描述不清楚，推荐使用中文注释。对于中文UTF-8的日志，在secureCRT 中，set encoding=utf-8；如果中文字符还乱码，请设置：全局&gt;默认的会话设置&gt;外观&gt;字体&gt; 选择字符集gb2312；如果还不行，执行命令：set termencoding=gbk，并且直接使用中文来进行检索。</p>
+<h2 id="MYSQL规约"><a href="#MYSQL规约" class="headerlink" title="MYSQL规约"></a>MYSQL规约</h2><p><strong><em>本模块待完善</em></strong></p>
+<h3 id="命名规约-1"><a href="#命名规约-1" class="headerlink" title="命名规约"></a>命名规约</h3><h3 id="索引规约"><a href="#索引规约" class="headerlink" title="索引规约"></a>索引规约</h3><h3 id="SQL规约"><a href="#SQL规约" class="headerlink" title="SQL规约"></a>SQL规约</h3><h2 id="工程规约"><a href="#工程规约" class="headerlink" title="工程规约"></a>工程规约</h2><h3 id="应用分层"><a href="#应用分层" class="headerlink" title="应用分层"></a>应用分层</h3><p>web-&gt;service-&gt;mapper</p>
+<h3 id="平台项目结构"><a href="#平台项目结构" class="headerlink" title="平台项目结构"></a>平台项目结构</h3><p><strong><em>待完善</em></strong></p>
+]]></content>
+      <categories>
+        <category>java</category>
       </categories>
       <tags>
         <tag>开发手册</tag>
@@ -200,358 +406,6 @@
       </categories>
       <tags>
         <tag>javase</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>模拟Spring框架核心逻辑</title>
-    <url>/2019/11/01/myspring/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>spring专题</category>
-      </categories>
-      <tags>
-        <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JVM虚拟机</title>
-    <url>/2020/03/15/jvm/</url>
-    <content><![CDATA[<p>java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。</p>
-<h2 id="JVM组成"><a href="#JVM组成" class="headerlink" title="JVM组成"></a>JVM组成</h2><p>JVM的主要由三部分组成</p>
-<ul>
-<li>类加载子系统</li>
-<li>运行时数据区（内存结构）</li>
-<li>执行引擎<br><img src="/2020/03/15/jvm/jvm.jpg" alt="jvm结构"></li>
-</ul>
-<h2 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h2><p><img src="/2020/03/15/jvm/lifecircle.jpg" alt="生命周期"><br>1.加载<br>    <em>将class文件读取到内存</em><br>2.连接<br>    2.1 验证<br>    <em>验证字节码文件的正确性</em><br>    2.2  准备<br>    <em>给类的静态变量分配内存，并赋予默认值</em><br>    2.3 解析<br>    <em>类装载器装入类所引用的其它所有类</em><br>3.初始化<br>    <em>为类的静态变量赋予正确的初始值，上述的准备阶段为静态变量赋予的是虚拟机默认的初始值，此处赋予的才是程序编写者为变量分配的真正的初始值，执行静态代码块</em><br>4.使用<br>5.卸载</p>
-<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><ul>
-<li>启动类加载器(Bootstrap ClassLoader)<br>  <em>负责加载JRE的核心类库，如JRE目标下的rt.jar，charsets.jar等</em></li>
-<li>扩展类加载器(Extension ClassLoader)<br>  <em>负责加载JRE扩展目录ext中jar类包</em></li>
-<li>系统类加载器(Application ClassLoader)<br>  <em>负责加载ClassPath路径下的类包</em></li>
-<li>用户自定义加载器(User ClassLoader)<br>  <em>负责加载用户自定义路径下的类包</em><br><img src="/2020/03/15/jvm/classLoader.jpg" alt></li>
-</ul>
-<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><p>1.全盘负责委托机制<br>    <em>当一个ClassLoader加载一个类的时候，除非显示的使用另一个ClassLoader，该类所依赖和引用的类也由这个ClassLoader载入</em><br>2.双亲委派机制<br>    <em>指先委托父类加载器寻找目标类，在找不到的情况下才会到自己的路径中查找并载入目标类</em><br> 双亲委派的优势<br>    + <em>沙箱安全机制：比如自己写的String.class类不会被加载，这样可以防止核心库被随意篡改</em><br>    + <em>避免类的重复加载：当父ClassLoader已经加载了该类的时候，就不需要子ClassLoader再加载一次</em></p>
-<h2 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h2><p>1.方法区（Method Area）<br>    <em>类的所有字段和方法字节码，以及一些特殊方法如构造函数，接口代码也在这里定义。简单来说，所有定义的方法的信息都保存在该区域，静态变量+常量+类信息（构造方法/接口定义）+运行时常量池都存在方法区中，虽然Java虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做Non-Heap（非堆），目的应该是为了和Java的堆区分开(jdk1.8以前hotspot虚拟机叫永久代、持久代，jdk1.8时叫元空间)</em><br>2.堆（Heap）<br>    <em>虚拟机启动时自动分配创建，用于存放对象的实例，几乎所有对象都在堆上分配内存，当对象无法在该空间申请到内存是将抛出OutOfMemoryError异常。同时也是垃圾收集器管理的主要区域。</em></p>
-<pre><code>2.1 新生代
-*类出生、成长、消亡的区域，一个类在这里产生，应用，最后被垃圾回收器收集，结束生命。新生代分为两部分：伊甸区（Eden space）和幸存者区（Survivor space），所有的类都是在伊甸区被new出来的。幸存区又分为From和To区。当Eden区的空间用完是，程序又需要创建对象，JVM的垃圾回收器将Eden区进行垃圾回收（Minor GC），将Eden区中的不再被其它对象应用的对象进行销毁。然后将Eden区中剩余的对象移到From Survivor区。若From Survivor区也满了，再对该区进行垃圾回收，然后移动到To Survivor区。*
-2.2 老年代
-*新生代经过多次GC仍然存货的对象移动到老年区。若老年代也满了，这时候将发生Major GC（也可以叫Full GC），进行老年区的内存清理。若老年区执行了Full GC之后发现依然无法进行对象的保存，就会抛出OOM（OutOfMemoryError）异常*
-2.3 元空间
-*在JDK1.8之后，元空间替代了永久代，它是对JVM规范中方法区的实现，区别在于元数据区不在虚拟机当中，而是用的本地内存，永久代在虚拟机当中，永久代逻辑结构上也属于堆，但是物理上不属于。*</code></pre><p>3.栈 (Stack)<br>    <em>Java线程执行方法的内存模型，一个线程对应一个栈，每个方法在执行的同时都会创建一个栈帧（用于存储局部变量表，操作数栈，动态链接，方法出口等信息）不存在垃圾回收问题，只要线程一结束该栈就释放，生命周期和线程一致</em><br>4.本地方法栈 (Native Method Stack)<br>    <em>类似栈，java栈服务于java方法，而本地方法栈服务于native方法。</em><br>5.程序计数器 (Program Counter Register)<br>    <em>就是一个指针，指向下一跳指令的地址，就是即将要执行的指令，由执行引擎进行读取，所占的内存空间很小，几乎可以忽略不计</em></p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>JVM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>synchronized锁状态及性能对比</title>
-    <url>/2020/04/01/synchronized/</url>
-    <content><![CDATA[<h2 id="锁状态"><a href="#锁状态" class="headerlink" title="锁状态"></a>锁状态</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
-<li>无锁<br> <em>没有synchronized关键字修饰</em></li>
-<li>偏向锁<br>  <em>JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级]</em></li>
-<li>轻量级锁<br>  <em>多个线程调用同步代码，但是线程之间交替执行例如调用join().-自旋锁也是产生轻量级锁的一个方式</em></li>
-<li>重量级锁<br>  <em>多个线程调用同步代码，且存在锁竞争</em></li>
-</ul>
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="对象头介绍"><a href="#对象头介绍" class="headerlink" title="对象头介绍"></a>对象头介绍</h4><p>   <em>锁状态的标记就在对象头当中。网上32位操作系统对象头的文档很多，下面使用的是64位操作系统介绍</em></p>
-<h5 id="对象头的组成-mark-Word"><a href="#对象头的组成-mark-Word" class="headerlink" title="对象头的组成-mark Word"></a>对象头的组成-mark Word</h5><p><em>这部分主要用来存储对象自身的运行时数据，如hashcode、gc分代年龄等，32位操作系统和64位操作系统的位长度是不一样的，具体看图:</em></p>
-<pre><code>                             32位操作系统
-|------------------------------------------------|-------------------| 
-|                  Mark Word (32 bits)           |       State       |
-|------------------------------------------------|-------------------|
-| identity_hashcode:25|age:4|biased_lock:1|lock:2|       Normal      |
-|------------------------------------------------|-------------------|
-| thread:23 | epoch:2|age:4|biased_lock:1 |lock:2|       Biased      |
-|------------------------------------------------|-------------------|
-|           ptr_to_lock_record:30         |lock:2|Lightweight Locked |
-|------------------------------------------------|-------------------|
-|       ptr_to_heavyweight_monitor:30     |lock:2| Heavyweight Locked|
-|------------------------------------------------|-------------------|
-|                                         |lock:2|    Marked for GC  |
-|------------------------------------------------|-------------------|</code></pre><hr>
-<pre><code>                                    64位操作系统   
-|-------------------------------------------------------------------|-------------------|
-|                  Mark Word (64 bits)                              |       State       |
-|-------------------------------------------------------------------|-------------------|
-| unused:25|identity_hashcode:31|unused:1|age:4|biased_lock:1|lock:2|       Normal      |
-|------------------------------------------------------------|------|-------------------|
-| thread:54|     epoch:2        |unused:1|age:4|biased_lock:1|lock:2|       Biased      |
-|------------------------------------------------------------|------|-------------------|
-|                           ptr_to_lock_record:62            |lock:2|Lightweight Locked |
-|----------------------------------------------------------- |------|-------------------|
-|                        ptr_to_heavyweight_monitor:62       |lock:2| Heavyweight Locked|
-|------------------------------------------------------------|------|-------------------|
-|                                                            |lock:2|    Marked for GC  |
-|---------------------------------------------------------------------------------------|</code></pre><h4 id="JOL工具"><a href="#JOL工具" class="headerlink" title="JOL工具"></a>JOL工具</h4><p>   JOL全称为Java Object Layout，是分析JVM中对象布局的工具，该工具大量使用了Unsafe、JVMTI来解码布局情况，分析结果是比较精准。使用时直接引入maven依赖即可</p>
-<pre><code>&lt;!--java状态分析工具--&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.openjdk.jol&lt;/groupId&gt;
-    &lt;artifactId&gt;jol-core&lt;/artifactId&gt;
-    &lt;version&gt;0.9&lt;/version&gt;
-&lt;/dependency&gt;</code></pre><h4 id="偏向锁代码"><a href="#偏向锁代码" class="headerlink" title="偏向锁代码"></a>偏向锁代码</h4><pre><code>- JVM偏向锁延迟： JVM启动有大量的同步操作，偏向锁的锁消除性能很差所以JVM启动时会延迟偏向锁的启用。
-- 对象进行hashcode以后 就不存在偏向锁 这和对象头的设计有关
-- 偏向锁开启后新建对象 会有一个可偏向状态 但是指向的线程号为空 体现为二机制 0
-
-/**
- * 由于在jvm启动时会延迟开启偏向锁 所以使用Thread.sleep(5000)
- * 设置JVM启动参数 -XX:BiasedLockingStartupDelay=0 延迟偏向锁时间0
- */
-public class Demo1 {
-    public static void main(String[] args) throws InterruptedException {
-        //睡眠5秒 使得偏向锁开启 也可以设置启动参数 
-        //-XX:BiasedLockingStartupDelay=0 延迟偏向锁时间0
-        Thread.sleep(5000);
-        A a = new A();
-        System.out.println(&quot;锁之前&quot;);
-        System.out.println(ClassLayout.parseInstance(a).toPrintable());
-
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                synchronized (a){
-                    System.out.println(&quot;锁状态&quot;);
-                    System.out.println(ClassLayout.parseInstance(a).toPrintable());
-                }
-            }
-        };
-        thread.start();
-        System.out.println(&quot;锁之后&quot;);
-        System.out.println(ClassLayout.parseInstance(a).toPrintable());
-    }
-}
-
-
-
-结果
-锁之前
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           05 00 00 00 (00000101 00000000 00000000 00000000) (5)
-      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)
-      8     4        (object header)                           a0 c1 00 f8 (10100000 11000001 00000000 11111000) (-134168160)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-锁之后
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           05 d0 11 1b (00000101 11010000 00010001 00011011) (454152197)
-      4     4        (object header)                           e6 7f 00 00 (11100110 01111111 00000000 00000000) (32742)
-      8     4        (object header)                           a0 c1 00 f8 (10100000 11000001 00000000 11111000) (-134168160)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           05 d0 11 1b (00000101 11010000 00010001 00011011) (454152197)
-      4     4        (object header)                           e6 7f 00 00 (11100110 01111111 00000000 00000000) (32742)
-      8     4        (object header)                           a0 c1 00 f8 (10100000 11000001 00000000 11111000) (-134168160)
-结果分别为 101+0 偏向锁状态 101+pid 偏向锁 101+pid偏向锁，后面两次打印结果中可以看到锁指向线程id是相同。 </code></pre><h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><pre><code>public class Demo2 {
-
-    //JVM启动设置关闭偏向锁延迟
-    public static void main(String[] args) throws InterruptedException {
-
-        A a = new A();
-        System.out.println(&quot;锁之前&quot;);
-        System.out.println(ClassLayout.parseInstance(a).toPrintable());
-
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                synchronized (a){
-                    System.out.println(&quot;线程锁状态&quot;);
-                    System.out.println(ClassLayout.parseInstance(a).toPrintable());
-                }
-            }
-        };
-
-        /**
-         * 主线程先拿锁 执行完成启动第二个线程 否则会产出重量级锁
-         */
-        synchronized (a){
-            System.out.println(&quot;主线程锁状态&quot;);
-            System.out.println(ClassLayout.parseInstance(a).toPrintable());
-        }
-
-        thread.start();
-
-        System.out.println(&quot;锁之后&quot;);
-        System.out.println(ClassLayout.parseInstance(a).toPrintable());
-    }
-}
-
-结果
-锁之前
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           05 00 00 00 (00000101 00000000 00000000 00000000) (5)
-      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-主线程锁状态
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           05 18 00 7a (00000101 00011000 00000000 01111010) (2046826501)
-      4     4        (object header)                           8d 7f 00 00 (10001101 01111111 00000000 00000000) (32653)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-锁之后
-线程锁状态
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           f8 c8 12 0f (11111000 11001000 00010010 00001111) (252889336)
-      4     4        (object header)                           00 70 00 00 (00000000 01110000 00000000 00000000) (28672)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           f8 c8 12 0f (11111000 11001000 00010010 00001111) (252889336)
-      4     4        (object header)                           00 70 00 00 (00000000 01110000 00000000 00000000) (28672)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-结果分别为 101+0 偏向锁状态 101+pid 偏向锁 000 轻量级锁 000 轻量级锁</code></pre><h4 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h4><pre><code>/**
- * 代码与轻量级锁的代码区别为thread.start()方法调用放到主线程加锁之前 使多个线程之间存在锁竞争
- *（自选状态之外）升级重量级锁
- */
- public class Demo3 {
-
-     //JVM启动设置关闭偏向锁延迟
-     public static void main(String[] args) throws InterruptedException {
-
-         A a = new A();
-         System.out.println(&quot;锁之前&quot;);
-         System.out.println(ClassLayout.parseInstance(a).toPrintable());
-
-         Thread thread = new Thread(){
-             @Override
-             public void run() {
-                 synchronized (a){
-                     System.out.println(&quot;线程锁状态&quot;);
-                     System.out.println(ClassLayout.parseInstance(a).toPrintable());
-                 }
-             }
-         };
-
-         thread.start();
-         /**
-          * 主线程先拿锁 执行完成启动第二个线程 否则会产出重量级锁
-          */
-         synchronized (a){
-             System.out.println(&quot;主线程锁状态&quot;);
-             System.out.println(ClassLayout.parseInstance(a).toPrintable());
-         }
-
-
-
-         System.out.println(&quot;锁之后&quot;);
-         System.out.println(ClassLayout.parseInstance(a).toPrintable());
-     }
- }
-结果：
-锁之前
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)
-      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-主线程锁状态
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           5a 57 00 50 (01011010 01010111 00000000 01010000) (1342199642)
-      4     4        (object header)                           a8 7f 00 00 (10101000 01111111 00000000 00000000) (32680)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-锁之后
-线程锁状态
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           5a 57 00 50 (01011010 01010111 00000000 01010000) (1342199642)
-      4     4        (object header)                           a8 7f 00 00 (10101000 01111111 00000000 00000000) (32680)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-Instance size: 16 bytes
-Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-
-com.example.concurrent.sync.A object internals:
- OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
-      0     4        (object header)                           5a 57 00 50 (01011010 01010111 00000000 01010000) (1342199642)
-      4     4        (object header)                           a8 7f 00 00 (10101000 01111111 00000000 00000000) (32680)
-      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
-     12     4        (loss due to the next object alignment)
-
- 结果分别为001 无锁 010 重量级锁 010重量级锁 010 重量级锁 （锁只会进行升级和锁释放，不会降级）</code></pre><h2 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h2><h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><pre><code>//JVM启动设置关闭偏向锁延迟 -XX:BiasedLockingStartupDelay=0
-public class Demo4 {
-    public Long max = 1000000000L;
-
-    public static void main(String[] args) throws InterruptedException {
-        Demo4 demo4 = new Demo4();
-        long start = System.currentTimeMillis();
-        while (demo4.max&gt;0){
-            demo4.run1();
-        }
-        long end = System.currentTimeMillis();
-        System.out.println(String.format(&quot;%sms&quot;, end -start));
-    }
-    public synchronized void run1(){
-
-       max--;
-    }
-}
-执行结果 4294ms</code></pre><h3 id="轻量级锁-1"><a href="#轻量级锁-1" class="headerlink" title="轻量级锁"></a>轻量级锁</h3><pre><code>代码同上 将偏向锁延迟开启即可
-结果  19682ms</code></pre><h3 id="重量级锁-1"><a href="#重量级锁-1" class="headerlink" title="重量级锁"></a>重量级锁</h3><pre><code> public class Demo5 {
-     public CountDownLatch countDownLatch = new CountDownLatch(1000000000);
-     public static void main(String[] args) throws InterruptedException {
-         Demo5 demo4 = new Demo5();
-         long start = System.currentTimeMillis();
-         for (int i=0;i&lt;2;i++){
-             Thread thread = new Thread(){
-                 @Override
-                 public void run() {
-                     while (demo4.countDownLatch.getCount()&gt;0){
-                         demo4.run1();
-                     }
-                 };
-             };
-             thread.start();
-         }
-         demo4.countDownLatch.await();
-         long end = System.currentTimeMillis();
-         System.out.println(String.format(&quot;%sms&quot;, end -start));
-     }
-     public synchronized void run1(){
-
-         countDownLatch.countDown();
-     }
- }
-结果:44597ms</code></pre><p><em>对象头的介绍在下次具体介绍推荐直接到oracle官网查看介绍</em></p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>javase</tag>
-        <tag>并发</tag>
       </tags>
   </entry>
   <entry>
@@ -897,206 +751,317 @@ Thread.currentThread().setContextClassLoader(new Classloader_4());   </code></pr
       </tags>
   </entry>
   <entry>
-    <title>JAVA开发规范-阿里规约</title>
-    <url>/2020/10/20/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</url>
-    <content><![CDATA[<p>原文地址: <a href="http://www.azhangzhifeng.cn/" target="_blank" rel="noopener">zhangzhifeng的主页</a></p>
-<h2 id="编程规约"><a href="#编程规约" class="headerlink" title="编程规约"></a>编程规约</h2><h3 id="命名规约"><a href="#命名规约" class="headerlink" title="命名规约"></a>命名规约</h3><p>1.所有编程相关命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例： _name </span></span><br><span class="line">         __name </span><br><span class="line">         $Object</span><br><span class="line">         name_ </span><br><span class="line">         name$</span><br><span class="line">         Object$</span><br></pre></td></tr></table></figure>
-
-<p>2.所有编程相关的命名严禁使用拼音与英文混合的方式，更不允许直接使用中文的方式。说明：正确的英文拼写和语法可以让阅读者易于理解，避免歧义。注意，即使纯拼音命名方式也要避免采用</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">反例 </span><br><span class="line">    DaZhePromotion [打折] getPingfenByName() [评分] <span class="keyword">int</span> 变量 = <span class="number">3</span>;</span><br><span class="line">正例</span><br><span class="line">    ali/alibaba/taobao/cainiao/aliyun/youku/hangzhou等国际通用的名称，可视为英文。</span><br></pre></td></tr></table></figure>
-
-<p>3.类名使用UpperCamelCase风格，必须遵从驼峰形式，但以下情形例外：（领域模型的相关命名）DO / DTO / VO / DAO等。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line">    macroPolo / UserDo/XMLService / TCPUDPDeal / TAPromotion</span><br><span class="line">正例：</span><br><span class="line">    MarcoPolo / UserDO / XmlService /TcpUdpDeal / TaPromotion</span><br></pre></td></tr></table></figure>
-
-<p>4.方法名、参数名、成员变量、局部变量都统一使用lowerCamelCase风格，必须遵从驼峰形式。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例：</span><br><span class="line">    localValue / getHttpMessage() /inputUserId</span><br></pre></td></tr></table></figure>
-
-<p>5.常量命名全部大写，单词间用下划线隔开，力求语义表达完整清楚，不要嫌名字长。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例： MAX_STOCK_COUNT </span><br><span class="line">反例： MAX_COUNT</span><br></pre></td></tr></table></figure>
-
-<p>6.抽象类命名使用Abstract或Base开头；异常类命名使用Exception结尾；测试类命名以它要测试的类的名称开始，以Test结尾。<br>7.中括号是数组类型的一部分，数组定义如下：String[] args; 反例：请勿使用Stringargs[]的方式来定义<br>8.POJO类中的任何布尔类型的变量，都不要加is，否则部分框架解析会引起序列化错误。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：定义为基本数据类型boolean isSuccess；的属性，它的方法也是isSuccess()，</span><br><span class="line">RPC框架在反向解析的时候，“以为”对应的属性名称是success，导致属性获取不到，进而抛出异常。</span><br></pre></td></tr></table></figure>
-
-<p>9.包名统一使用小写，点分隔符之间有且仅有一个自然语义的英语单词。包名统一使用单数形式，但是类名如果有复数含义，类名可以使用复数形式。<br><em>正例： 应用工具类包名为com.oceandatum.mpp.util、类名为MessageUtils（此规则参考spring 的框架结构)</em></p>
-<p>10.杜绝完全不规范的缩写，避免望文不知义。<br><em>反例：&lt;某业务代码&gt;AbstractClass“缩写”命名成AbsClass；condition“缩写”命名成 condi，此类随意缩写严重降低了代码的可阅读性</em></p>
-<p>11.如果使用到了设计模式，建议在类名中体现出具体模式。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderFactory</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginProxy</span></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResourceObserver</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>将设计模式体现在名字中，有利于阅读者快速理解架构设计思想</em><br>12.接口类中的方法和属性不要加任何修饰符号（public 也不要加），保持代码的简洁性，并加上有效的javadoc注释。尽量不要在接口里定义变量，如果一定要定义变量，肯定是与接口方法相关，并且是整个应用的基础常量。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例：接口方法签名：<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">     接口基础常量表示：String COMPANY =<span class="string">"oceandatum"</span>;</span><br><span class="line">反例：接口方法定义：<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p><em>说明：JDK8中接口允许有默认实现，那么这个default方法，是对所有实现类都有价值的默认实现。</em><br>13.接口和实现类的命名有两套规则：</p>
-<p>1) 对于Service和DAO类，基于SOA的理念，暴露出来的服务一定是接口，内部的实现类用Impl的后缀与接口区别。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 正例: CacheServiceImpl实现CacheService</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheServiceImpl</span> <span class="keyword">implements</span> <span class="title">CacheService</span></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2）如果是形容能力的接口名称，取对应的形容词做接口名（通常是–able的形式）。<br><em>正例：AbstractTranslator实现 Translatable。</em></p>
-<p>14.枚举类名建议带上Enum后缀，枚举成员名称需要全大写，单词间用下划线隔开。(枚举其实就是特殊的常量类，且构造方法被默认强制是私有。)<br><em>正例：枚举名字：DealStatusEnum；成员名称：SUCCESS / UNKOWN_REASON。</em></p>
-<p>15.各层命名规约：</p>
-<ul>
-<li>Service/DAO/Mapper层方法命名规约<br>  1） 获取单个对象的方法用get做前缀。<br>  2） 获取多个对象的方法用list做前缀。<br>  3） 获取统计值的方法用count做前缀。<br>  4） 插入的方法用save做前缀。<br>  5） 删除的方法用remove做前缀。<br>  6） 修改的方法用update做前缀。</li>
-<li>领域模型命名规约<br> 1） 数据对象：xxxDO，xxx即为数据表名。<br> 2） 数据传输对象：xxxDTO，xxx为业务领域相关的名称。<br> 3） 展示对象：xxxVO，xxx一般为网页名称。<br> 4） POJO是DO/DTO/BO/VO的统称，禁止命名成xxxPOJO。</li>
+    <title>synchronized锁状态及性能对比</title>
+    <url>/2020/04/01/synchronized/</url>
+    <content><![CDATA[<h2 id="锁状态"><a href="#锁状态" class="headerlink" title="锁状态"></a>锁状态</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li>无锁<br> <em>没有synchronized关键字修饰</em></li>
+<li>偏向锁<br>  <em>JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级]</em></li>
+<li>轻量级锁<br>  <em>多个线程调用同步代码，但是线程之间交替执行例如调用join().-自旋锁也是产生轻量级锁的一个方式</em></li>
+<li>重量级锁<br>  <em>多个线程调用同步代码，且存在锁竞争</em></li>
 </ul>
-<h3 id="常量定义"><a href="#常量定义" class="headerlink" title="常量定义"></a>常量定义</h3><p>1.不允许出现任何魔法值（即未经定义的常量）直接出现在代码中。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例</span></span><br><span class="line">String key=<span class="string">"Id#taobao_"</span>+tradeId；</span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="对象头介绍"><a href="#对象头介绍" class="headerlink" title="对象头介绍"></a>对象头介绍</h4><p>   <em>锁状态的标记就在对象头当中。网上32位操作系统对象头的文档很多，下面使用的是64位操作系统介绍</em></p>
+<h5 id="对象头的组成-mark-Word"><a href="#对象头的组成-mark-Word" class="headerlink" title="对象头的组成-mark Word"></a>对象头的组成-mark Word</h5><p><em>这部分主要用来存储对象自身的运行时数据，如hashcode、gc分代年龄等，32位操作系统和64位操作系统的位长度是不一样的，具体看图:</em></p>
+<pre><code>                             32位操作系统
+|------------------------------------------------|-------------------| 
+|                  Mark Word (32 bits)           |       State       |
+|------------------------------------------------|-------------------|
+| identity_hashcode:25|age:4|biased_lock:1|lock:2|       Normal      |
+|------------------------------------------------|-------------------|
+| thread:23 | epoch:2|age:4|biased_lock:1 |lock:2|       Biased      |
+|------------------------------------------------|-------------------|
+|           ptr_to_lock_record:30         |lock:2|Lightweight Locked |
+|------------------------------------------------|-------------------|
+|       ptr_to_heavyweight_monitor:30     |lock:2| Heavyweight Locked|
+|------------------------------------------------|-------------------|
+|                                         |lock:2|    Marked for GC  |
+|------------------------------------------------|-------------------|</code></pre><hr>
+<pre><code>                                    64位操作系统   
+|-------------------------------------------------------------------|-------------------|
+|                  Mark Word (64 bits)                              |       State       |
+|-------------------------------------------------------------------|-------------------|
+| unused:25|identity_hashcode:31|unused:1|age:4|biased_lock:1|lock:2|       Normal      |
+|------------------------------------------------------------|------|-------------------|
+| thread:54|     epoch:2        |unused:1|age:4|biased_lock:1|lock:2|       Biased      |
+|------------------------------------------------------------|------|-------------------|
+|                           ptr_to_lock_record:62            |lock:2|Lightweight Locked |
+|----------------------------------------------------------- |------|-------------------|
+|                        ptr_to_heavyweight_monitor:62       |lock:2| Heavyweight Locked|
+|------------------------------------------------------------|------|-------------------|
+|                                                            |lock:2|    Marked for GC  |
+|---------------------------------------------------------------------------------------|</code></pre><h4 id="JOL工具"><a href="#JOL工具" class="headerlink" title="JOL工具"></a>JOL工具</h4><p>   JOL全称为Java Object Layout，是分析JVM中对象布局的工具，该工具大量使用了Unsafe、JVMTI来解码布局情况，分析结果是比较精准。使用时直接引入maven依赖即可</p>
+<pre><code>&lt;!--java状态分析工具--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.openjdk.jol&lt;/groupId&gt;
+    &lt;artifactId&gt;jol-core&lt;/artifactId&gt;
+    &lt;version&gt;0.9&lt;/version&gt;
+&lt;/dependency&gt;</code></pre><h4 id="偏向锁代码"><a href="#偏向锁代码" class="headerlink" title="偏向锁代码"></a>偏向锁代码</h4><pre><code>- JVM偏向锁延迟： JVM启动有大量的同步操作，偏向锁的锁消除性能很差所以JVM启动时会延迟偏向锁的启用。
+- 对象进行hashcode以后 就不存在偏向锁 这和对象头的设计有关
+- 偏向锁开启后新建对象 会有一个可偏向状态 但是指向的线程号为空 体现为二机制 0
 
-<p>2.long或者Long初始赋值时，必须使用大写的L，不能是小写的l，小写容易跟数字1 混淆，造成误解。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例</span></span><br><span class="line">Long a = <span class="number">2l</span>;<span class="comment">// 写的是数字的21，还是Long型的2?</span></span><br></pre></td></tr></table></figure>
+/**
+ * 由于在jvm启动时会延迟开启偏向锁 所以使用Thread.sleep(5000)
+ * 设置JVM启动参数 -XX:BiasedLockingStartupDelay=0 延迟偏向锁时间0
+ */
+public class Demo1 {
+    public static void main(String[] args) throws InterruptedException {
+        //睡眠5秒 使得偏向锁开启 也可以设置启动参数 
+        //-XX:BiasedLockingStartupDelay=0 延迟偏向锁时间0
+        Thread.sleep(5000);
+        A a = new A();
+        System.out.println(&quot;锁之前&quot;);
+        System.out.println(ClassLayout.parseInstance(a).toPrintable());
 
-<p>3.【推荐】不要使用一个常量类维护所有常量，应该按常量功能进行归类，分开维护。如：缓存相关的常量放在类：CacheConsts下；系统配置相关的常量放在类：ConfigConsts下。</p>
-<ul>
-<li>大而全的常量类，非得ctrl+f才定位到修改的常量，不利于理解，也不利于维护。</li>
-</ul>
-<p>4.【推荐】常量的复用层次有五层：跨应用共享常量、应用内共享常量、子工程内共享常量、包内共享常量、类内共享常量。</p>
-<ul>
-<li>跨应用共享常量：放置在二方库中，通常是client.jar中的const目录下。</li>
-<li>应用内共享常量：放置在一方库的modules中的const目录下。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*反例：易懂变量也要统一定义成应用内共享常量，两位攻城师在两个类中分别定义了表示“是”的变量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> 类A中：<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String YES =<span class="string">"yes"</span>; </span><br><span class="line"> 类B中：<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String YES =<span class="string">"y"</span>;</span><br><span class="line">       A.YES.equals(B.YES);<span class="comment">//预期是true，但实际返回为false，导致产生线上问题。</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>子工程内部共享常量：即在当前子工程的const目录下。</li>
-<li>包内共享常量：即在当前包下单独的const目录下。</li>
-<li>类内共享常量：直接在类内部private static final定义。</li>
-</ul>
-<p>5.【推荐】如果变量值仅在一个范围内变化用Enum类。如果还带有名称之外的延伸属性，必须使用Enum类，下面正例中的数字就是延伸信息，表示星期几。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*正例</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> Enum Week&#123;</span><br><span class="line">    MONDAY(<span class="number">1</span>), </span><br><span class="line">    TUESDAY(<span class="number">2</span>),</span><br><span class="line">    WEDNESDAY(<span class="number">3</span>),</span><br><span class="line">    THURSDAY(<span class="number">4</span>),</span><br><span class="line">    FRIDAY(<span class="number">5</span>),</span><br><span class="line">    SATURDAY(<span class="number">6</span>),</span><br><span class="line">    SUNDAY(<span class="number">7</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="格式规约"><a href="#格式规约" class="headerlink" title="格式规约"></a>格式规约</h3><p>1.大括号的使用约定。如果是大括号内为空，则简洁地写成{}即可，不需要换行；如果是非空代码块则：</p>
-<ul>
-<li>左大括号前不换行。</li>
-<li>左大括号后换行。</li>
-<li>右大括号前换行。  </li>
-<li>右大括号后还有else等代码则不换行；表示终止右大括号后必须换行。</li>
-</ul>
-<p>2.左括号和后一个字符之间不出现空格；同样，右括号和前一个字符之间也不出现空格。详见第5条下方正例提示。<br>3.if/for/while/switch/do等保留字与左右括号之间都必须加空格。<br>4.任何运算符左右必须加一个空格。<br>    <em>说明：运算符包括赋值运算符=、逻辑运算符&amp;&amp;、加减乘除符号、三目运行符等。</em><br>5.代码块缩进4个空格，如果使用tab缩进，请设置成1个tab为4个空格。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 正例：（涉及1-5点）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(Stringargs[])</span></span>&#123;     </span><br><span class="line">    <span class="comment">// 缩进4个空格     </span></span><br><span class="line">    String say=<span class="string">"hello"</span>;     </span><br><span class="line">    <span class="comment">// 运算符的左右必须有一个空格     </span></span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">0</span>;    </span><br><span class="line">    <span class="comment">// 关键词if与括号之间必须有一个空格，括号内f与左括号，1与右括号不需要空格     </span></span><br><span class="line">    <span class="keyword">if</span>(flag== <span class="number">0</span>) &#123;         </span><br><span class="line">        System.out.println(say);     </span><br><span class="line">    &#125;              </span><br><span class="line">    <span class="comment">// 左大括号前加空格且不换行；左大括号后换行     </span></span><br><span class="line">    <span class="keyword">if</span> (flag ==<span class="number">1</span>)&#123;         </span><br><span class="line">        System.out.println(<span class="string">"world"</span>);     </span><br><span class="line">    <span class="comment">// 右大括号前换行，右大括号后有else，不用换行     </span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;           </span><br><span class="line">        System.out.println(<span class="string">"ok"</span>);     </span><br><span class="line">    <span class="comment">// 右大括号做为结束，必须换行      </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>6.单行字符数限制不超过120个，超出需要换行，换行时，遵循如下原则：  </p>
-<p>1) 换行时相对上一行缩进4个空格。<br>2）运算符与下文一起换行。<br>3）方法调用的点符号与下文一起换行。<br>4）在多个参数超长，逗号后进行换行。<br>5）在括号前不要换行，见反例。正例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例子</span></span><br><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(); </span><br><span class="line"><span class="comment">//超过120个字符的情况下，换行缩进4个空格，并且方法前的点符号一起换行  </span></span><br><span class="line">sb.append(<span class="string">"zi"</span>).append(<span class="string">"xin"</span>)…    </span><br><span class="line">.append(<span class="string">"huang"</span>); </span><br><span class="line">反例：</span><br><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(); </span><br><span class="line"><span class="comment">//超过120个字符的情况下，不要在括号前换行 </span></span><br><span class="line">sb.append(<span class="string">"zi"</span>).append(<span class="string">"xin"</span>)…append</span><br><span class="line">(<span class="string">"huang"</span>);  </span><br><span class="line"><span class="comment">//参数很多的方法调用也超过120个字符，逗号后才是换行处 </span></span><br><span class="line">method(args1,args2,args3, ...  </span><br><span class="line">,argsX);</span><br></pre></td></tr></table></figure>
-<p>7.方法参数在定义和传入时，多个参数逗号后边必须加空格。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例 下例中实参的"a",后边必须要有一个空格。</span></span><br><span class="line">method(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>);</span><br></pre></td></tr></table></figure>
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                synchronized (a){
+                    System.out.println(&quot;锁状态&quot;);
+                    System.out.println(ClassLayout.parseInstance(a).toPrintable());
+                }
+            }
+        };
+        thread.start();
+        System.out.println(&quot;锁之后&quot;);
+        System.out.println(ClassLayout.parseInstance(a).toPrintable());
+    }
+}
 
-<p>8.没有必要增加若干空格来使某一行的字符与上一行的相应字符对齐。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">3</span>; </span><br><span class="line"><span class="keyword">long</span> b = <span class="number">4L</span>; </span><br><span class="line"><span class="keyword">float</span> c = <span class="number">5F</span>; </span><br><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br></pre></td></tr></table></figure>
-<p><strong><em>说明：增加sb这个变量，如果需要对齐，则给a、b、c都要增加几个空格，在变量比较多的情况下，是一种累赘的事情。</em></strong><br>9.方法体内的执行语句组、变量的定义语句组、不同的业务逻辑之间或者不同的语义之间插入一个空行。相同业务逻辑和语义之间不需要插入空行(没有必要插入多行空格进行隔开)</p>
-<h3 id="OOP规约"><a href="#OOP规约" class="headerlink" title="OOP规约"></a>OOP规约</h3><p>1.避免通过一个类的对象引用访问此类的静态变量或静态方法，无谓增加编译器解析成本，直接用类名来访问即可。<br>2.所有的覆写方法，必须加@Override注解。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line">getObject()与get0bject()的问题。</span><br><span class="line">一个是字母的O，一个是数字的0，加@Override可以准确判断是否覆盖成功。</span><br><span class="line">另外，如果在抽象类中对方法签名进行修改，其实现类会马上编译报错。</span><br></pre></td></tr></table></figure>
 
-<p>3.相同参数类型，相同业务含义，才可以使用Java的可变参数，避免使用Object。<br><strong><em>说明：可变参数必须放置在参数列表的最后。（提倡同学们尽量不用可变参数编程）</em></strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUsers</span><span class="params">(Stringtype,Integer... ids)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>4.对外暴露的接口签名，原则上不允许修改方法签名，避免对接口调用方产生影响。接口过时必须加@Deprecated注解，并清晰地说明采用的新接口或者新服务是什么。<br>5.不能使用过时的类或方法。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java.net.URLDecoder 中的方法decode(StringencodeStr) 这个方法已经过时，</span><br><span class="line">应该使用双参数decode(String source, Stringencode)。接口提供方既然明确是过时接口，</span><br><span class="line">那么有义务同时提供新的接口；作为调用方来说，有义务去考证过时方法的新实现是什么。</span><br></pre></td></tr></table></figure>
-<p>6.Object的equals方法容易抛空指针异常，应使用常量或确定有值的对象来调用equals。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例 </span></span><br><span class="line"><span class="string">"test"</span>.equals(object);</span><br><span class="line"><span class="comment">// 反例</span></span><br><span class="line">object.equals(<span class="string">"test"</span>);</span><br></pre></td></tr></table></figure>
-<p><strong><em>推荐使用java.util.Objects#equals （JDK7引入的工具类）</em></strong><br>7.所有的相同类型的包装类对象之间值的比较，全部使用equals方法比较。<br><strong><em>对于Integer var=?在-128至127之间的赋值，Integer对象是在IntegerCache.cache 产生，会复用已有对象，这个区间内的Integer值可以直接使用==进行判断，但是这个区间之外的所有数据，都会在堆上产生，并不会复用已有对象，这是一个大坑，推荐使用equals方法进行判断。</em></strong></p>
-<p>8.关于基本数据类型与包装数据类型的使用标准如下：</p>
-<pre><code>1) 所有的POJO类属性必须使用包装数据类型。
-2) RPC方法的返回值和参数必须使用包装数据类型。
-3） 所有的局部变量推荐使用基本数据类型。</code></pre><p><strong><em>POJO类属性没有初值是提醒使用者在需要使用时，必须自己显式地进行赋值，任何NPE问题，或者入库检查，都由使用者来保证。</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正例：数据库的查询结果可能是null，因为自动拆箱，用基本数据类型接收有NPE风险。</span><br><span class="line">反例：某业务的交易报表上显示成交总额涨跌情况，即正负x%，x为基本数据类型，</span><br><span class="line">     调用的RPC服务，调用不成功时，返回的是默认值，页面显示：0%，这是不合理的，应该显示成中划线-。</span><br><span class="line">     所以包装数据类型的null值，能够表示额外的信息，如：远程调用失败，异常退出。</span><br></pre></td></tr></table></figure>
-<p>9.定义DO/DTO/VO等POJO类时，不要设定任何属性默认值。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line">某业务的DO的gmtCreate默认值为newDate();但是这个属性在数据提取时并没有置入具体值，</span><br><span class="line">在更新其它字段时又附带更新了此字段，导致创建时间被修改成当前时间。</span><br></pre></td></tr></table></figure>
 
-<p>10.序列化类新增属性时，请不要修改serialVersionUID字段，避免反序列失败；如果完全不兼容升级，避免反序列化混乱，那么请修改serialVersionUID值。<br><strong><em>注意serialVersionUID不一致会抛出序列化运行时异常。</em></strong><br>11.构造方法里面禁止加入任何业务逻辑，如果有初始化逻辑，请放在init方法中。<br>12.POJO类必须写toString方法。使用工具类source&gt; generate toString时，如果继承了另一个POJO类，注意在前面加一下super.toString。<br><strong><em>在方法执行抛出异常时，可以直接调用POJO的toString()方法打印其属性值，便于排查问题。</em></strong><br>13.使用索引访问用String的split方法得到的数组时，需做最后一个分隔符后有无内容的检查，否则会有抛IndexOutOfBoundsException的风险。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str = <span class="string">"a,b,c,,"</span>;</span><br><span class="line">String[]ary =str.split(<span class="string">","</span>); </span><br><span class="line"><span class="comment">//预期大于3，结果是3</span></span><br><span class="line">System.out.println(ary.length);</span><br></pre></td></tr></table></figure>
-<p>14.当一个类有多个构造方法，或者多个同名方法，这些方法应该按顺序放置在一起，便于阅读。<br>15.类内方法定义顺序依次是：公有方法或保护方法 &gt; 私有方法 &gt; getter/setter方法。<br><strong><em>公有方法是类的调用者和维护者最关心的方法，首屏展示最好；保护方法虽然只是子类关心，也可能是“模板设计模式”下的核心方法；而私有方法外部一般不需要特别关心，是一个黑盒实现；因为方法信息价值较低，所有Service和DAO的getter/setter方法放在类体最后。</em></strong><br>16.setter方法中，参数名称与类成员变量名称一致，this.成员名=参数名。在 getter/setter方法中，尽量不要增加业务逻辑，增加排查问题难度。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">反例：</span><br><span class="line"><span class="function"><span class="keyword">public</span> Integer <span class="title">getData</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> data +<span class="number">100</span>; </span><br><span class="line">  &#125; <span class="keyword">else</span>  &#123;</span><br><span class="line">         <span class="keyword">return</span> data- <span class="number">100</span>;</span><br><span class="line">          &#125;  </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+结果
+锁之前
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           05 00 00 00 (00000101 00000000 00000000 00000000) (5)
+      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)
+      8     4        (object header)                           a0 c1 00 f8 (10100000 11000001 00000000 11111000) (-134168160)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
 
-<p>17.循环体内，字符串的联接方式，使用StringBuilder的append方法进行扩展。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str=<span class="string">"start"</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">   str = str+<span class="string">"hello"</span>;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>反编译出的字节码文件显示每次循环都会new出一个StringBuilder对象，然后进行 append操作，最后通过toString方法返回String对象，造成内存资源浪费。</em></strong><br>18.final可提高程序响应效率，声明成final的情况：<br>1）不需要重新赋值的变量，包括类属性、局部变量。<br>2）对象参数前加final，表示不允许修改引用的指向。<br>3）类方法确定不允许被重写。</p>
-<p>19.慎用Object的clone方法来拷贝对象。<br><strong><em>对象的clone方法默认是浅拷贝，若想实现深拷贝需要重写clone方法实现属性对象的拷贝</em></strong></p>
-<p>20.类成员与方法访问控制从严<br>1） 如果不允许外部直接通过new来创建对象，那么构造方法必须是private。<br>2） 工具类不允许有public或default构造方法。<br>3） 类非static成员变量并且与子类共享，必须是protected。<br>4） 类非static成员变量并且仅在本类使用，必须是private。<br>5） 类static成员变量如果仅在本类使用，必须是private。<br>6） 若是static成员变量，必须考虑是否为final。<br>7） 类成员方法只供类内部调用，必须是private。<br>8） 类成员方法只对继承类公开，那么限制为protected。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">任何类、方法、参数、变量，严控访问范围。过宽泛的访问范围，不利于模块解耦。</span><br><span class="line">思考：如果是一个private的方法，想删除就删除，可是一个public的Service方法，</span><br><span class="line">或者一个public的成员变量，删除一下，不得手心冒点汗吗？变量像自己的小孩，尽量在自己的视线内，</span><br><span class="line">变量作用域太大，如果无限制的到处跑，那么你会担心的。</span><br></pre></td></tr></table></figure>
+锁之后
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           05 d0 11 1b (00000101 11010000 00010001 00011011) (454152197)
+      4     4        (object header)                           e6 7f 00 00 (11100110 01111111 00000000 00000000) (32742)
+      8     4        (object header)                           a0 c1 00 f8 (10100000 11000001 00000000 11111000) (-134168160)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
 
-<h3 id="集合处理"><a href="#集合处理" class="headerlink" title="集合处理"></a>集合处理</h3><p>1.Map/Set的key为自定义对象时，必须重写hashCode和equals。<br><strong><em>String重写了hashCode和equals方法，所以我们可以非常愉快地使用String对象作为key来使用。</em></strong><br>2.ArrayList的subList结果不可强转成ArrayList，否则会抛出ClassCastException 异常：java.util.RandomAccessSubList cannot be cast tojava.util.ArrayList; 说明：subList 返回的是 ArrayList 的内部类 SubList，并不是 ArrayList ，而是 ArrayList 的一个视图，对于SubList子列表的所有操作最终会反映到原列表上。<br>3.在subList场景中，高度注意对原集合元素个数的修改，会导致子列表的遍历、增加、删除均产生ConcurrentModificationException 异常。<br>4.使用集合转数组的方法，必须使用集合的toArray(T[] array)，传入的是类型完全一样的数组，大小就是list.size()。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例：直接使用toArray无参方法存在问题，此方法返回值只能是Object[]类，若强转其它类型数组将出现ClassCastException错误。</span></span><br><span class="line"><span class="comment">//正例</span></span><br><span class="line">List&lt;String&gt; list =newArrayList&lt;String&gt;(<span class="number">2</span>);     </span><br><span class="line">list.add(<span class="string">"guan"</span>);     </span><br><span class="line">list.add(<span class="string">"bao"</span>);      </span><br><span class="line">String[] array =newString[list.size()];     </span><br><span class="line">array=list.toArray(array);</span><br></pre></td></tr></table></figure>
-<p><strong><em>使用toArray带参方法，入参分配的数组空间不够大时，toArray方法内部将重新分配内存空间，并返回新数组地址；如果数组元素大于实际所需，下标为[ list.size() ]的数组元素将被置为null，其它数组元素保持原值，因此最好将方法入参数组大小定义与集合元素个数一致。</em></strong><br>5.使用工具类Arrays.asList()把数组转换成集合时，不能使用其修改集合相关的方法，它的add/remove/clear方法会抛出UnsupportedOperationException异常。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// asList的返回对象是一个Arrays内部类，并没有实现集合的修改方法。</span></span><br><span class="line"><span class="comment">// Arrays.asList 体现的是适配器模式，只是转换接口，后台的数据仍是数组。</span></span><br><span class="line">String[] str = newString[] &#123;<span class="string">"a"</span>, <span class="string">"b"</span> &#125;;</span><br><span class="line">List list =Arrays.asList(str);</span><br><span class="line"><span class="comment">// 第一种情况：list.add("c");运行时异常。</span></span><br><span class="line"><span class="comment">// 第二种情况：str[0]= "gujin"; 那么list.get(0)也会随之修改。</span></span><br></pre></td></tr></table></figure>
-<p>6.泛型通配符&lt;? extends T&gt;来接收返回的数据，此写法的泛型集合不能使用add方法。说明：苹果装箱后返回一个&lt;? extends Fruits&gt;对象，此对象就不能往里加任何水果，包括苹果。<br>7.不要在foreach循环里进行元素的remove/add操作。remove元素请使用Iterator 方式，如果并发操作，需要对Iterator对象加锁。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例</span></span><br><span class="line">List&lt;String&gt; a =newArrayList&lt;String&gt;();     </span><br><span class="line">a.add(<span class="string">"1"</span>);     </span><br><span class="line">a.add(<span class="string">"2"</span>);</span><br><span class="line"><span class="keyword">for</span>(String temp : a)&#123;</span><br><span class="line">   <span class="keyword">if</span>(<span class="string">"1"</span>.equals(temp))&#123;             </span><br><span class="line">      a.remove(temp);         </span><br><span class="line">   &#125;      </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>这个例子的执行结果会出乎大家的意料，那么试一下把“1”换成“2”，会是同样的结果吗?</em></strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//正例</span></span><br><span class="line">Iterator&lt;String&gt; it =a.iterator(); <span class="keyword">while</span>(it.hasNext())&#123;             </span><br><span class="line">    String temp =  it.next();                       </span><br><span class="line">    <span class="keyword">if</span>(删除元素的条件)&#123;                            </span><br><span class="line">        it.remove();                </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>8.在JDK7版本以上，Comparator要满足自反性，传递性，对称性，不然Arrays.sort,Collections.sort会报IllegalArgumentException异常。<br>1） 自反性：x，y的比较结果和y，x的比较结果相反。<br>2） 传递性：x&gt;y,y&gt;z,则x&gt;z。<br>3） 对称性：x=y,则x,z比较结果和y，z比较结果相同。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//反例：下例中没有处理相等的情况，实际使用中可能会出现异常：</span></span><br><span class="line">newComparator&lt;Student&gt;()&#123;          </span><br><span class="line">    <span class="meta">@Override</span>         </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Student o1, Studento2)</span></span>&#123;</span><br><span class="line">         returno1.getId() &gt; o2.getId() ? <span class="number">1</span> :-<span class="number">1</span>;         </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>9.集合初始化时，尽量指定集合初始值大小。说明：ArrayList尽量使用ArrayList(int initialCapacity) 初始化。</p>
-<p>10.使用entrySet遍历Map类集合KV，而不是keySet方式进行遍历。<br><strong><em>keySet其实是遍历了2次，一次是转为Iterator对象，另一次是从hashMap中取出key 所对应的value。而entrySet只是遍历了一次就把key和value都放到了entry中，效率更高。如果是JDK8，使用Map.foreach方法。</em></strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正例：values()返回的是V值集合，是一个list集合对象；</span><br><span class="line">     keySet()返回的是K值集合，是一个Set集合对象；</span><br><span class="line">     entrySet()返回的是K-V值组合集合。</span><br></pre></td></tr></table></figure>
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           05 d0 11 1b (00000101 11010000 00010001 00011011) (454152197)
+      4     4        (object header)                           e6 7f 00 00 (11100110 01111111 00000000 00000000) (32742)
+      8     4        (object header)                           a0 c1 00 f8 (10100000 11000001 00000000 11111000) (-134168160)
+结果分别为 101+0 偏向锁状态 101+pid 偏向锁 101+pid偏向锁，后面两次打印结果中可以看到锁指向线程id是相同。 </code></pre><h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><pre><code>public class Demo2 {
 
-<p>11.【参考】合理利用好集合的有序性(sort)和稳定性(order)，避免集合的无序性(unsort)和不稳定性(unorder)带来的负面影响。<br><strong><em>稳定性指集合每次遍历的元素次序是一定的。有序性是指遍历的结果是按某种比较规则依次排列的。如：ArrayList是order/unsort；HashMap是unorder/unsort；TreeSet是 order/sort。</em></strong></p>
-<p>12.【参考】利用Set元素唯一的特性，可以快速对另一个集合进行去重操作，避免使用List的 contains方法进行遍历去重操作。</p>
-<h3 id="并发处理"><a href="#并发处理" class="headerlink" title="并发处理"></a>并发处理</h3><p>1.获取单例对象要线程安全。在单例对象里面做操作也要保证线程安全。<br><strong><em>资源驱动类、工具类、单例工厂类都需要注意。</em></strong><br>2.线程资源必须通过线程池提供，不允许在应用中自行显式创建线程。<br><strong><em>使用线程池的好处是减少在创建和销毁线程上所花的时间以及系统资源的开销，解决资源不足的问题。如果不使用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者“过度切换”的问题。</em></strong><br>3.SimpleDateFormat 是线程不安全的类，一般不要定义为static变量，如果定义为 static，必须加锁，或者使用DateUtils工具类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例：注意线程安全，使用DateUtils。亦推荐如下处理：</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> finalThreadLocal&lt;DateFormat&gt; df =<span class="keyword">new</span> ThreadLocal&lt;DateFormat&gt;()&#123;      </span><br><span class="line">    <span class="meta">@Override</span>       </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">DateFormatinitialValue</span><span class="params">()</span></span>&#123;           </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd"</span>);       </span><br><span class="line">    &#125;   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong><em>如果是JDK8的应用，可以使用instant代替Date，Localdatetime代替Calendar，Datetimeformatter代替Simpledateformatter，官方给出的解释：simple beautifulstrong immutable thread-safe。</em></strong><br>4.高并发时，同步调用应该去考量锁的性能损耗。能用无锁数据结构，就不要用锁；能锁区块，就不要锁整个方法体；能用对象锁，就不要用类锁。<br>5.对多个资源、数据库表、对象同时加锁时，需要保持一致的加锁顺序，否则可能会造成死锁。<br><strong><em>线程一需要对表A、B、C依次全部加锁后才可以进行更新操作，那么线程二的加锁顺序也必须是A、B、C，否则可能出现死锁。</em></strong><br>6.并发修改同一记录时，避免更新丢失，要么在应用层加锁，要么在缓存加锁，要么在数据库层使用乐观锁，使用version作为更新依据。说明：如果每次访问冲突概率小于20%，推荐使用乐观锁，否则使用悲观锁。乐观锁的重试次数不得小于3次。</p>
-<p>7.多线程并行处理定时任务时，Timer运行多个TimeTask时，只要其中之一没有捕获抛出的异常，其它任务便会自动终止运行，使用ScheduledExecutorService则没有这个问题。</p>
-<p>8.线程池不允许使用Executors去创建，而是通过ThreadPoolExecutor的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。Executors各个方法的弊端：<br>1）new FixedThreadPool和newSingleThreadExecutor:主要问题是堆积的请求处理队列可能会耗费非常大的内存，甚至OOM。<br>2）new CachedThreadPool和newScheduledThreadPool:主要问题是线程数最大数是Integer.MAX_VALUE，可能会创建数量非常多的线程，甚至OOM。<br>9.创建线程或线程池时请指定有意义的线程名称，方便出错时回溯。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimerTaskThread</span> <span class="title">extendsThread</span></span>&#123;     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TimerTaskThread</span><span class="params">()</span></span>&#123;         </span><br><span class="line">        <span class="keyword">super</span>.setName(<span class="string">"TimerTaskThread"</span>);… </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    //JVM启动设置关闭偏向锁延迟
+    public static void main(String[] args) throws InterruptedException {
 
-<p>10.使用CountDownLatch进行异步转同步操作，每个线程退出前必须调用countDown方法，线程执行代码注意catch异常，确保countDown方法可以执行，避免主线程无法执行至 countDown方法，直到超时才返回结果。说明：注意，子线程抛出异常堆栈，不能在主线程try-catch到。<br>11.避免Random实例被多线程使用，虽然共享该实例是线程安全的，但会因竞争同一seed 导致的性能下降。说明：Random实例包括java.util.Random 的实例或者 Math.random()实例。<br><strong><em>在JDK7之后，可以直接使用API ThreadLocalRandom，在 JDK7之前，可以做到每个线程一个实例。</em></strong><br>12.通过双重检查锁（double-checked locking）（在并发场景）实现延迟初始化的优化问题隐患(可参考 The “Double-Checked Locking is Broken” Declaration),推荐问题解决方案中较为简单一种（适用于jdk5及以上版本），将目标属性声明为 volatile型（比如反例中修改helper的属性声明为privatevolatile Helper helper= null;）；</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Helper helper= <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Helper <span class="title">getHelper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (helper ==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (helper==<span class="keyword">null</span>)</span><br><span class="line">                    helper =newHelper();</span><br><span class="line"></span><br><span class="line">            &#125;      returnhelper; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// other functions and members... </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>13.volatile解决多线程内存不可见问题。对于一写多读，是可以解决变量同步问题，但是如果多写，同样无法解决线程安全问题。如果想取回count++数据，使用如下类实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AtomicIntegercount = <span class="keyword">new</span> AtomicInteger();</span><br><span class="line">count.addAndGet(<span class="number">1</span>); </span><br><span class="line">count++操作如果是JDK8，推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）。</span><br></pre></td></tr></table></figure>
-<p>14.注意HashMap的扩容死链，导致CPU飙升的问题。<br>15.ThreadLocal无法解决共享对象的更新问题，ThreadLocal对象建议使用static修饰。这个变量是针对一个线程内所有操作共有的，所以设置为静态变量，所有此类实例共享此静态变量 ，也就是说在类第一次被使用时装载，只分配一块存储空间，所有此类的对象(只要是这个线程内定义的)都可以操控这个变量。</p>
-<h3 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h3><p>1.在一个switch块内，每个case要么通过break/return来终止，要么注释说明程序将继续执行到哪一个case为止；在一个switch块内，都必须包含一个default语句并且放在最后，即使它什么代码也没有。<br>2.在if/else/for/while/do语句中必须使用大括号，即使只有一行代码，避免使用下面的形式：if (condition) statements;<br>3.推荐尽量少用else， if-else的方式可以改写成</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(condition)&#123;             </span><br><span class="line">    …            </span><br><span class="line">    <span class="keyword">return</span> obj;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>如果使用要if-else if-else方式表达逻辑，请勿超过3层，超过请使用状态设计模式。</em></strong><br>4.除常用方法（如getXxx/isXxx）等外，不要在条件判断中执行复杂的语句，以提高可读性。正例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 伪代码如下</span></span><br><span class="line">InputStream stream =file.open(fileName,<span class="string">"w"</span>);</span><br><span class="line">    <span class="keyword">if</span> (stream != <span class="keyword">null</span>) &#123;</span><br><span class="line">    …</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="comment">//反例：</span></span><br><span class="line">    <span class="keyword">if</span> (file.open(fileName, <span class="string">"w"</span>) !=<span class="keyword">null</span>))&#123;</span><br><span class="line">    …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>5.循环体中的语句要考量性能，以下操作尽量移至循环体外处理，如定义对象、变量、获取数据库连接，进行不必要的try-catch操作（这个try-catch是否可以移至循环体外）。<br>6.接口入参保护，这种场景常见的是用于做批量操作的接口。<br>7.方法中需要进行参数校验的场景：<br>    1）调用频次低的方法。<br>    2）执行时间开销很大的方法，参数校验时间几乎可以忽略不计，但如果因为参数错误导致中间执行回退，或者错误，那得不偿失。<br>    3）需要极高稳定性和可用性的方法。<br>    4）对外提供的开放接口，不管是RPC/API/HTTP接口。<br>8.方法中不需要参数校验的场景：<br>    1）极有可能被循环调用的方法，不建议对参数进行校验。但在方法说明里必须注明外部参数检查。<br>    2）底层的方法调用频度都比较高，一般不校验。毕竟是像纯净水过滤的最后一道，参数错误不太可能到底层才会暴露问题。一般DAO层与Service层都在同一个应用中，部署在同一台服务器中，所以DAO的参数校验，可以省略。<br>    3）被声明成private只会被自己代码所调用的方法，如果能够确定调用方法的代码传入参数已经做过检查或者肯定不会有问题，此时可以不校验参数。</p>
-<h3 id="注释规约"><a href="#注释规约" class="headerlink" title="注释规约"></a>注释规约</h3><p><strong><em>统一发放模版</em></strong></p>
-<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>1.在使用正则表达式时，利用好其预编译功能，可以有效加快正则匹配速度。<br><strong><em>不要在方法体内定义：Pattern pattern =Pattern.compile(规则);</em></strong><br>2.避免用Apache Beanutils进行属性的copy。<br><strong><em>Apache BeanUtils性能较差，可以使用其他方案比如SpringBeanUtils, Cglib BeanCopier。</em></strong><br>3.velocity调用POJO类的属性时，建议直接使用属性名取值即可，模板引擎会自动按规范调用POJO的getXxx()，如果是boolean基本数据类型变量（注意，boolean命名不需要加is前缀），会自动调用isXxx()方法。<br><strong><em>注意如果是Boolean包装类对象，优先调用getXxx()的方法。</em></strong><br>4.后台输送给页面的变量必须加$!{var}——中间的感叹号。<br><strong><em>如果var=null或者不存在，那么${var}会直接显示在页面上。</em></strong><br>5.注意 Math.random() 这个方法返回是double类型，注意取值范围 0≤x&lt;1（能够取到零值，注意除零异常），如果想获取整数类型的随机数，不要将x放大10的若干倍然后取整，直接使用Random对象的nextInt或者nextLong方法。<br>6.获取当前毫秒数：System.currentTimeMillis(); 而不是newDate().getTime(); 说明：如果想获取更加精确的纳秒级时间值，用System.nanoTime。在JDK8中，针对统计时间等场景，推荐使用Instant类。<br>7.尽量不要在vm中加入变量声明、逻辑运算符，更不要在vm模板中加入任何复杂的逻辑。<br>8.任何数据结构的使用都应限制大小。<br><strong><em>这点很难完全做到，但很多次的故障都是因为数据结构自增长，结果造成内存被吃光。</em></strong><br>9.对于“明确停止使用的代码和配置”，如方法、变量、类、配置文件、动态配置属性等要坚决从程序中清理出去，避免造成过多垃圾。清理这类垃圾代码是技术气场，不要有这样的观念：“不做不错，多做多错”。</p>
-<h2 id="异常日志"><a href="#异常日志" class="headerlink" title="异常日志"></a>异常日志</h2><h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>1.不要捕获Java类库中定义的继承自RuntimeException的运行时异常类，如：IndexOutOfBoundsException/NullPointerException，这类异常由程序员预检查来规避，保证程序健壮性。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">正例：<span class="keyword">if</span>(obj != <span class="keyword">null</span>) &#123;...&#125;</span><br><span class="line">反例：<span class="keyword">try</span> &#123; obj.method()&#125;<span class="keyword">catch</span>(NullPointerException e)&#123;…&#125;</span><br></pre></td></tr></table></figure>
-<p>2.异常不要用来做流程控制，条件控制，因为异常的处理效率比条件分支低。<br>3.对大段代码进行try-catch，这是不负责任的表现。catch时请分清稳定代码和非稳定代码，稳定代码指的是无论如何不会出错的代码。对于非稳定代码的catch尽可能进行区分异常类型，再做对应的异常处理。<br>4.捕获异常是为了处理它，不要捕获了却什么都不处理而抛弃之，如果不想处理它，请将该异常抛给它的调用者。最外层的业务使用者，必须处理异常，将其转化为用户可以理解的内容。<br>5.有try块放到了事务代码中，catch异常后，如果需要回滚事务，一定要注意手动回滚事务。<br>6.finally块必须对资源对象、流对象进行关闭，有异常也要做try-catch。<br><strong><em>如果JDK7，可以使用try-with-resources方法。</em></strong><br>7.不能在finally块中使用return，finally块中的return返回后方法结束执行，不会再执行try块中的return语句。<br>8.捕获异常与抛异常，必须是完全匹配，或者捕获异常是抛异常的父类。<br><strong><em>如果预期抛的是绣球，实际接到的是铅球，就会产生意外情况。</em></strong><br>9.方法的返回值可以为null，不强制返回空集合，或者空对象等，必须添加注释充分说明什么情况下会返回null值。调用方需要进行null判断防止NPE问题。<br><strong><em>本规约明确防止NPE是调用者的责任。即使被调用方法返回空集合或者空对象，对调用者来说，也并非高枕无忧，必须考虑到远程调用失败，运行时异常等场景返回null的情况。</em></strong><br>10.【推荐】防止NPE，是程序员的基本修养，注意NPE产生的场景：<br>1）返回类型为包装数据类型，有可能是null，返回int值时注意判空。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 反例：如果为null，自动解箱抛NPE。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Integer 对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2）数据库的查询结果可能为null。<br>3）集合里的元素即使isNotEmpty，取出的数据元素也可能为null。<br>4）远程调用返回对象，一律要求进行NPE判断。<br>5）对于Session中获取的数据，建议NPE检查，避免空指针。<br>6）级联调用obj.getA().getB().getC()；一连串调用，易产生NPE。<br>11.【推荐】在代码中使用“抛异常”还是“返回错误码”，对于公司外的http/api开放接口必须使用“错误码”；而应用内部推荐异常抛出；跨应用间RPC调用优先考虑使用Result方式，封装isSuccess、“错误码”、“错误简短信息”。<br><strong><em>关于RPC方法返回方式使用Result方式的理由：</em></strong><br>1）使用抛异常返回方式，调用方如果没有捕获到就会产生运行时错误。<br>2）如果不加栈信息，只是new自定义异常，加入自己的理解的error message，对于调用端解决问题的帮助不会太多。如果加了栈信息，在频繁调用出错的情况下，数据序列化和传输的性能损耗也是问题。<br>12.定义时区分unchecked / checked 异常，避免直接使用RuntimeException抛出，更不允许抛出Exception或者Throwable，应使用有业务含义的自定义异常。推荐业界已定义过的自定义异常，如：DaoException / ServiceException等。<br>13.避免出现重复的代码（Don’tRepeat Yourself），即DRY原则。<br><strong><em>[强制]随意复制和粘贴代码，必然会导致代码的重复，在以后需要修改时，需要修改所有的副本，容易遗漏。必要时抽取共性方法，或者抽象公共类，甚至是共用模块。</em></strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 一个类中有多个public方法，都需要进行数行相同的参数校验操作，这个时候请抽取</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">checkParam</span><span class="params">(DTOdto)</span></span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="日志规约"><a href="#日志规约" class="headerlink" title="日志规约"></a>日志规约</h3><p>1.应用中不可直接使用日志系统（Log4j、Logback）中的API，而应依赖使用日志框架SLF4J中的API，使用门面模式的日志框架，有利于维护和各个类的日志处理方式统一。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger; </span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger=LoggerFactory.getLogger(Abc<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>2.日志文件推荐至少保存15天，因为有些异常具备以“周”为频次发生的特点。<br>3.应用中的扩展日志（如打点、临时监控、访问日志等）命名方式：appName_logType_logName.log。logType:日志类型，推荐分类有stats/desc/monitor/visit 等；logName:日志描述。这种命名的好处：通过文件名就可知道日志文件属于什么应用，什么类型，什么目的，也有利于归类查找。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">正例：mppserver应用中单独监控时区转换异常 </span><br><span class="line">如：mppserver_monitor_timeZoneConvert.log</span><br></pre></td></tr></table></figure>
-<p><strong><em>推荐对日志进行分类，错误日志和业务日志尽量分开存放，便于开发人员查看，也便于通过日志对系统进行及时监控。</em></strong><br>4.对trace/debug/info级别的日志输出，必须使用条件输出形式或者使用占位符的方式。<br>说明：logger.debug(“Processingtrade withid: “ + id + “ symbol: “ + symbol); 如果日志级别是warn，上述日志不会打印，但是会执行字符串拼接操作，如果symbol是对象，会执行toString()方法，浪费了系统资源，执行了上述操作，最终日志却没有打印。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 正例：（条件）</span></span><br><span class="line"><span class="keyword">if</span> (logger.isDebugEnabled())&#123;   </span><br><span class="line">logger.debug(<span class="string">"Processing trade with id:"</span> +id + <span class="string">" symbol: "</span> + symbol);  </span><br><span class="line">&#125;      </span><br><span class="line"><span class="comment">// 正例：（占位符）</span></span><br><span class="line">logger.debug(<span class="string">"Processing trade with id:&#123;&#125; andsymbol : &#123;&#125; "</span>, id, symbol);</span><br></pre></td></tr></table></figure>
-<p>5.避免重复打印日志，浪费磁盘空间，务必在log4j.xml中设置additivity=false。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;loggername&#x3D;&quot;com.taobao.ecrm.member.config&quot;additivity&#x3D;&quot;false&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>6.异常信息应该包括两类信息：案发现场信息和异常堆栈信息。如果不处理，那么往上抛。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;正例</span><br><span class="line">logger.error(各类参数或者对象toString +&quot;_&quot; + e.getMessage(), e);</span><br></pre></td></tr></table></figure>
-<p>7.输出的POJO类必须重写toString方法，否则只输出此对象的hashCode值（地址值），没啥参考意义。<br>8.可以使用warn日志级别来记录用户输入参数错误的情况，避免用户投诉时，无所适从。注意日志输出的级别，error级别只记录系统逻辑出错、异常、或者重要的错误信息。如非必要，请不要在此场景打出error级别，避免频繁报警。<br>9.谨慎地记录日志。生产环境禁止输出debug日志；有选择地输出info日志；如果使用warn来记录刚上线时的业务行为信息，一定要注意日志输出量的问题，避免把服务器磁盘撑爆，并记得及时删除这些观察日志。<br><strong><em>大量地输出无效日志，不利于系统性能提升，也不利于快速定位错误点。纪录日志时请思考：这些日志真的有人看吗？看到这条日志你能做什么？能不能给问题排查带来好处？</em></strong></p>
-<p>10.如果日志用英文描述不清楚，推荐使用中文注释。对于中文UTF-8的日志，在secureCRT 中，set encoding=utf-8；如果中文字符还乱码，请设置：全局&gt;默认的会话设置&gt;外观&gt;字体&gt; 选择字符集gb2312；如果还不行，执行命令：set termencoding=gbk，并且直接使用中文来进行检索。</p>
-<h2 id="MYSQL规约"><a href="#MYSQL规约" class="headerlink" title="MYSQL规约"></a>MYSQL规约</h2><p><strong><em>本模块待完善</em></strong></p>
-<h3 id="命名规约-1"><a href="#命名规约-1" class="headerlink" title="命名规约"></a>命名规约</h3><h3 id="索引规约"><a href="#索引规约" class="headerlink" title="索引规约"></a>索引规约</h3><h3 id="SQL规约"><a href="#SQL规约" class="headerlink" title="SQL规约"></a>SQL规约</h3><h2 id="工程规约"><a href="#工程规约" class="headerlink" title="工程规约"></a>工程规约</h2><h3 id="应用分层"><a href="#应用分层" class="headerlink" title="应用分层"></a>应用分层</h3><p>web-&gt;service-&gt;mapper</p>
-<h3 id="平台项目结构"><a href="#平台项目结构" class="headerlink" title="平台项目结构"></a>平台项目结构</h3><p><strong><em>待完善</em></strong></p>
+        A a = new A();
+        System.out.println(&quot;锁之前&quot;);
+        System.out.println(ClassLayout.parseInstance(a).toPrintable());
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                synchronized (a){
+                    System.out.println(&quot;线程锁状态&quot;);
+                    System.out.println(ClassLayout.parseInstance(a).toPrintable());
+                }
+            }
+        };
+
+        /**
+         * 主线程先拿锁 执行完成启动第二个线程 否则会产出重量级锁
+         */
+        synchronized (a){
+            System.out.println(&quot;主线程锁状态&quot;);
+            System.out.println(ClassLayout.parseInstance(a).toPrintable());
+        }
+
+        thread.start();
+
+        System.out.println(&quot;锁之后&quot;);
+        System.out.println(ClassLayout.parseInstance(a).toPrintable());
+    }
+}
+
+结果
+锁之前
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           05 00 00 00 (00000101 00000000 00000000 00000000) (5)
+      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
+
+主线程锁状态
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           05 18 00 7a (00000101 00011000 00000000 01111010) (2046826501)
+      4     4        (object header)                           8d 7f 00 00 (10001101 01111111 00000000 00000000) (32653)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
+
+锁之后
+线程锁状态
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           f8 c8 12 0f (11111000 11001000 00010010 00001111) (252889336)
+      4     4        (object header)                           00 70 00 00 (00000000 01110000 00000000 00000000) (28672)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
+
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           f8 c8 12 0f (11111000 11001000 00010010 00001111) (252889336)
+      4     4        (object header)                           00 70 00 00 (00000000 01110000 00000000 00000000) (28672)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+结果分别为 101+0 偏向锁状态 101+pid 偏向锁 000 轻量级锁 000 轻量级锁</code></pre><h4 id="重量级锁"><a href="#重量级锁" class="headerlink" title="重量级锁"></a>重量级锁</h4><pre><code>/**
+ * 代码与轻量级锁的代码区别为thread.start()方法调用放到主线程加锁之前 使多个线程之间存在锁竞争
+ *（自选状态之外）升级重量级锁
+ */
+ public class Demo3 {
+
+     //JVM启动设置关闭偏向锁延迟
+     public static void main(String[] args) throws InterruptedException {
+
+         A a = new A();
+         System.out.println(&quot;锁之前&quot;);
+         System.out.println(ClassLayout.parseInstance(a).toPrintable());
+
+         Thread thread = new Thread(){
+             @Override
+             public void run() {
+                 synchronized (a){
+                     System.out.println(&quot;线程锁状态&quot;);
+                     System.out.println(ClassLayout.parseInstance(a).toPrintable());
+                 }
+             }
+         };
+
+         thread.start();
+         /**
+          * 主线程先拿锁 执行完成启动第二个线程 否则会产出重量级锁
+          */
+         synchronized (a){
+             System.out.println(&quot;主线程锁状态&quot;);
+             System.out.println(ClassLayout.parseInstance(a).toPrintable());
+         }
+
+
+
+         System.out.println(&quot;锁之后&quot;);
+         System.out.println(ClassLayout.parseInstance(a).toPrintable());
+     }
+ }
+结果：
+锁之前
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)
+      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
+
+主线程锁状态
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           5a 57 00 50 (01011010 01010111 00000000 01010000) (1342199642)
+      4     4        (object header)                           a8 7f 00 00 (10101000 01111111 00000000 00000000) (32680)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
+
+锁之后
+线程锁状态
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           5a 57 00 50 (01011010 01010111 00000000 01010000) (1342199642)
+      4     4        (object header)                           a8 7f 00 00 (10101000 01111111 00000000 00000000) (32680)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+Instance size: 16 bytes
+Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
+
+com.example.concurrent.sync.A object internals:
+ OFFSET  SIZE   TYPE DESCRIPTION                               VALUE
+      0     4        (object header)                           5a 57 00 50 (01011010 01010111 00000000 01010000) (1342199642)
+      4     4        (object header)                           a8 7f 00 00 (10101000 01111111 00000000 00000000) (32680)
+      8     4        (object header)                           05 c4 00 f8 (00000101 11000100 00000000 11111000) (-134167547)
+     12     4        (loss due to the next object alignment)
+
+ 结果分别为001 无锁 010 重量级锁 010重量级锁 010 重量级锁 （锁只会进行升级和锁释放，不会降级）</code></pre><h2 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h2><h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><pre><code>//JVM启动设置关闭偏向锁延迟 -XX:BiasedLockingStartupDelay=0
+public class Demo4 {
+    public Long max = 1000000000L;
+
+    public static void main(String[] args) throws InterruptedException {
+        Demo4 demo4 = new Demo4();
+        long start = System.currentTimeMillis();
+        while (demo4.max&gt;0){
+            demo4.run1();
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(String.format(&quot;%sms&quot;, end -start));
+    }
+    public synchronized void run1(){
+
+       max--;
+    }
+}
+执行结果 4294ms</code></pre><h3 id="轻量级锁-1"><a href="#轻量级锁-1" class="headerlink" title="轻量级锁"></a>轻量级锁</h3><pre><code>代码同上 将偏向锁延迟开启即可
+结果  19682ms</code></pre><h3 id="重量级锁-1"><a href="#重量级锁-1" class="headerlink" title="重量级锁"></a>重量级锁</h3><pre><code> public class Demo5 {
+     public CountDownLatch countDownLatch = new CountDownLatch(1000000000);
+     public static void main(String[] args) throws InterruptedException {
+         Demo5 demo4 = new Demo5();
+         long start = System.currentTimeMillis();
+         for (int i=0;i&lt;2;i++){
+             Thread thread = new Thread(){
+                 @Override
+                 public void run() {
+                     while (demo4.countDownLatch.getCount()&gt;0){
+                         demo4.run1();
+                     }
+                 };
+             };
+             thread.start();
+         }
+         demo4.countDownLatch.await();
+         long end = System.currentTimeMillis();
+         System.out.println(String.format(&quot;%sms&quot;, end -start));
+     }
+     public synchronized void run1(){
+
+         countDownLatch.countDown();
+     }
+ }
+结果:44597ms</code></pre><p><em>对象头的介绍在下次具体介绍推荐直接到oracle官网查看介绍</em></p>
 ]]></content>
       <categories>
         <category>java</category>
       </categories>
       <tags>
-        <tag>开发手册</tag>
+        <tag>javase</tag>
+        <tag>并发</tag>
       </tags>
   </entry>
   <entry>
-    <title>Spring容器及Spring Bean</title>
-    <url>/2019/12/01/spring/ioc/</url>
-    <content><![CDATA[<h2 id="Spring容器"><a href="#Spring容器" class="headerlink" title="Spring容器"></a>Spring容器</h2><h3 id="什么是容器"><a href="#什么是容器" class="headerlink" title="什么是容器"></a>什么是容器</h3><p>官网解释</p>
-<p><strong><em>The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instantiating, configuring, and assembling the beans.</em></strong></p>
-<p>翻译内容:<br>1.Spring IOC容器就是一个org.springframework.context.ApplicationContext的实例化对象<br>2.容器负责了实例化，配置以及装配一个bean</p>
-<p>总结:</p>
-<ul>
-<li>代码层面:Spring容器是实现了ApplicationContext接口的对象。</li>
-<li>功能层面:Spring容器是Spring框架的核心,作用是管理对象。容器会创建对象,连接对象,并管理它们整个生命周期(创建到销毁).</li>
-</ul>
-<h3 id="容器如何工作"><a href="#容器如何工作" class="headerlink" title="容器如何工作"></a>容器如何工作</h3><p><img src="/2019/12/01/spring/ioc/springioc.png" alt="官网介绍"></p>
-<p><strong><em>Spring容器通过我们提交的POJO对象以及配置元数据产生一个充分配置的可以使用的系统。这里说的配置元数据，实际上我们就是我们提供的XML配置文件，或者通过注解方式提供的一些配置信息</em></strong></p>
-<h2 id="Spring-Bean"><a href="#Spring-Bean" class="headerlink" title="Spring Bean"></a>Spring Bean</h2><h3 id="实例化bean"><a href="#实例化bean" class="headerlink" title="实例化bean"></a>实例化bean</h3><h4 id="构造器创建"><a href="#构造器创建" class="headerlink" title="构造器创建"></a>构造器创建</h4><p>1.无参构造器<br>使用空构造器进行定义，使用此种方式，class属性指定的类必须有空构造器</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"people"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.entity.People"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-<p>2.有参构造器<br>使用<constructor-arg>标签指定构造器参数值，其中index表示位置，value表示常量值，也可以指定引用，指定引用使用ref来引用另一个Bean定义.</constructor-arg></p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"people2"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.entity.People"</span>&gt;</span><br><span class="line">    &lt;constructor-arg index="0" value="zzf"&gt;&lt;/constructor-arg&gt;</span><br><span class="line">    &lt;constructor-arg index="1" value="18"&gt;&lt;/constructor-arg&gt;</span><br><span class="line">    &lt;constructor-arg index="2" ref="collection"&gt;&lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="静态工厂方法创建"><a href="#静态工厂方法创建" class="headerlink" title="静态工厂方法创建"></a>静态工厂方法创建</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="comment">//getter setter 方法省略....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PeopleFactoty</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> People <span class="title">newInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> People();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"people3"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.factory.PeopleFactory"</span> </span><br><span class="line">    factory-method=<span class="string">"newInstance"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="实例工厂方法创建"><a href="#实例工厂方法创建" class="headerlink" title="实例工厂方法创建"></a>实例工厂方法创建</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="comment">//getter setter 方法省略....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PeopleFactoty1</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> People <span class="title">newInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> People();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"peopleFactoty1"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.factory.PeopleFactoty1"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean name=<span class="string">"people3"</span>  factory-bean=<span class="string">"peopleFactoty1"</span></span><br><span class="line">    factory-method=<span class="string">"newInstance"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="源码查看"><a href="#源码查看" class="headerlink" title="源码查看"></a>源码查看</h3><p>1.实例化容器</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        ApplicationContext applicationContext &#x3D;</span><br><span class="line">                new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);</span><br><span class="line">        People people &#x3D; applicationContext.getBean(People.class);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>2.org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#createBeanInstance<br><img src="/2019/12/01/spring/ioc/%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95.png" alt="断点调试"><br>3.源码分析</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 实例化bean</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> beanName</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> mbd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> BeanWrapper <span class="title">createBeanInstance</span><span class="params">(String beanName, RootBeanDefinition mbd, Object[] args)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取这个bean的class属性，确保beanDefinition中beanClass属性已经完成解析</span></span><br><span class="line">    Class&lt;?&gt; beanClass = resolveBeanClass(mbd, beanName);</span><br><span class="line">    <span class="comment">//对象是否可以创建异常判断</span></span><br><span class="line">    <span class="keyword">if</span> (beanClass != <span class="keyword">null</span> &amp;&amp; !Modifier.isPublic(beanClass.getModifiers()) &amp;&amp; !mbd.isNonPublicAccessAllowed()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BeanCreationException(mbd.getResourceDescription(), beanName,</span><br><span class="line">                <span class="string">"Bean class isn't public, and non-public access not allowed: "</span> + beanClass.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 通过FactoryMethod实例化这个bean</span></span><br><span class="line">    <span class="keyword">if</span> (mbd.getFactoryMethodName() != <span class="keyword">null</span>)  &#123;</span><br><span class="line">        <span class="keyword">return</span> instantiateUsingFactoryMethod(beanName, mbd, args);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//这段代码都是在通过构造函数实例化这个Bean,分两种情况，</span></span><br><span class="line">    <span class="comment">//一种是通过默认的无参构造，</span></span><br><span class="line">    <span class="comment">//一种是通过推断出来的构造函数</span></span><br><span class="line">    <span class="keyword">boolean</span> resolved = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">boolean</span> autowireNecessary = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (args == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (mbd.constructorArgumentLock) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mbd.resolvedConstructorOrFactoryMethod != <span class="keyword">null</span>) &#123;</span><br><span class="line">                resolved = <span class="keyword">true</span>;</span><br><span class="line">                autowireNecessary = mbd.constructorArgumentsResolved;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (resolved) &#123;</span><br><span class="line">        <span class="keyword">if</span> (autowireNecessary) &#123;</span><br><span class="line">            <span class="keyword">return</span> autowireConstructor(beanName, mbd, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> instantiateBean(beanName, mbd);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 推断合适的构造方法集合</span></span><br><span class="line">    Constructor&lt;?&gt;[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);</span><br><span class="line">    <span class="keyword">if</span> (ctors != <span class="keyword">null</span> ||</span><br><span class="line">            mbd.getResolvedAutowireMode() == RootBeanDefinition.AUTOWIRE_CONSTRUCTOR ||</span><br><span class="line">            mbd.hasConstructorArgumentValues() || !ObjectUtils.isEmpty(args))  &#123;</span><br><span class="line">        <span class="keyword">return</span> autowireConstructor(beanName, mbd, ctors, args);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 没有特殊处理默认使用无参构造器创建</span></span><br><span class="line">    <span class="keyword">return</span> instantiateBean(beanName, mbd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>模拟Spring框架核心逻辑</title>
+    <url>/2019/11/01/myspring/</url>
+    <content><![CDATA[]]></content>
       <categories>
         <category>spring专题</category>
       </categories>
@@ -1207,6 +1172,41 @@ Thread.currentThread().setContextClassLoader(new Classloader_4());   </code></pr
 ]]></content>
       <categories>
         <category>spring源码</category>
+      </categories>
+      <tags>
+        <tag>spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring容器及Spring Bean</title>
+    <url>/2019/12/01/spring/ioc/</url>
+    <content><![CDATA[<h2 id="Spring容器"><a href="#Spring容器" class="headerlink" title="Spring容器"></a>Spring容器</h2><h3 id="什么是容器"><a href="#什么是容器" class="headerlink" title="什么是容器"></a>什么是容器</h3><p>官网解释</p>
+<p><strong><em>The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instantiating, configuring, and assembling the beans.</em></strong></p>
+<p>翻译内容:<br>1.Spring IOC容器就是一个org.springframework.context.ApplicationContext的实例化对象<br>2.容器负责了实例化，配置以及装配一个bean</p>
+<p>总结:</p>
+<ul>
+<li>代码层面:Spring容器是实现了ApplicationContext接口的对象。</li>
+<li>功能层面:Spring容器是Spring框架的核心,作用是管理对象。容器会创建对象,连接对象,并管理它们整个生命周期(创建到销毁).</li>
+</ul>
+<h3 id="容器如何工作"><a href="#容器如何工作" class="headerlink" title="容器如何工作"></a>容器如何工作</h3><p><img src="/2019/12/01/spring/ioc/springioc.png" alt="官网介绍"></p>
+<p><strong><em>Spring容器通过我们提交的POJO对象以及配置元数据产生一个充分配置的可以使用的系统。这里说的配置元数据，实际上我们就是我们提供的XML配置文件，或者通过注解方式提供的一些配置信息</em></strong></p>
+<h2 id="Spring-Bean"><a href="#Spring-Bean" class="headerlink" title="Spring Bean"></a>Spring Bean</h2><h3 id="实例化bean"><a href="#实例化bean" class="headerlink" title="实例化bean"></a>实例化bean</h3><h4 id="构造器创建"><a href="#构造器创建" class="headerlink" title="构造器创建"></a>构造器创建</h4><p>1.无参构造器<br>使用空构造器进行定义，使用此种方式，class属性指定的类必须有空构造器</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"people"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.entity.People"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>2.有参构造器<br>使用<constructor-arg>标签指定构造器参数值，其中index表示位置，value表示常量值，也可以指定引用，指定引用使用ref来引用另一个Bean定义.</constructor-arg></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"people2"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.entity.People"</span>&gt;</span><br><span class="line">    &lt;constructor-arg index="0" value="zzf"&gt;&lt;/constructor-arg&gt;</span><br><span class="line">    &lt;constructor-arg index="1" value="18"&gt;&lt;/constructor-arg&gt;</span><br><span class="line">    &lt;constructor-arg index="2" ref="collection"&gt;&lt;/constructor-arg&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="静态工厂方法创建"><a href="#静态工厂方法创建" class="headerlink" title="静态工厂方法创建"></a>静态工厂方法创建</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="comment">//getter setter 方法省略....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PeopleFactoty</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> People <span class="title">newInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> People();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"people3"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.factory.PeopleFactory"</span> </span><br><span class="line">    factory-method=<span class="string">"newInstance"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="实例工厂方法创建"><a href="#实例工厂方法创建" class="headerlink" title="实例工厂方法创建"></a>实例工厂方法创建</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    <span class="comment">//getter setter 方法省略....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PeopleFactoty1</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> People <span class="title">newInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> People();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;bean name=<span class="string">"peopleFactoty1"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.zzf.factory.PeopleFactoty1"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean name=<span class="string">"people3"</span>  factory-bean=<span class="string">"peopleFactoty1"</span></span><br><span class="line">    factory-method=<span class="string">"newInstance"</span>&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="源码查看"><a href="#源码查看" class="headerlink" title="源码查看"></a>源码查看</h3><p>1.实例化容器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        ApplicationContext applicationContext &#x3D;</span><br><span class="line">                new ClassPathXmlApplicationContext(&quot;classpath:applicationContext.xml&quot;);</span><br><span class="line">        People people &#x3D; applicationContext.getBean(People.class);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>2.org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#createBeanInstance<br><img src="/2019/12/01/spring/ioc/%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95.png" alt="断点调试"><br>3.源码分析</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 实例化bean</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> beanName</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> mbd</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> args</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> BeanWrapper <span class="title">createBeanInstance</span><span class="params">(String beanName, RootBeanDefinition mbd, Object[] args)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取这个bean的class属性，确保beanDefinition中beanClass属性已经完成解析</span></span><br><span class="line">    Class&lt;?&gt; beanClass = resolveBeanClass(mbd, beanName);</span><br><span class="line">    <span class="comment">//对象是否可以创建异常判断</span></span><br><span class="line">    <span class="keyword">if</span> (beanClass != <span class="keyword">null</span> &amp;&amp; !Modifier.isPublic(beanClass.getModifiers()) &amp;&amp; !mbd.isNonPublicAccessAllowed()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BeanCreationException(mbd.getResourceDescription(), beanName,</span><br><span class="line">                <span class="string">"Bean class isn't public, and non-public access not allowed: "</span> + beanClass.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 通过FactoryMethod实例化这个bean</span></span><br><span class="line">    <span class="keyword">if</span> (mbd.getFactoryMethodName() != <span class="keyword">null</span>)  &#123;</span><br><span class="line">        <span class="keyword">return</span> instantiateUsingFactoryMethod(beanName, mbd, args);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//这段代码都是在通过构造函数实例化这个Bean,分两种情况，</span></span><br><span class="line">    <span class="comment">//一种是通过默认的无参构造，</span></span><br><span class="line">    <span class="comment">//一种是通过推断出来的构造函数</span></span><br><span class="line">    <span class="keyword">boolean</span> resolved = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">boolean</span> autowireNecessary = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (args == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (mbd.constructorArgumentLock) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mbd.resolvedConstructorOrFactoryMethod != <span class="keyword">null</span>) &#123;</span><br><span class="line">                resolved = <span class="keyword">true</span>;</span><br><span class="line">                autowireNecessary = mbd.constructorArgumentsResolved;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (resolved) &#123;</span><br><span class="line">        <span class="keyword">if</span> (autowireNecessary) &#123;</span><br><span class="line">            <span class="keyword">return</span> autowireConstructor(beanName, mbd, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> instantiateBean(beanName, mbd);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 推断合适的构造方法集合</span></span><br><span class="line">    Constructor&lt;?&gt;[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);</span><br><span class="line">    <span class="keyword">if</span> (ctors != <span class="keyword">null</span> ||</span><br><span class="line">            mbd.getResolvedAutowireMode() == RootBeanDefinition.AUTOWIRE_CONSTRUCTOR ||</span><br><span class="line">            mbd.hasConstructorArgumentValues() || !ObjectUtils.isEmpty(args))  &#123;</span><br><span class="line">        <span class="keyword">return</span> autowireConstructor(beanName, mbd, ctors, args);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 没有特殊处理默认使用无参构造器创建</span></span><br><span class="line">    <span class="keyword">return</span> instantiateBean(beanName, mbd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>spring专题</category>
       </categories>
       <tags>
         <tag>spring</tag>
