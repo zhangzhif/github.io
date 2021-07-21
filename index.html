@@ -1,375 +1,294 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一只程序员～">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
     
+      张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
 
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
     
+<script src="/js/qrious.js"></script>
 
-    
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
 
 
+  
+  
+    
+<script src="/js/local-search.js"></script>
 
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>张治峰的博客 | 一只程序员~</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="张治峰的博客">
-<meta property="og:url" content="http://zev_gitee.gitee.io/index.html">
-<meta property="og:site_name" content="张治峰的博客">
-<meta property="article:author" content="张治峰">
-<meta name="twitter:card" content="summary">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
-
-    <!-- custom head -->
-    
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-
-<body>
-    <div id="loading" class="active"></div>
-
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
     </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">张治峰</h5>
-          <a href="mailto:zhangzhifeng@tom.com" title="zhangzhifeng@tom.com" class="mail">zhangzhifeng@tom.com</a>
-        </hgroup>
-      </div>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">分类</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">文章列表</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
     </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+    <div class="menu-mask">
+      <ul class="menu-list">
         
-            <li class="waves-block waves-effect active">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
-              </a>
-            </li>
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">主页</a>
+            
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                动态
-              </a>
-            </li>
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">分类</a>
+            
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                标签
-              </a>
-            </li>
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">文章列表</a>
+            
+          </li>
         
-            <li class="waves-block waves-effect">
-              <a href="/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                类别
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
         
       </ul>
     </div>
-  </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">张治峰的博客</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
     </div>
-</header>
-<header class="content-header index-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">张治峰的博客</h1>
-        <h5 class="subtitle">
-            
-                一只程序员~
-            
-        </h5>
-    </div>
-
+</div>
     
-
-
+  </div>
 </header>
 
-<div class="container body-wrap">
-
-    <ul class="post-list">
-    
-        <li class="post-list-item fade">
-            <article id="post-Bean生命周期"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-10-20 21:03:24" datetime="2020-10-20T13:03:24.000Z"  itemprop="datePublished">2020-10-20</time>
-
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/10/20/Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">Spring中Bean的生命周期</a>
+      </h2>
+      <p class="article-date">October 20, 2020</p>
+      
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring%E6%BA%90%E7%A0%81/">spring源码</a></li></ul>
+  <a href="/tags#spring" >
+    <span class="tag-code">spring</span>
+  </a>
 
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/10/20/Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">Spring中Bean的生命周期</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Spring最重要的功能就是创建管理Bean(IOC),所以在学习Spring
+      
+      <div class="article-summary">
+        
+          Spring最重要的功能就是创建管理Bean(IOC),所以在学习Spring
 1.ASM技术 直接解析class文件不会加载类
 
-    
-
-        <a href="/2020/10/20/Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-开发规范"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-10-20 00:00:00" datetime="2020-10-19T16:00:00.000Z"  itemprop="datePublished">2020-10-20</time>
-
+      </div>
+      <a class="more" href="/2020/10/20/Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/10/20/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">JAVA开发规范-阿里规约</a>
+      </h2>
+      <p class="article-date">October 20, 2020</p>
+      
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+  <a href="/tags#开发手册" >
+    <span class="tag-code">开发手册</span>
+  </a>
 
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/10/20/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">JAVA开发规范-阿里规约</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        原文地址: zhangzhifeng的主页
+      
+      <div class="article-summary">
+        
+          原文地址: zhangzhifeng的主页
 编程规约命名规约1.所有编程相关命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。
-123456// 反例： _name          __name          $Object         name_          name$         Object$
-
-2.所有编程相关的命名严禁使用拼音与英文混合的方式，更不...
-    
-
-        <a href="/2020/10/20/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
+123456// 反例： _name          __name          $Object         name_           ...
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" rel="tag">开发手册</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-spring源码核心概念"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-10-17 15:03:24" datetime="2020-10-17T07:03:24.000Z"  itemprop="datePublished">2020-10-17</time>
-
+      </div>
+      <a class="more" href="/2020/10/20/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/10/17/spring/core/">Spring核心概念（源码相关）</a>
+      </h2>
+      <p class="article-date">October 17, 2020</p>
+      
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/spring%E6%BA%90%E7%A0%81/">spring源码</a></li></ul>
+  <a href="/tags#spring" >
+    <span class="tag-code">spring</span>
+  </a>
 
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/10/17/spring%E6%BA%90%E7%A0%81%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">Spring核心概念（源码相关）</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文主要讲解Spring源码中经常看到的类的作用，中间会有会有部分代码讲解，各模块的具体源码会写在后面的文章中
-BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的定义下面三种方式1. xml配置2.@Bean3.@Componentspring 在读取bean配置信息后会给bean配置生成对应的BeanDefinition象对象存储类信息供s...
-    
-
-        <a href="/2020/10/17/spring%E6%BA%90%E7%A0%81%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
+      
+      <div class="article-summary">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-类加载器子系统"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-08-09 00:00:00" datetime="2020-08-08T16:00:00.000Z"  itemprop="datePublished">2020-08-09</time>
-
+          本文主要讲解Spring源码中经常看到的类的作用，中间会有会有部分代码讲解，各模块的具体源码会写在后面的文章中
+BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的定义下面三种方式1. xml配置2.@Bean3.@Componentsprin ...
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
+      </div>
+      <a class="more" href="/2020/10/17/spring/core/">阅读更多</a>
+    </article>
   
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/08/09/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F/">类加载器子系统</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        类加载器  JVM中有两种类型的类加载器，由C++编写的及由Java编写的。除了启动类加载器（Bootstrap Class Loader）是由C++编写的，其他都是由Java编写的。由Java编写的类加载器都继承自类java.lang.ClassLoader。各种类加载器之间存在逻辑上的父子关系，后面可以通过代码查看。    
-启动类加载器  因为启动类加载器是由C++编写的，通过Java...
-    
-
-        <a href="/2020/08/09/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/09/01/spring/BeanPostProcess/">BeanPostProcess解析</a>
+      </h2>
+      <p class="article-date">September 1, 2020</p>
+      
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li></ul>
+  <a href="/tags#spring" >
+    <span class="tag-code">spring</span>
+  </a>
 
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-aboutConcurrency"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-07-20 00:00:00" datetime="2020-07-19T16:00:00.000Z"  itemprop="datePublished">2020-07-20</time>
-
+      
+      <div class="article-summary">
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java%E5%B9%B6%E5%8F%91/">java并发</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
+          
+        
+      </div>
+      <a class="more" href="/2020/09/01/spring/BeanPostProcess/">阅读更多</a>
+    </article>
   
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/07/20/aboutConcurrency/">并发应该学习什么</a>
-    </h3>
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/08/09/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F/">类加载器子系统</a>
+      </h2>
+      <p class="article-date">August 9, 2020</p>
+      
+        
+  <a href="/tags#JVM" >
+    <span class="tag-code">JVM</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          类加载器  JVM中有两种类型的类加载器，由C++编写的及由Java编写的。除了启动类加载器（Bootstrap Class Loader）是由C++编写的，其他都是由Java编写的。由Java编写的类加载器都继承自类java.lang.ClassLoader。各种类加载器之间存在逻辑上的父 ...
+        
+      </div>
+      <a class="more" href="/2020/08/09/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%AD%90%E7%B3%BB%E7%BB%9F/">阅读更多</a>
+    </article>
   
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/07/20/aboutConcurrency/">并发应该学习什么</a>
+      </h2>
+      <p class="article-date">July 20, 2020</p>
+      
+        
+  <a href="/tags#开发手册" >
+    <span class="tag-code">开发手册</span>
+  </a>
 
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言并发编程的本质(多线程编程)
+      
+      <div class="article-summary">
+        
+          前言并发编程的本质(多线程编程)
 同步: 线程间的协作
 互斥: 独占锁
 分工: 大任务拆解并发学什么
@@ -378,409 +297,166 @@ JMM模型 java线程内存模型
 硬件:机械同感
 
 
-线程 内核级线程2.1 new Thread() 和普通对象的区别?thread.start() 是本地方法即调用JVM的c++方法2.2 为什么java 线程是内核级线程-JVM不具有调度CPU的权限 n...
-    
-
-        <a href="/2020/07/20/aboutConcurrency/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
+线程 内核级线程2.1 new Thread() 和普通对象的区别?thread.start() 是本地 ...
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" rel="tag">开发手册</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-synchronized"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-04-01 00:00:00" datetime="2020-03-31T16:00:00.000Z"  itemprop="datePublished">2020-04-01</time>
-
+      </div>
+      <a class="more" href="/2020/07/20/aboutConcurrency/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/04/01/synchronized/">synchronized锁状态及性能对比</a>
+      </h2>
+      <p class="article-date">April 1, 2020</p>
+      
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
+  <a href="/tags#javase" >
+    <span class="tag-code">javase</span>
+  </a>
 
+  <a href="/tags#并发" >
+    <span class="tag-code">并发</span>
+  </a>
 
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/04/01/synchronized/">synchronized锁状态及性能对比</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        锁状态概述
+      
+      <div class="article-summary">
+        
+          锁状态概述
 无锁 没有synchronized关键字修饰
-偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需要批量重偏向而不是进行锁升级为轻量级]
-轻量级锁  多个线程调用同步代码，但是线程之间交替执行例如调用...
-    
-
-        <a href="/2020/04/01/synchronized/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
+偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需 ...
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javase/" rel="tag">javase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-jvm"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-03-15 00:00:00" datetime="2020-03-14T16:00:00.000Z"  itemprop="datePublished">2020-03-15</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
+      </div>
+      <a class="more" href="/2020/04/01/synchronized/">阅读更多</a>
+    </article>
   
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2020/03/15/jvm/">JVM虚拟机</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。
-JVM组成JVM的主要由三部分组成
-
-类加载子系统
-运行时数据区（内存结构）
-执行引擎
-             ...
-    
-
-        <a href="/2020/03/15/jvm/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/03/15/jvm/">JVM虚拟机</a>
+      </h2>
+      <p class="article-date">March 15, 2020</p>
+      
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li></ul>
+  <a href="/tags#JVM" >
+    <span class="tag-code">JVM</span>
+  </a>
 
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-CopyOnWriteArrayList"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-12-08 21:01:24" datetime="2019-12-08T13:01:24.000Z"  itemprop="datePublished">2019-12-08</time>
-
+      
+      <div class="article-summary">
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
+          java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。
+JVM组成J ...
+        
+      </div>
+      <a class="more" href="/2020/03/15/jvm/">阅读更多</a>
+    </article>
   
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/12/08/CopyOnWriteArrayList/">CopyOnWriteArrayList源码解析</a>
-    </h3>
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2019/12/08/CopyOnWriteArrayList/">CopyOnWriteArrayList源码解析</a>
+      </h2>
+      <p class="article-date">December 8, 2019</p>
+      
+        
+  <a href="/tags#javase" >
+    <span class="tag-code">javase</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          特性12public class CopyOnWriteArrayList&lt;E&gt;    implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
+特性基本与ArrayList一致，底层也是数组结 ...
+        
+      </div>
+      <a class="more" href="/2019/12/08/CopyOnWriteArrayList/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2019/12/03/LinkedList/">LinkedList源码解析</a>
+      </h2>
+      <p class="article-date">December 3, 2019</p>
+      
+        
+  <a href="/tags#javase" >
+    <span class="tag-code">javase</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          特性123public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.S ...
+        
+      </div>
+      <a class="more" href="/2019/12/03/LinkedList/">阅读更多</a>
+    </article>
   
 
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        特性12public class CopyOnWriteArrayList&lt;E&gt;    implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
-特性基本与ArrayList一致，底层也是数组结构
-基本属性12345private static final long serialVersionU...
-    
-
-        <a href="/2019/12/08/CopyOnWriteArrayList/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javase/" rel="tag">javase</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-LinkedList"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-12-03 21:01:24" datetime="2019-12-03T13:01:24.000Z"  itemprop="datePublished">2019-12-03</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
   
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/12/03/LinkedList/">LinkedList源码解析</a>
-    </h3>
+    <div class="guide-pager">
   
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        特性123public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable
-
-AbstractSequentialList   继承于AbstractSe...
-    
-
-        <a href="/2019/12/03/LinkedList/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javase/" rel="tag">javase</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-ArrayList"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-12-01 21:01:24" datetime="2019-12-01T13:01:24.000Z"  itemprop="datePublished">2019-12-01</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
+    <a class="unvisible" href="/"><span class="page-arrow">←</span> Prev</a>
   
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/12/01/ArrayList/">ArrayList源码解析</a>
-    </h3>
   
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        特性  实现了三个标记接口: RandomAccess, Cloneable, java.io.Serializable
-12public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serial...
-    
-
-        <a href="/2019/12/01/ArrayList/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javase/" rel="tag">javase</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-    </ul>
-
-    
-<nav id="page-nav">
-    <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
-    </div>
-</nav>
-
-
+    <a href="/page/2/">Next<span class="page-arrow"> →</span></a>
+  
 </div>
-
-        <!--<footer class="footer">-->
-<!--    <div class="top">-->
-<!--        
--->
-<!--        <p>-->
-<!--            -->
-<!--            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>-->
-<!--        </p>-->
-<!--    </div>-->
-<!--    <div class="bottom">-->
-<!--        <p><span>张治峰 &copy; 2020 - 2021</span>-->
-<!--            <span>-->
-<!--                -->
-<!--                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>-->
-<!--            </span>-->
-<!--        </p>-->
-<!--    </div>-->
-<!--</footer>-->
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+  
+</main>
 
 
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://zev_gitee.gitee.io/&title=张治峰的博客&pic=http://zev_gitee.gitee.io/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://zev_gitee.gitee.io/&title=张治峰的博客&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://zev_gitee.gitee.io/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=张治峰的博客&url=http://zev_gitee.gitee.io/&via=http://zev_gitee.gitee.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://zev_gitee.gitee.io/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://zev_gitee.gitee.io/" alt="微信分享二维码">
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
 </div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
 
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
 </script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-
-
 <script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
     });
-})();
+  })
 </script>
+<!-- Baidu Tongji -->
 
 
+<script src="/js/script.js"></script>
 
-</body>
+
+  </body>
 </html>
