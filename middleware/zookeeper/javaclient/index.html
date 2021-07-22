@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一只程序员～">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Zookeeper Java客户端使用 | 张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Zookeeper Java客户端使用</h2>
+  <p class="post-date">2021-02-08</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="客户端API常规应用"><a href="#客户端API常规应用" class="headerlink" title="客户端API常规应用"></a>客户端API常规应用</h2><p>zookeeper 提供了java与C两种语言的客户端。本文引用的是java客户端。引入最新的maven依赖：<br> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.zookeeper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="初始化连接"><a href="#初始化连接" class="headerlink" title="初始化连接"></a>初始化连接</h3><p>常规的客户端类是 org.apache.zookeeper.ZooKeeper，实例化该类之后将会自动与集群建立连接。</p>
+<ol>
+<li>构造方法<br><img src="https://img-blog.csdnimg.cn/20210302153927213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pldl9qYXZh,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>参数说明</li>
+</ol>
+<p>| 参数名称   | 类型   | 说明   |<br>|:—-|:—-|:—-|:—-:|<br>| connectString   | <strong>String</strong>  | 连接串，包括ip+端口 ,集群模式下用逗号隔开  192.168.0.149:2181,192.168.0.150:2181   |<br>| sessionTimeout   | <strong>int</strong>   | 会话超时时间，该值不能超过服务端所设置的  <em>minSessionTimeout 和maxSessionTimeout</em>   |<br>| watcher   | Watcher    | 会话监听器，服务端事件将会触该监听   |<br>| sessionId   |<strong>long</strong>   | 自定义会话ID   |<br>| sessionPasswd   | <strong>byte</strong>[]   | 会话密码   |<br>| canBeReadOnly   |<strong>boolean</strong>| 该连接是否为只读的   |<br>| hostProvider   | HostProvider    | 服务端地址提供者，指示客户端如何选择某个服务来调用，默认采用StaticHostProvider实现   | </p>
+<h3 id="创建、查看节点"><a href="#创建、查看节点" class="headerlink" title="创建、查看节点"></a>创建、查看节点</h3><h4 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h4><p>通过org.apache.zookeeper.ZooKeeper#create()即可创建节点</p>
+<ol>
+<li><p>方法列表<img src="https://img-blog.csdnimg.cn/20210302155514988.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pldl9qYXZh,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li><p>参数说明</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">path</td>
+<td align="left">String</td>
+<td align="left">节点路径</td>
+</tr>
+<tr>
+<td align="left">data</td>
+<td align="left">byte[]</td>
+<td align="left">节点值</td>
+</tr>
+<tr>
+<td align="left">acl</td>
+<td align="left">List<ACL></ACL></td>
+<td align="left">节点权限列表(可设置多组权限)</td>
+</tr>
+<tr>
+<td align="left">createMode</td>
+<td align="left">CreateMode</td>
+<td align="left">节点类型</td>
+</tr>
+<tr>
+<td align="left">cb</td>
+<td align="left">StringCallback</td>
+<td align="left">异步创建结果回调</td>
+</tr>
+<tr>
+<td align="left">ctx</td>
+<td align="left">Object</td>
+<td align="left">异步回调上下文</td>
+</tr>
+<tr>
+<td align="left">#### 查看节点</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">通过org.apache.zookeeper.ZooKeeper#getData()即可查看节点</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">1. 方法</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><img src="https://img-blog.csdnimg.cn/20210302155358985.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pldl9qYXZh,size_16,color_FFFFFF,t_70" alt></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>参数说明：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">path</td>
+<td align="left">String</td>
+<td align="left">节点路径</td>
+</tr>
+<tr>
+<td align="left">watch</td>
+<td align="left"><strong>boolean</strong></td>
+<td align="left">是否添加监听</td>
+</tr>
+<tr>
+<td align="left">watcher</td>
+<td align="left">Watcher</td>
+<td align="left">监听处理器</td>
+</tr>
+<tr>
+<td align="left">cb</td>
+<td align="left">DataCallback</td>
+<td align="left">异步调用结果回调</td>
+</tr>
+<tr>
+<td align="left">ctx</td>
+<td align="left">Object</td>
+<td align="left">异步调用上下文参数</td>
+</tr>
+</tbody></table>
+<h4 id="查看子节点"><a href="#查看子节点" class="headerlink" title="查看子节点"></a>查看子节点</h4><p>通过org.apache.zookeeper.ZooKeeper#getChildren()即可获取子节点。</p>
+<ol>
+<li>方法<br><img src="https://img-blog.csdnimg.cn/20210302160043319.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pldl9qYXZh,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>参数说明</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">参数名称</th>
+<th align="center">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">path</td>
+<td align="center">String</td>
+<td align="left">节点路径</td>
+</tr>
+<tr>
+<td align="center">watch</td>
+<td align="center"><strong>boolean</strong></td>
+<td align="left">是否添加监听</td>
+</tr>
+<tr>
+<td align="center">watcher</td>
+<td align="center">Watcher</td>
+<td align="left">监听处理器</td>
+</tr>
+<tr>
+<td align="center">cb</td>
+<td align="center">Children2Callback</td>
+<td align="left">异步回调函数</td>
+</tr>
+<tr>
+<td align="center">ctx</td>
+<td align="center">Object</td>
+<td align="left">回调上下文</td>
+</tr>
+</tbody></table>
+<h3 id="监听节点"><a href="#监听节点" class="headerlink" title="监听节点"></a>监听节点</h3><p>在getData() 与getChildren()两个方法中可分别设置监听数据变化和子节点变化。通过设置watch为true，当前事件触发时会调用zookeeper()构建函数中Watcher.process()方法。也可以添加watcher参数来实现自定义监听。一般采用后者。</p>
+<p><em>注：所有的监听都是一次性的，如果要持续监听需要触发后在添加一次监听。</em></p>
+<h3 id="设置节点ACL权限"><a href="#设置节点ACL权限" class="headerlink" title="设置节点ACL权限"></a>设置节点ACL权限</h3><p>ACL包括结构为scheme:id:permission（有关ACL的介绍参照上一篇 <a href="https://blog.csdn.net/Zev_java/article/details/114127609" target="_blank" rel="noopener">zookeeper介绍及基本使用</a>）<br>客户端中由org.apache.zookeeper.data.ACL 类表示，类结构如下：<br><img src="https://img-blog.csdnimg.cn/20210302160721679.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210302160749697.png" alt="在这里插入图片描述"><br>权限位的表示方式通过 数字位移 实现。每个权限位都是一个唯一数字，将其合时通过或运行生成一个全新的数字即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@InterfaceAudience</span>.Public</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Perms</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> READ = <span class="number">1</span> &lt;&lt; <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> WRITE = <span class="number">1</span> &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> CREATE = <span class="number">1</span> &lt;&lt; <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> DELETE = <span class="number">1</span> &lt;&lt; <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">int</span> ADMIN = <span class="number">1</span> &lt;&lt; <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> ALL = READ | WRITE | CREATE | DELETE | ADMIN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三方客户端ZkClient"><a href="#第三方客户端ZkClient" class="headerlink" title="第三方客户端ZkClient"></a>第三方客户端ZkClient</h3><p>zkClient 是在zookeeper客户端基础之上封装的，使用上更加友好。主要变化如下：</p>
+<ul>
+<li>可以设置持久监听，或删除某个监听</li>
+<li>可以插入JAVA对象，自动进行序列化和反序列化</li>
+<li>简化了基本的增删改查操作。</li>
+</ul>
+<p>具体api 此处不一一介绍了，自行查看吧。maven 依赖:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.101tec/zkclient --&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.101tec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zkclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	      <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Zookeeper" >
+    <span class="tag-code">Zookeeper</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/middleware/zookeeper/index/">
+        <span class="nav-arrow">← </span>
+        
+          zookeeper介绍及基本使用
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/middleware/zookeeper/cluster/">
+        
+          Zookeeper集群
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#客户端API常规应用"><span class="toc-nav-text">客户端API常规应用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#初始化连接"><span class="toc-nav-text">初始化连接</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#创建、查看节点"><span class="toc-nav-text">创建、查看节点</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#创建节点"><span class="toc-nav-text">创建节点</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#查看子节点"><span class="toc-nav-text">查看子节点</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#监听节点"><span class="toc-nav-text">监听节点</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#设置节点ACL权限"><span class="toc-nav-text">设置节点ACL权限</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#第三方客户端ZkClient"><span class="toc-nav-text">第三方客户端ZkClient</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/middleware/zookeeper/javaclient/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

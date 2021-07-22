@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一只程序员～">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Zookeeper集群 | 张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Zookeeper集群</h2>
+  <p class="post-date">2021-02-09</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="Zookeeper集群"><a href="#Zookeeper集群" class="headerlink" title="Zookeeper集群"></a>Zookeeper集群</h1><p>zookeeper集群的目的是为了保证系统的性能承载更多的客户端连接设专门提供的机制。通过集群可以实现以下功能：</p>
+<ol>
+<li>读写分离：提高承载，为更多的客户端提供连接，并保障性能。</li>
+<li>主从自动切换：提高服务容错性，部分节点故障不会影响整个服务集群。</li>
+</ol>
+<p><strong>运行机制说明:集群至少需要三台服务器，并且强烈建议使用奇数个服务器。因为zookeeper 通过判断大多数节点的存活来判断整个服务是否可用。比如3个节点，挂掉了2个表示整个集群挂掉，而用偶数4个，挂掉了2个也表示其并不是大部分存活，因此也会挂掉</strong></p>
+<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><h3 id="配置语法"><a href="#配置语法" class="headerlink" title="配置语法"></a>配置语法</h3><p>server.&lt;节点ID&gt;=<ip>:&lt;数据同步端口&gt;:&lt;选举端口&gt;</ip></p>
+<ul>
+<li><strong>节点ID</strong>：服务id手动指定1至125之间的数字，并写到对应服务节点的 {dataDir}/myid 文件中。</li>
+<li><strong>IP地址</strong>： 节点的远程IP地址，可以相同。但生产环境就不能这么做了，因为在同一台机器就无法达到容错的目的。所以这种称作为伪集群。</li>
+<li><strong>数据同步端口</strong>：主从同时数据复制端口，（做伪集群时端口号不能重复）。</li>
+<li><strong>远举端口</strong>：主从节点选举端口，（做伪集群时端口号不能重复。)<h3 id="配置文件示例"><a href="#配置文件示例" class="headerlink" title="配置文件示例"></a>配置文件示例</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 属性在第一篇zookeeper文章中有介绍</span><br><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">dataDir=/var/lib/zookeeper/</span><br><span class="line">clientPort=2181</span><br><span class="line">initLimit=5</span><br><span class="line">syncLimit=2</span><br><span class="line">#以下为集群配置，必须配置在所有节点的zoo.cfg文件中</span><br><span class="line">server.1=zoo1:2888:3888</span><br><span class="line">server.2=zoo2:2888:3888</span><br><span class="line">server.3=zoo3:2888:3888</span><br></pre></td></tr></table></figure>
+<h3 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h3></li>
+</ul>
+<ol>
+<li><p>分别创建3个data目录用于存储各节点数据:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir data</span><br><span class="line">mkdir data/1</span><br><span class="line">mkdir data/2</span><br><span class="line">mkdir data/3</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210303173338360.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210303173458505.png" alt="在这里插入图片描述"></p>
+<ol start="2">
+<li>编写myid文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; data&#x2F;1&#x2F;myid</span><br><span class="line">echo 3 &gt; data&#x2F;3&#x2F;myid</span><br><span class="line">echo 2 &gt; data&#x2F;2&#x2F;myid</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>编写配置文件</p>
+</li>
+</ol>
+<p>conf/zoo1.cfg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tickTime&#x3D;2000</span><br><span class="line">initLimit&#x3D;10</span><br><span class="line">syncLimit&#x3D;5</span><br><span class="line">dataDir&#x3D;data&#x2F;1</span><br><span class="line">clientPort&#x3D;2181</span><br><span class="line">#集群配置</span><br><span class="line">server.1&#x3D;127.0.0.1:2887:3887</span><br><span class="line">server.2&#x3D;127.0.0.1:2888:3888</span><br><span class="line">server.3&#x3D;127.0.0.1:2889:3889</span><br></pre></td></tr></table></figure>
+
+<p>conf/zoo2.cfg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tickTime&#x3D;2000</span><br><span class="line">initLimit&#x3D;10</span><br><span class="line">syncLimit&#x3D;5</span><br><span class="line">dataDir&#x3D;data&#x2F;2</span><br><span class="line">clientPort&#x3D;2182</span><br><span class="line">#集群配置</span><br><span class="line">server.1&#x3D;127.0.0.1:2887:3887</span><br><span class="line">server.2&#x3D;127.0.0.1:2888:3888</span><br><span class="line">server.3&#x3D;127.0.0.1:2889:3889</span><br></pre></td></tr></table></figure>
+<p>conf/zoo3.cfg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tickTime&#x3D;2000</span><br><span class="line">initLimit&#x3D;10</span><br><span class="line">syncLimit&#x3D;5</span><br><span class="line">dataDir&#x3D;data&#x2F;3</span><br><span class="line">clientPort&#x3D;2183</span><br><span class="line">#集群配置</span><br><span class="line">server.1&#x3D;127.0.0.1:2887:3887</span><br><span class="line">server.2&#x3D;127.0.0.1:2888:3888</span><br><span class="line">server.3&#x3D;127.0.0.1:2889:3889</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210303174202180.png" alt="在这里插入图片描述"></p>
+<ol start="4">
+<li>分别启动<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/zkServer.sh start conf/zoo1.cfg</span><br><span class="line">./bin/zkServer.sh start conf/zoo2.cfg</span><br><span class="line">./bin/zkServer.sh start conf/zoo3.cfg</span><br></pre></td></tr></table></figure></li>
+<li>查看状态<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./bin/zkServer.sh status conf/zoo1.cfg</span><br><span class="line">结果:Mode: follower</span><br><span class="line">./bin/zkServer.sh status conf/zoo2.cfg</span><br><span class="line">结果:Mode: leader</span><br><span class="line">./bin/zkServer.sh status conf/zoo3.cfg</span><br><span class="line">结果:Mode: follower</span><br></pre></td></tr></table></figure>
+<h2 id="检查集群复制情况"><a href="#检查集群复制情况" class="headerlink" title="检查集群复制情况"></a>检查集群复制情况</h2></li>
+<li>分别连接指定节点<br>zkCli.sh 后加参数-server 表示连接指定IP与端口。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bin/zkCli.sh -server 127.0.0.1:2181</span><br><span class="line">./bin/zkCli.sh -server 127.0.0.1:2182</span><br><span class="line">./bin/zkCli.sh -server 127.0.0.1:2183</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><em>在任意一个连接中创建删除数据查看其它节点是否同步成功</em><br><em>-server参数后同时连接多个服务节点，并用逗号隔开127.0.0.1:2181,127.0.0.1:2182</em></p>
+<ol start="2">
+<li>测试数据同步<br><img src="https://img-blog.csdnimg.cn/20210303175632571.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210303175703138.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210303175751796.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2021030317584657.png" alt="在这里插入图片描述"></li>
+</ol>
+<h2 id="集群角色说明"><a href="#集群角色说明" class="headerlink" title="集群角色说明"></a>集群角色说明</h2><p>zookeeper 集群中总共有三种角色，分别是leader（主节点）follower(子节点) observer（次级子节点）<br>| 角色   | 描述   |<br>|:—-|:—-:|<br>| <strong>leader</strong>   | 主节点，又名领导者。用于写入数据，通过选举产生，如果宕机将会选举新的主节点。   |<br>| <strong>follower</strong>   | 子节点，又名追随者。用于实现数据的读取。同时他也是主节点的备选节点，并用拥有投票权。   |<br>| <strong>observer</strong>   | 次级子节点，又名观察者。用于读取数据，与fllower区别在于没有投票权，不能选为主节点。并且在计算集群可用状态时不会将observer计算入内。   | </p>
+<p>observer配置只要在集群配置中加上observer后缀即可，示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.3&#x3D;&#x3D;127.0.0.1:2889:3889:observer</span><br></pre></td></tr></table></figure>
+<h2 id="选举机制"><a href="#选举机制" class="headerlink" title="选举机制"></a>选举机制</h2><p>通过 ./bin/zkServer.sh status &lt;zoo配置文件&gt; 命令可以查看到节点状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;zkServer.sh status conf&#x2F;zoo1.cfg</span><br><span class="line">Mode: follower</span><br><span class="line">.&#x2F;bin&#x2F;zkServer.sh status conf&#x2F;zoo2.cfg</span><br><span class="line">Mode: leader</span><br><span class="line">.&#x2F;bin&#x2F;zkServer.sh status conf&#x2F;zoo3.cfg</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210303180619736.png" alt="在这里插入图片描述"></p>
+<p>我们从上面可以发现集群中第二个节点为leader，选举机制如下图:<br><img src="https://img-blog.csdnimg.cn/20210303182419836.png" alt="在这里插入图片描述"><br><strong>选举机制说明</strong></p>
+<ol>
+<li>第一轮投票全部投给自己</li>
+<li>第二轮投票给myid比自己大的相邻节点</li>
+<li>如果得票超过半数，选举结束。</li>
+</ol>
+<p><strong>选举触发</strong></p>
+<p>当集群中的服务器出现已下两种情况时会进行Leader的选举</p>
+<ol>
+<li>服务节点初始化启动</li>
+<li>半数以上的节点无法和Leader建立连接</li>
+</ol>
+<p>当节点初始起动时会在集群中寻找Leader节点，如果找到则与Leader建立连接，其自身状态变化<strong>follower</strong>或<strong>observer</strong>。如果没有找到Leader，当前节点状态将变化LOOKING，进入选举流程。在集群运行其间如果follower或observer节点宕机只要不超过半数并不会影响整个集群服务的正常运行。但如果leader宕机，将暂停对外服务，所有follower将进入LOOKING 状态，进入选举流程。</p>
+<h2 id="数据同步机制"><a href="#数据同步机制" class="headerlink" title="数据同步机制"></a>数据同步机制</h2><p>zookeeper 的数据同步是为了保证各节点中数据的一致性,其中有两个流程，一个是正常的客户端数据提交，另一个是集群某个节点宕机在恢复后的数据同步。</p>
+<p><strong>客户端写入流程说明</strong></p>
+<ol>
+<li>client向zk中的server发送写请求，如果该server不是leader，则会将该写请求转发给leader server，leader将请求事务以proposal形式分发给follower；</li>
+<li>当follower收到收到leader的proposal时，根据接收的先后顺序处理proposal；</li>
+<li>当Leader收到follower针对某个proposal过半的ack后，则发起事务提交，重新发起一个commit的proposal</li>
+<li>Follower收到commit的proposal后，记录事务提交，并把数据更新到内存数据库；</li>
+<li>当写成功后，反馈给client。</li>
+</ol>
+<p><strong>服务节点初始化同步</strong></p>
+<p>在集群运行过程当中如果有一个follower节点宕机，由于宕机节点没过半，集群仍然能正常服务。当leader 收到新的客户端请求，此时无法同步给宕机的节点。造成数据不一至。为了解决这个问题，当节点启动时，第一件事情就是找当前的Leader，比对数据是否一至。不一至则开始同步,同步完成之后在进行对外提供服务。如何比对Leader的数据版本呢，这里通过<strong>ZXID</strong>事物ID来确认。比Leader就需要同步。</p>
+<p><strong>ZXID</strong></p>
+<p>ZXID是一个长度64位的数字，其中低32位是按照数字递增，任何数据的变更都会导致,低32位的数字简单加1。高32位是leader周期编号，每当选举出一个新的leader时，新的leader就从本地事物日志中取出ZXID,然后解析出高32位的周期编号，进行加1，再将低32位的全部设置为0。这样就保证了每次新选举的leader后，保证了ZXID的唯一性而且是保证递增的。 </p>
+<h2 id="四字运维命令"><a href="#四字运维命令" class="headerlink" title="四字运维命令"></a>四字运维命令</h2><p>ZooKeeper响应少量命令。每个命令由四个字母组成。可通过telnet或nc向ZooKeeper发出命令。<br>这些命令默认是关闭的，需要配置4lw.commands.whitelist来打开，可打开部分或全部示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#打开指定命令</span><br><span class="line">4lw.commands.whitelist&#x3D;stat, ruok, conf, isro</span><br><span class="line">#打开全部</span><br><span class="line">4lw.commands.whitelist&#x3D;*</span><br></pre></td></tr></table></figure>
+
+<p>安装Netcat工具，已使用nc命令 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#安装Netcat 工具</span><br><span class="line">yum install -y nc</span><br><span class="line">#查看服务器及客户端连接状态</span><br><span class="line">echo stat | nc localhost 2181</span><br></pre></td></tr></table></figure>
+<p><strong>命令列表</strong></p>
+<ol>
+<li>conf：3.3.0中的新增功能：打印有关服务配置的详细信息。</li>
+<li>缺点：3.3.0中的新增功能：列出了连接到该服务器的所有客户端的完整连接/会话详细信息。包括有关已接收/已发送的数据包数量，会话ID，操作等待时间，最后执行的操作等信息。</li>
+<li>crst：3.3.0中的新增功能：重置所有连接的连接/会话统计信息。</li>
+<li>dump：列出未完成的会话和临时节点。这仅适用于领导者。</li>
+<li>envi：打印有关服务环境的详细信息</li>
+<li>ruok：测试服务器是否以非错误状态运行。如果服务器正在运行，它将以imok响应。否则，它将完全不响应。响应“ imok”不一定表示服务器已加入仲裁，只是服务器进程处于活动状态并绑定到指定的客户端端口。使用“ stat”获取有关状态仲裁和客户端连接信息的详细信息。</li>
+<li>srst：重置服务器统计信息。</li>
+<li>srvr：3.3.0中的新功能：列出服务器的完整详细信息。</li>
+<li>stat：列出服务器和连接的客户端的简要详细信息。</li>
+<li>wchs：3.3.0中的新增功能：列出有关服务器监视的简要信息。</li>
+<li>wchc：3.3.0中的新增功能：按会话列出有关服务器监视的详细信息。这将输出具有相关监视（路径）的会话（连接）列表。请注意，根据手表的数量，此操作可能会很昂贵（即影响服务器性能），请小心使用。</li>
+<li>dirs：3.5.1中的新增功能：以字节为单位显示快照和日志文件的总大小</li>
+<li>wchp：3.3.0中的新增功能：按路径列出有关服务器监视的详细信息。这将输出具有关联会话的路径（znode）列表。请注意，根据手表的数量，此操作可能会很昂贵（即影响服务器性能），请小心使用。</li>
+<li>mntr：3.4.0中的新增功能：输出可用于监视集群运行状况的变量列表。</li>
+</ol>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Zookeeper" >
+    <span class="tag-code">Zookeeper</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/middleware/zookeeper/javaclient/">
+        <span class="nav-arrow">← </span>
+        
+          Zookeeper Java客户端使用
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/middleware/zookeeper/sourcecode/">
+        
+          Zookeeper源码启动
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Zookeeper集群"><span class="toc-nav-text">Zookeeper集群</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#集群部署"><span class="toc-nav-text">集群部署</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#配置语法"><span class="toc-nav-text">配置语法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#配置文件示例"><span class="toc-nav-text">配置文件示例</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#集群配置"><span class="toc-nav-text">集群配置</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#检查集群复制情况"><span class="toc-nav-text">检查集群复制情况</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#集群角色说明"><span class="toc-nav-text">集群角色说明</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#选举机制"><span class="toc-nav-text">选举机制</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#数据同步机制"><span class="toc-nav-text">数据同步机制</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#四字运维命令"><span class="toc-nav-text">四字运维命令</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/middleware/zookeeper/cluster/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

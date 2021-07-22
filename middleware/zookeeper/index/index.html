@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="一只程序员～">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      zookeeper介绍及基本使用 | 张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>zookeeper介绍及基本使用</h2>
+  <p class="post-date">2021-02-07</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="zookeeper简介"><a href="#zookeeper简介" class="headerlink" title="zookeeper简介"></a>zookeeper简介</h1><h2 id="产生背景"><a href="#产生背景" class="headerlink" title="产生背景"></a>产生背景</h2><p> 从单体项目到分布式项目转变之后，会产生多个服务节点之间的协同问题。如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">每天的定时任务有哪个节点执行</span><br><span class="line">RPC调用时的服务发现</span><br><span class="line">如何保证并发请求的幂等性</span><br><span class="line">			...</span><br></pre></td></tr></table></figure>
+
+<p><strong>这些问题可以统一归纳为多节点协调问题，如果靠节点自身进行协调这是非常不可靠的，性能也不可取。必须由一个独立的服务去完成协调工作，它必须可靠且保证性能。</strong></p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>Zookeeper 是用于分布式应用程序的协调服务。他有一组简单的API，基于这组API可以进行同步节点状态、配置等信息、服务发现等。它由JAVA编写，支持JAVA和C两种语言的客户端。</p>
+<h2 id="znode节点"><a href="#znode节点" class="headerlink" title="znode节点"></a>znode节点</h2><p>zookeeper中数据的基本单元叫节点,节点下面可以包含子节点，最后以树的方式展现，每个节点拥有唯一的路径。客户端基于path上传节点数据，zookeeper收到后会实时的通知对该路径监听的客户端。<br><img src="https://img-blog.csdnimg.cn/20210226134646611.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1pldl9qYXZh,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="部署与常规配置"><a href="#部署与常规配置" class="headerlink" title="部署与常规配置"></a>部署与常规配置</h1><h2 id="安装启动"><a href="#安装启动" class="headerlink" title="安装启动"></a>安装启动</h2><ol>
+<li><p>wget <a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/current/apache-" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/current/apache-</a> zookeeper-3.5.5-bin.tar.gz</p>
+</li>
+<li><p>tar -zxvf apache-zookeeper-3.5.5-bin.tar.gz</p>
+</li>
+<li><p>拷贝默认配置</p>
+<blockquote>
+<p>cd {zookeeper_home}/conf<br> cp zoo_sample.cfg zoo.cfg</p>
+</blockquote>
+</li>
+<li><p>启动   </p>
+<blockquote>
+<p>{zookeeper_home}/bin/zkServer.sh</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="常规配置文件说明"><a href="#常规配置文件说明" class="headerlink" title="常规配置文件说明"></a>常规配置文件说明</h2> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> # zookeeper时间配置中的基本单位 (毫秒)</span><br><span class="line">tickTime&#x3D;2000</span><br><span class="line"></span><br><span class="line">#允许follower初始化连接到leader最大时长，它表示tickTime时间倍数 实际时间为:initLimit*tickTime</span><br><span class="line">initLimit&#x3D;10</span><br><span class="line"></span><br><span class="line">#允许follower与leader数据同步最大时长,它表示tickTime时间倍数 </span><br><span class="line">syncLimit&#x3D;5</span><br><span class="line"></span><br><span class="line">#zookeper 数据存储目录  </span><br><span class="line">dataDir&#x3D;&#x2F;tmp&#x2F;zookeeper</span><br><span class="line"></span><br><span class="line">#对客户端提供的端口号</span><br><span class="line">clientPort&#x3D;2181</span><br><span class="line"></span><br><span class="line">#单个客户端与zookeeper最大并发连接数</span><br><span class="line">maxClientCnxns&#x3D;60</span><br><span class="line"></span><br><span class="line">#保存的数据快照数量，之外的将会被清除</span><br><span class="line">autopurge.snapRetainCount&#x3D;3</span><br><span class="line"></span><br><span class="line">#自动触发清除任务时间间隔，小时为单位。默认为0，表示不自动清除。</span><br><span class="line">autopurge.purgeInterval&#x3D;1</span><br></pre></td></tr></table></figure>
+<h2 id="客户端命令"><a href="#客户端命令" class="headerlink" title="客户端命令"></a>客户端命令</h2><h3 id="基本命令列表"><a href="#基本命令列表" class="headerlink" title="基本命令列表"></a>基本命令列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#关闭当前会话</span><br><span class="line">close  </span><br><span class="line"></span><br><span class="line">#重新连接指定Zookeeper服务</span><br><span class="line">connect host:port </span><br><span class="line"></span><br><span class="line">#创建节点</span><br><span class="line">create [-s] [-e] [-c] [-t ttl] path [data] [acl]</span><br><span class="line"></span><br><span class="line">#删除节点，(不能存在子节点）</span><br><span class="line">delete [-v version] path</span><br><span class="line"></span><br><span class="line">#删除路径及所有子节点</span><br><span class="line">deleteall path</span><br><span class="line"></span><br><span class="line"> #设置节点限额 -n 子节点数 -b 字节数</span><br><span class="line">setquota -n|-b val path</span><br><span class="line"></span><br><span class="line">#查看节点限额</span><br><span class="line">listquota path</span><br><span class="line"></span><br><span class="line">#删除节点限额</span><br><span class="line">delquota [-n|-b] path</span><br><span class="line"></span><br><span class="line">#查看节点数据 -s 包含节点状态 -w 添加监听</span><br><span class="line">get [-s] [-w] path</span><br><span class="line"></span><br><span class="line">#列出子节点 -s状态 -R 递归查看所有子节点 -w 添加监听 </span><br><span class="line">getAcl [-s] path</span><br><span class="line">ls [-s] [-w] [-R] path</span><br><span class="line"></span><br><span class="line">#是否打印监听事件</span><br><span class="line">printwatches on|off</span><br><span class="line"></span><br><span class="line">#退出客户端</span><br><span class="line">quit </span><br><span class="line"></span><br><span class="line">#查看执行的历史记录</span><br><span class="line">history </span><br><span class="line"></span><br><span class="line">#重复 执行命令，history 中命令编号确定</span><br><span class="line">redo cmdno</span><br><span class="line"></span><br><span class="line">#删除指定监听</span><br><span class="line">removewatches path [-c|-d|-a] [-l]</span><br><span class="line"></span><br><span class="line">#设置值</span><br><span class="line">set [-s] [-v version] path data</span><br><span class="line"></span><br><span class="line">#为节点设置ACL权限</span><br><span class="line">setAcl [-s] [-v version] [-R] path acl</span><br><span class="line"></span><br><span class="line">#查看节点状态 -w 添加监听</span><br><span class="line">stat [-w] path</span><br><span class="line"></span><br><span class="line">#强制同步节点</span><br><span class="line">sync path</span><br></pre></td></tr></table></figure>
+
+<h3 id="node数据的增删改查"><a href="#node数据的增删改查" class="headerlink" title="node数据的增删改查"></a>node数据的增删改查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#列出子节点 </span><br><span class="line">ls &#x2F;</span><br><span class="line"></span><br><span class="line">#创建节点</span><br><span class="line">create &#x2F;fengxinzi &quot;fengxinzi is good man&quot;</span><br><span class="line"></span><br><span class="line"># 查看节点</span><br><span class="line">get &#x2F;fengxinzi</span><br><span class="line"></span><br><span class="line"># 创建子节点 </span><br><span class="line">create &#x2F;fengxinzi&#x2F;sex &quot;man&quot;</span><br><span class="line"></span><br><span class="line"># 删除节点</span><br><span class="line">delete &#x2F;fengxinzi&#x2F;sex</span><br><span class="line"></span><br><span class="line"># 删除所有节点 包括子节点</span><br><span class="line">deleteall &#x2F;fengxinzi</span><br></pre></td></tr></table></figure>
+<h1 id="zookeeper-节点介绍"><a href="#zookeeper-节点介绍" class="headerlink" title="zookeeper 节点介绍"></a>zookeeper 节点介绍</h1><h3 id="节点类型"><a href="#节点类型" class="headerlink" title="节点类型"></a>节点类型</h3><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PERSISTENT</td>
+<td align="center">持久节点</td>
+</tr>
+<tr>
+<td align="center">PERSISTENT_SEQUENTIAL</td>
+<td align="center">持久序号节点</td>
+</tr>
+<tr>
+<td align="center">EPHEMERAL</td>
+<td align="center">临时节点（不能拥有子节点）</td>
+</tr>
+<tr>
+<td align="center">EPHEMERAL_SEQUENTIAL</td>
+<td align="center">临时序号节点(不能拥有子节点)</td>
+</tr>
+<tr>
+<td align="center">CONTAINER</td>
+<td align="center">容器节点</td>
+</tr>
+</tbody></table>
+<p>1.持久节点</p>
+<p>会进行持久化保存的节点，也是默认创建的节点类型</p>
+<blockquote>
+<p>#创建持久节点<br> create /user</p>
+</blockquote>
+<p>2.持久序号节点</p>
+<p>创建此类型节点时zookeeper会在路径上加上序号作为后缀。适合用于分布式锁、分布式选举等场景。创建时添加 -s 参数即可。</p>
+<blockquote>
+<p>#创建序号节点<br>create -s /user<br>#返回创建的实际路径<br>Created /user0000000001<br>create -s /user<br>#返回创建的实际路径2<br>Created /user0000000002</p>
+</blockquote>
+<p>3.临时节点</p>
+<p>临时节点会在客户端会话断开后自动删除。适用于心跳，服务发现等场景。创建时添加参数-e 即可。</p>
+<blockquote>
+<p>#创建临时节点,断开会话 在连接将会自动删除<br>create -e /temp</p>
+</blockquote>
+<p>4.临时序号节点</p>
+<p>与持久序号节点类似，不同之处在于EPHEMERAL_SEQUENTIAL是临时的会在会话断开后删除。创建时添加 -e -s </p>
+<blockquote>
+<p>#创建临时序号节点<br>create -e -s /temp/seq</p>
+</blockquote>
+<p>5.容器节点</p>
+<p>如果Container节点下面没有子节点，则Container节点 在未来会被Zookeeper自动清除,定时任务默认60s 检查一次。</p>
+<p>6.TTL节点</p>
+<p>默认禁用，只能通过系统配置zookeeper.extendedTypesEnabled=true开启，不稳定。</p>
+<h3 id="节点属性"><a href="#节点属性" class="headerlink" title="节点属性"></a>节点属性</h3><p>查看节点属性命令:stat /fengxinzi<br>节点属性说明如下:</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性值</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">cZxid = 0x385</td>
+<td align="center">创建节点的事物ID</td>
+</tr>
+<tr>
+<td align="center">ctime = Tue Sep 24 17:26:28 CST 2020</td>
+<td align="center">#创建时间</td>
+</tr>
+<tr>
+<td align="center">mZxid = 0x385</td>
+<td align="center">修改节点的事物ID</td>
+</tr>
+<tr>
+<td align="center">mtime = Tue Sep 24 17:26:28 CST 2020</td>
+<td align="center">最后修改时间</td>
+</tr>
+<tr>
+<td align="center">pZxid = 0x385</td>
+<td align="center">mtime = Tue Sep 24 17:26:28 CST 2019</td>
+</tr>
+<tr>
+<td align="center">cversion = 0</td>
+<td align="center">znode的子节点进行的更改次数</td>
+</tr>
+<tr>
+<td align="center">dataVersion = 0</td>
+<td align="center">数据版本，变更次数</td>
+</tr>
+<tr>
+<td align="center">aclVersion = 0</td>
+<td align="center">dataVersion = 0</td>
+</tr>
+<tr>
+<td align="center">ephemeralOwner = 0x0</td>
+<td align="center">临时节点所属会话ID</td>
+</tr>
+<tr>
+<td align="center">dataLength = 17</td>
+<td align="center">数据长度</td>
+</tr>
+<tr>
+<td align="center">numChildren = 0</td>
+<td align="center">子节点数</td>
+</tr>
+</tbody></table>
+<h3 id="节点监听"><a href="#节点监听" class="headerlink" title="节点监听"></a>节点监听</h3><p>客户添加 -w 参数可实时监听节点与子节点的变化，并且实时收到通知。非常适用保障分布式情况下的数据一致性。</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ls -w path</td>
+<td align="center">监听子节点的变化（增，删</td>
+</tr>
+<tr>
+<td align="center">get -w path</td>
+<td align="center">监听节点数据的变化</td>
+</tr>
+<tr>
+<td align="center">stat -w path</td>
+<td align="center">监听节点属性的变化</td>
+</tr>
+<tr>
+<td align="center">printwatches on/off</td>
+<td align="center">触发监听后，是否打印监听事件(默认on)</td>
+</tr>
+</tbody></table>
+<h3 id="acl权限设置"><a href="#acl权限设置" class="headerlink" title="acl权限设置"></a>acl权限设置</h3><p>ACL全称为Access Control List（访问控制列表），用于控制资源的访问权限。ZooKeeper使用ACL来控制对其znode的防问。基于scheme:Id:permission的方式进行权限控制。scheme表示授权模式、id模式对应值、permission即具体的增删改权限位。</p>
+<h4 id="scheme-认证模型"><a href="#scheme-认证模型" class="headerlink" title="scheme 认证模型"></a>scheme 认证模型</h4><table>
+<thead>
+<tr>
+<th align="center">方案</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">world</td>
+<td align="center">开放模式，world表示全世界都可以访问（这是默认设置）</td>
+</tr>
+<tr>
+<td align="center">ip</td>
+<td align="center">ip模式，限定客户端IP防问</td>
+</tr>
+<tr>
+<td align="center">auth</td>
+<td align="center">用户密码认证模式，只有在会话中添加了认证才可以防问</td>
+</tr>
+<tr>
+<td align="center">digest</td>
+<td align="center">与auth类似，区别在于auth用明文密码，而digest 用sha-1+base64加密后的密码。在实际使用中digest 更常见。</td>
+</tr>
+</tbody></table>
+<h4 id="permission权限位"><a href="#permission权限位" class="headerlink" title="permission权限位"></a>permission权限位</h4><table>
+<thead>
+<tr>
+<th align="center">权限位</th>
+<th align="center">权限</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">c</td>
+<td align="center">CREATE</td>
+<td align="center">可以创建子节点</td>
+</tr>
+<tr>
+<td align="center">d</td>
+<td align="center">DELETE</td>
+<td align="center">可以删除子节点（仅下一级节点）</td>
+</tr>
+<tr>
+<td align="center">r</td>
+<td align="center">READ</td>
+<td align="center">可以读取节点数据及显示子节点列表</td>
+</tr>
+<tr>
+<td align="center">w</td>
+<td align="center">WRITE</td>
+<td align="center">可以设置节点数据</td>
+</tr>
+<tr>
+<td align="center">a</td>
+<td align="center">ADMIN</td>
+<td align="center">可以设置节点访问控制列表权限</td>
+</tr>
+<tr>
+<td align="center">acl 相关命令：</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">命令</td>
+<td align="center">使用方式</td>
+<td align="center">描述</td>
+</tr>
+<tr>
+<td align="center">:——–:</td>
+<td align="center">:————-:</td>
+<td align="center">:————-:</td>
+</tr>
+<tr>
+<td align="center">getAcl</td>
+<td align="center">getAcl ${path}</td>
+<td align="center">读取ACL权限</td>
+</tr>
+<tr>
+<td align="center">setAcl</td>
+<td align="center">setAcl ${path} ${acl}</td>
+<td align="center">设置ACL权限</td>
+</tr>
+<tr>
+<td align="center">addauth</td>
+<td align="center">addauth ${scheme} ${auth}</td>
+<td align="center">添加认证用户</td>
+</tr>
+</tbody></table>
+<h4 id="权限示例"><a href="#权限示例" class="headerlink" title="权限示例"></a>权限示例</h4><h5 id="world权限示例"><a href="#world权限示例" class="headerlink" title="world权限示例"></a>world权限示例</h5><p><strong>语法： setAcl ${path} world:anyone:&lt;权限位&gt; （world模式中anyone是唯一的值,表示所有人)</strong></p>
+<p>1.查看默认节点权限</p>
+<blockquote>
+<p>#创建一个节点<br>create -e /testAcl<br>#查看节点权限<br>getAcl /testAcl<br>#返回的默认权限表示 ，所有人拥有所有权限。<br>‘world,’anyone: cdrwa</p>
+</blockquote>
+<p>2.修改默认权限为 读写</p>
+<blockquote>
+<p>#设置为rw权限<br>setAcl /testAcl world:anyone:rw<br>#可以正常读<br>get /testAcl<br>#无法正常创建子节点<br>create -e /testAcl/t “hi”<br>#上面命令返回没有权限的异常<br>Authentication is not valid : /testAcl/t</p>
+</blockquote>
+<h5 id="IP权限示例"><a href="#IP权限示例" class="headerlink" title="IP权限示例"></a>IP权限示例</h5><blockquote>
+<p> setAcl path ip:&lt;ip地址|地址段&gt;:&lt;权限位&gt;</p>
+</blockquote>
+<h5 id="auth模式示例"><a href="#auth模式示例" class="headerlink" title="auth模式示例"></a>auth模式示例</h5><blockquote>
+<p>setAcl  path auth:&lt;用户名&gt;:&lt;密码&gt;:&lt;权限位&gt;<br>addauth digest &lt;用户名&gt;:&lt;密码&gt;</p>
+</blockquote>
+<h5 id="digest-权限示例"><a href="#digest-权限示例" class="headerlink" title="digest 权限示例"></a>digest 权限示例</h5><blockquote>
+<p>setAcl ${path} digest :&lt;用户名&gt;:&lt;密钥&gt;:&lt;权限位&gt;<br>addauth digest &lt;用户名&gt;:&lt;密码&gt;</p>
+</blockquote>
+<p>注意点1：密钥 通过sha1与base64组合加密码生成，可通过以下命令生成</p>
+<blockquote>
+<p>echo -n &lt;用户名&gt;:&lt;密码&gt; | openssl dgst -binary -sha1 | openssl base64</p>
+</blockquote>
+<p>注意点2：为节点设置digest 权限后，访问前必须执行addauth，当前会话才可以防问</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Zookeeper" >
+    <span class="tag-code">Zookeeper</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/essay/standard/">
+        <span class="nav-arrow">← </span>
+        
+          JAVA开发规范-阿里规约
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/middleware/zookeeper/javaclient/">
+        
+          Zookeeper Java客户端使用
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#zookeeper简介"><span class="toc-nav-text">zookeeper简介</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#产生背景"><span class="toc-nav-text">产生背景</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#概要"><span class="toc-nav-text">概要</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#znode节点"><span class="toc-nav-text">znode节点</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#部署与常规配置"><span class="toc-nav-text">部署与常规配置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#安装启动"><span class="toc-nav-text">安装启动</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#常规配置文件说明"><span class="toc-nav-text">常规配置文件说明</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#客户端命令"><span class="toc-nav-text">客户端命令</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基本命令列表"><span class="toc-nav-text">基本命令列表</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#node数据的增删改查"><span class="toc-nav-text">node数据的增删改查</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#zookeeper-节点介绍"><span class="toc-nav-text">zookeeper 节点介绍</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#节点类型"><span class="toc-nav-text">节点类型</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#节点属性"><span class="toc-nav-text">节点属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#节点监听"><span class="toc-nav-text">节点监听</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#acl权限设置"><span class="toc-nav-text">acl权限设置</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#scheme-认证模型"><span class="toc-nav-text">scheme 认证模型</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#permission权限位"><span class="toc-nav-text">permission权限位</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#权限示例"><span class="toc-nav-text">权限示例</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#world权限示例"><span class="toc-nav-text">world权限示例</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#IP权限示例"><span class="toc-nav-text">IP权限示例</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#auth模式示例"><span class="toc-nav-text">auth模式示例</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#digest-权限示例"><span class="toc-nav-text">digest 权限示例</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/middleware/zookeeper/index/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

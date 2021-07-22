@@ -82,13 +82,31 @@
       
         <li class="list-item">
           
-            <a href="/tags/" class="item-link">分类</a>
+            <a href="/java/" class="item-link">JAVA</a>
           
         </li>
       
         <li class="list-item">
           
-            <a href="/archives/" class="item-link">文章列表</a>
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
           
         </li>
       
@@ -122,13 +140,31 @@
         
           <li class="menu-item">
             
-              <a href="/tags/" class="menu-link">分类</a>
+              <a href="/java/" class="menu-link">JAVA</a>
             
           </li>
         
           <li class="menu-item">
             
-              <a href="/archives/" class="menu-link">文章列表</a>
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
             
           </li>
         
@@ -171,34 +207,106 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2019/12/01/ArrayList/">ArrayList源码解析</a>
+        <a href="/java/jvm/synchronized/">synchronized锁状态及性能对比</a>
       </h2>
-      <p class="article-date">December 1, 2019</p>
+      <p class="article-date">April 1, 2020</p>
       
         
-  <a href="/tags#javase" >
-    <span class="tag-code">javase</span>
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       
       <div class="article-summary">
         
-          特性  实现了三个标记接口: RandomAccess, Cloneable, java.io.Serializable
-12public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements Lis ...
+          锁状态概述
+无锁 没有synchronized关键字修饰
+偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需 ...
         
       </div>
-      <a class="more" href="/2019/12/01/ArrayList/">阅读更多</a>
+      <a class="more" href="/java/jvm/synchronized/">阅读更多</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2019/12/01/spring/ioc/">Spring容器及Spring Bean</a>
+        <a href="/java/jvm/introduce/">JVM虚拟机</a>
+      </h2>
+      <p class="article-date">March 15, 2020</p>
+      
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。
+JVM组成J ...
+        
+      </div>
+      <a class="more" href="/java/jvm/introduce/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/framework/mybatis/index/">mybatis简介</a>
+      </h2>
+      <p class="article-date">January 17, 2020</p>
+      
+        
+  <a href="/tags#mybatis源码" >
+    <span class="tag-code">mybatis源码</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          mybatis简介
+
+        
+      </div>
+      <a class="more" href="/framework/mybatis/index/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/container/CopyOnWriteArrayList/">CopyOnWriteArrayList源码解析</a>
+      </h2>
+      <p class="article-date">December 8, 2019</p>
+      
+      <div class="article-summary">
+        
+          特性12public class CopyOnWriteArrayList&lt;E&gt;    implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
+特性基本与ArrayList一致，底层也是数组结 ...
+        
+      </div>
+      <a class="more" href="/java/container/CopyOnWriteArrayList/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/container/LinkedList/">LinkedList源码解析</a>
+      </h2>
+      <p class="article-date">December 3, 2019</p>
+      
+      <div class="article-summary">
+        
+          特性123public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.S ...
+        
+      </div>
+      <a class="more" href="/java/container/LinkedList/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/framework/spring/ioc/">Spring容器及Spring Bean</a>
       </h2>
       <p class="article-date">December 1, 2019</p>
       
         
-  <a href="/tags#spring" >
-    <span class="tag-code">spring</span>
+  <a href="/tags#spring源码" >
+    <span class="tag-code">spring源码</span>
   </a>
 
       
@@ -208,52 +316,39 @@
 The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instanti ...
         
       </div>
-      <a class="more" href="/2019/12/01/spring/ioc/">阅读更多</a>
+      <a class="more" href="/framework/spring/ioc/">阅读更多</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2019/11/01/myspring/">模拟Spring框架核心逻辑</a>
+        <a href="/java/container/ArrayList/">ArrayList源码解析</a>
       </h2>
-      <p class="article-date">November 1, 2019</p>
-      
-        
-  <a href="/tags#spring" >
-    <span class="tag-code">spring</span>
-  </a>
-
+      <p class="article-date">December 1, 2019</p>
       
       <div class="article-summary">
         
-          
+          特性  实现了三个标记接口: RandomAccess, Cloneable, java.io.Serializable
+12public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements Lis ...
         
       </div>
-      <a class="more" href="/2019/11/01/myspring/">阅读更多</a>
+      <a class="more" href="/java/container/ArrayList/">阅读更多</a>
     </article>
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2019/03/02/introduce/">大家好～</a>
+        <a href="/java/io/iomodul/">JAVAIO模型之NIO、BIO、AIO</a>
       </h2>
-      <p class="article-date">March 2, 2019</p>
-      
-        
-  <a href="/tags#随笔" >
-    <span class="tag-code">随笔</span>
-  </a>
-
+      <p class="article-date">December 1, 2019</p>
       
       <div class="article-summary">
         
-          没啥介绍的，干就完了。
-技术点JVMJVM线程模型垃圾回收器垃圾回收算法JVM类加载机制JVM调优工具GC日志分析1学习使我快乐
-
-
-
-
+          IO模型io模型就是各种数据使用相应通道进行发送和接收。Java共支持三种网络编程IO模式 BIO、NIO、AIO
+BIO （Blocking IO）同步阻塞模型,一个客户端连接对应一个处理线程。
+缺点
+1.IO代码里read是阻塞操作，如果连接不做读写操作会导致线程阻塞，浪费资源2.如果读 ...
         
       </div>
-      <a class="more" href="/2019/03/02/introduce/">阅读更多</a>
+      <a class="more" href="/java/io/iomodul/">阅读更多</a>
     </article>
   
 
