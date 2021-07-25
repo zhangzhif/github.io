@@ -10,7 +10,7 @@
   
   <title>
     
-      BeanPostProcess解析 | 张治峰的博客
+      线程池初探 | 张治峰的博客
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -204,8 +204,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>BeanPostProcess解析</h2>
-  <p class="post-date">2020-09-01</p>
+  <h2>线程池初探</h2>
+  <p class="post-date">2021-07-25</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -213,14 +213,53 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"></section>
+    <section class="markdown-content"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p> 线程池”，顾名思义就是一个线程缓存。线程是稀缺资源，如果被无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，因此Java中提供线程池对线程进行统一分配、调优和监控。</p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><blockquote>
+<p>池化技术相比大家已经屡见不鲜了，线程池、数据库连接池、Http 连接池等等都是对这个思想的应用。池化技术的思想主要是为了减少每次获取资源的消耗，提高对资源的利用率。</p>
+</blockquote>
+<p>线程池的好处有:</p>
+<ol>
+<li><strong>复用存在的线程，减少线程创建，销毁的开销，提高性能</strong></li>
+<li><strong>提高响应速度。当任务到达时,任务可以不需要的等到线程创建就能立即执行。</strong></li>
+<li><strong>提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源,还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。</strong></li>
+</ol>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ol>
+<li><strong>单个任务处理时间比较短</strong></li>
+<li><strong>需要处理的任务数量很大</strong></li>
+</ol>
+<blockquote>
+<p>线程池一般用于执行多个不相关联的耗时任务，没有多线程的情况下，任务顺序执行，使用了线程池的话可让多个不相关联的任务同时执行以提高效率。</p>
+</blockquote>
+<p> <strong>假设我们执行n个不相关的耗时任务如下图可以提高执行效率</strong></p>
+<p> <img src="/java/concurrent/threadpool/index/thread1.png" alt="任务对比"></p>
+<h1 id="Executor-框架"><a href="#Executor-框架" class="headerlink" title="Executor 框架"></a>Executor 框架</h1><h2 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h2><p>Executor框架是 Java5 之后引进的，其内部使用了线程池机制，通过该框架来控制线程的启动、执行和关闭。</p>
+<p>通过 Executor 来启动线程比使用 Thread 的 start 方法更好，除了更易管理，效率更好（用线程池实现，节约开销）外，还有关键的一点：有助于避免<strong>this逃逸</strong>问题[^RUNOOB]。</p>
+<blockquote>
+<p>补充：this 逃逸是指在构造函数返回之前其他线程就持有该对象的引用. 调用尚未构造完全的对象的方法可能引发令人疑惑的错误。</p>
+</blockquote>
+<p><strong>Executor框架不仅包括了对线程池的管理，还提供了线程工厂、任务队列以及拒绝策略等，Executor 框架让并发编程变得更加简单。</strong></p>
+<h2 id="框架结构"><a href="#框架结构" class="headerlink" title="框架结构"></a>框架结构</h2><h3 id="任务（Runnable-Callable）"><a href="#任务（Runnable-Callable）" class="headerlink" title="任务（Runnable/Callable）"></a>任务（Runnable/Callable）</h3><p>任务，也就是工作单元，执行的任务需要实现Runnable接口或者Callable接口</p>
+<h3 id="任务的执行（Executor）"><a href="#任务的执行（Executor）" class="headerlink" title="任务的执行（Executor）"></a>任务的执行（Executor）</h3><p>把任务分派给多个线程的执行机制，包括Executor接口及继承自Executor接口的ExecutorService接口。ThreadPoolExecutor 和 ScheduledThreadPoolExecutor 这两个关键类实现了 ExecutorService 接口。</p>
+<p> <strong>我们主要关注ThreadPoolExecutor这个类。这个类在实际使用线程池中的频率是非常高的， 类图如下</strong><br> <img src="/java/concurrent/threadpool/index/thread2.png" alt="类图"></p>
+<h3 id="异步执行结果（Future）"><a href="#异步执行结果（Future）" class="headerlink" title="异步执行结果（Future）"></a>异步执行结果（Future）</h3><p><strong>Future</strong> 接口以及 <em>Future</em> 接口的实现类 <strong>FutureTask</strong> 类都可以代表异步计算的结果。</p>
+<p>当我们把 <strong>Runnable接口</strong>或<strong>Callable接口</strong>的实现类提交给 <strong>ThreadPoolExecutor</strong> 或 <strong>ScheduledThreadPoolExecutor</strong> 执行。（调用 <strong>submit()</strong> 方法时会返回一个 <strong>FutureTask</strong> 对象）</p>
+<h2 id="Executor-使用示意图"><a href="#Executor-使用示意图" class="headerlink" title="Executor 使用示意图"></a>Executor 使用示意图</h2><p><img src="/java/concurrent/threadpool/index/thread3.png" alt="类图"></p>
+<ol>
+<li><strong>主线程创建实现 <font color="#B8860B" size="4">Runnable</font> 或者 <font color="#B8860B" size="4">Callable</font> 接口的任务对象。</strong></li>
+<li><strong>将上一步的对象交给  <font color="#B8860B" size="4">ExecutorService</font> 执行 <font color="#B8860B">ExecutorService.execute(Runnable command)</font> 或者 <font color="#B8860B"> ExecutorService.submit(Runnable task)</font> 和 <font color="#B8860B">  ExecutorService.submit(Callable <T> task)</T></font></strong></li>
+<li><strong>如果上步骤执行的是 <font color="#B8860B">ExecutorService.submit()</font> 方法将异步返回一个 <font color="#B8860B" size="4">FutureTask</font>对象，这也是submit 和 execute执行任务的区别。</strong></li>
+<li><strong>主线程可以执行 <font color="#B8860B">FutureTask.get()</font>  方法来等待任务执行完成。主线程也可以执行 <font color="#B8860B">FutureTask.cancel(boolean mayInterruptIfRunning)</font>来取消此任务的执行。</strong></li>
+</ol>
+<h1 id="ThreadPoolExecutor-类简单使用"><a href="#ThreadPoolExecutor-类简单使用" class="headerlink" title="ThreadPoolExecutor 类简单使用"></a>ThreadPoolExecutor 类简单使用</h1><p><strong>线程池实现类 ThreadPoolExecutor 是 Executor 框架最核心的类。</strong></p>
+<h1 id="ThreadPoolExecutor-源码解析"><a href="#ThreadPoolExecutor-源码解析" class="headerlink" title="ThreadPoolExecutor 源码解析"></a>ThreadPoolExecutor 源码解析</h1><p> <strong>后期单独进行讲解</strong></p>
+</section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="/tags#spring源码" >
-    <span class="tag-code">spring源码</span>
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       </div>
@@ -231,20 +270,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/middleware/redis/install/">
+      <a class="nav-left" href="/middleware/zookeeper/sourcecode/">
         <span class="nav-arrow">← </span>
         
-          redis单机安装
+          Zookeeper源码启动
         
       </a>
     
-    
-      <a class="nav-right" href="/framework/spring/core/">
-        
-          Spring核心概念（源码相关）
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -296,7 +328,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="nav">none</ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#简介"><span class="toc-nav-text">简介</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#优势"><span class="toc-nav-text">优势</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#使用场景"><span class="toc-nav-text">使用场景</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#Executor-框架"><span class="toc-nav-text">Executor 框架</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#简介-1"><span class="toc-nav-text">简介</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#框架结构"><span class="toc-nav-text">框架结构</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#任务（Runnable-Callable）"><span class="toc-nav-text">任务（Runnable&#x2F;Callable）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#任务的执行（Executor）"><span class="toc-nav-text">任务的执行（Executor）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#异步执行结果（Future）"><span class="toc-nav-text">异步执行结果（Future）</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Executor-使用示意图"><span class="toc-nav-text">Executor 使用示意图</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ThreadPoolExecutor-类简单使用"><span class="toc-nav-text">ThreadPoolExecutor 类简单使用</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ThreadPoolExecutor-源码解析"><span class="toc-nav-text">ThreadPoolExecutor 源码解析</span></a></li></ol>
     
   </div>
 </aside>
@@ -307,7 +339,7 @@
 <script>
   (function () {
 
-    var url = 'http://zev_gitee.gitee.io/framework/spring/BeanPostProcess/';
+    var url = 'http://zev_gitee.gitee.io/java/concurrent/threadpool/index/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
