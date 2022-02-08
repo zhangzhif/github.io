@@ -30,30 +30,6 @@
   
   
   
-  
-    <!-- MathJax support START -->
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <!-- MathJax support END -->
-  
-
 
   
   
@@ -217,7 +193,7 @@
 <p>// git地址 版本3.5.8<br><a href="https://github.com/apache/zookeeper.git" target="_blank" rel="noopener">https://github.com/apache/zookeeper.git</a></p>
 </blockquote>
 <h2 id="导入idea"><a href="#导入idea" class="headerlink" title="导入idea"></a>导入idea</h2><p><img src="https://img-blog.csdnimg.cn/20210401175434668.png" alt="在这里插入图片描述"></p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>1.源码导入后，org.apache.zookeeper.Version类会报错，需要建一个辅助类<br>     <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.zookeeper.version;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Info</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> MAJOR = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> MINOR = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> MICRO = <span class="number">0</span>;</span><br><span class="line">    String QUALIFIER = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">int</span> REVISION =-<span class="number">1</span>;</span><br><span class="line">    String REVISION_HASH = <span class="string">"1"</span>;</span><br><span class="line">    String BUILD_DATE = <span class="string">"2020‐12‐15"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>1.源码导入后，org.apache.zookeeper.Version类会报错，需要建一个辅助类<br>     <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> org.apache.zookeeper.version;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Info</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> MAJOR = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> MINOR = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> MICRO = <span class="number">0</span>;</span><br><span class="line">    String QUALIFIER = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">int</span> REVISION =-<span class="number">1</span>;</span><br><span class="line">    String REVISION_HASH = <span class="string">"1"</span>;</span><br><span class="line">    String BUILD_DATE = <span class="string">"2020‐12‐15"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>2.根目录执行</p>
 <blockquote>
 <p>mvn clean install ‐DskipTests</p>
@@ -399,7 +375,7 @@
 </div>
     <footer class="app-footer">
 <!--  <p class="copyright">-->
-<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
 <!--    <br>-->
 <!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
 <!--  </p>-->
@@ -422,7 +398,7 @@
 </script>
 
 <script>
-  var hasLine = 'true';
+  var hasLine = 'false';
   async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');

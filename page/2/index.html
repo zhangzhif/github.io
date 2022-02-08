@@ -30,30 +30,6 @@
   
   
   
-  
-    <!-- MathJax support START -->
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <!-- MathJax support END -->
-  
-
 
   
   
@@ -207,6 +183,54 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/middleware/redis/install/">redis单机安装</a>
+      </h2>
+      <p class="article-date">August 10, 2020</p>
+      
+        
+  <a href="/tags#Redis" >
+    <span class="tag-code">Redis</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          redis 官网
+
+下载: wget http://download.redis.io/releases/redis-5.0.3.tar.gz
+
+解压：tar xzf redis-5.0.3.tar.gz
+
+进入redis 目录: cd redis-5.0.3
+
+编译与安装: make (r ...
+        
+      </div>
+      <a class="more" href="/middleware/redis/install/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/jvm/ClassLoader/">类加载器子系统</a>
+      </h2>
+      <p class="article-date">August 9, 2020</p>
+      
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          类加载器  JVM中有两种类型的类加载器，由C++编写的及由Java编写的。除了启动类加载器（Bootstrap Class Loader）是由C++编写的，其他都是由Java编写的。由Java编写的类加载器都继承自类java.lang.ClassLoader。各种类加载器之间存在逻辑上的父 ...
+        
+      </div>
+      <a class="more" href="/java/jvm/ClassLoader/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/java/concurrent/introduce/">并发应该学习什么</a>
       </h2>
       <p class="article-date">July 20, 2020</p>
@@ -304,8 +328,9 @@ JVM组成J ...
       
       <div class="article-summary">
         
-          特性12public class CopyOnWriteArrayList&lt;E&gt;    implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
-特性基本与ArrayList一致，底层也是数组结 ...
+          特性public class CopyOnWriteArrayList&lt;E&gt;    implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
+特性基本与ArrayList一致，底层也是数组结构
+ ...
         
       </div>
       <a class="more" href="/java/container/CopyOnWriteArrayList/">阅读更多</a>
@@ -319,46 +344,10 @@ JVM组成J ...
       
       <div class="article-summary">
         
-          特性123public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.S ...
+          特性public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Seri ...
         
       </div>
       <a class="more" href="/java/container/LinkedList/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/framework/spring/ioc/">Spring容器及Spring Bean</a>
-      </h2>
-      <p class="article-date">December 1, 2019</p>
-      
-        
-  <a href="/tags#spring源码" >
-    <span class="tag-code">spring源码</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Spring容器什么是容器官网解释
-The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instanti ...
-        
-      </div>
-      <a class="more" href="/framework/spring/ioc/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/container/ArrayList/">ArrayList源码解析</a>
-      </h2>
-      <p class="article-date">December 1, 2019</p>
-      
-      <div class="article-summary">
-        
-          特性  实现了三个标记接口: RandomAccess, Cloneable, java.io.Serializable
-12public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements Lis ...
-        
-      </div>
-      <a class="more" href="/java/container/ArrayList/">阅读更多</a>
     </article>
   
     <article class="article-card">
@@ -378,6 +367,21 @@ BIO （Blocking IO）同步阻塞模型,一个客户端连接对应一个处理�
       <a class="more" href="/java/io/iomodul/">阅读更多</a>
     </article>
   
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/container/ArrayList/">ArrayList源码解析</a>
+      </h2>
+      <p class="article-date">December 1, 2019</p>
+      
+      <div class="article-summary">
+        
+          特性  实现了三个标记接口: RandomAccess, Cloneable, java.io.Serializable
+public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements List& ...
+        
+      </div>
+      <a class="more" href="/java/container/ArrayList/">阅读更多</a>
+    </article>
+  
 
   
     <div class="guide-pager">
@@ -385,7 +389,7 @@ BIO （Blocking IO）同步阻塞模型,一个客户端连接对应一个处理�
     <a href="/"><span class="page-arrow">← </span>Prev</a>
   
   
-    <a class="unvisible" href="/">Next <span class="page-arrow">→</span></a>
+    <a href="/page/3/">Next<span class="page-arrow"> →</span></a>
   
 </div>
   
@@ -397,7 +401,7 @@ BIO （Blocking IO）同步阻塞模型,一个客户端连接对应一个处理�
 </div>
     <footer class="app-footer">
 <!--  <p class="copyright">-->
-<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
 <!--    <br>-->
 <!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
 <!--  </p>-->
@@ -420,7 +424,7 @@ BIO （Blocking IO）同步阻塞模型,一个客户端连接对应一个处理�
 </script>
 
 <script>
-  var hasLine = 'true';
+  var hasLine = 'false';
   async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');

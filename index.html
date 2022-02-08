@@ -30,30 +30,6 @@
   
   
   
-  
-    <!-- MathJax support START -->
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <!-- MathJax support END -->
-  
-
 
   
   
@@ -207,6 +183,51 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/database/mysql/index-1/">MySQL索引概述</a>
+      </h2>
+      <p class="article-date">November 25, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          索引的本质  索引是帮助MySQL高效获取数据的  排好序 的 数据结构
+索引的数据结构  下面介绍几种数据结构,先有个影响。mysql索引支持B+树 和 hash。
+二叉树二叉树（binary tree）是指树中节点的度不大于2的有序树，它是一种最简单且最重要的树。但是对于单边增长的数据没 ...
+        
+      </div>
+      <a class="more" href="/database/mysql/index-1/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/concurrent/threadpool/useThreadPoolExecutor/">ThreadPoolExecutor介绍和使用</a>
+      </h2>
+      <p class="article-date">July 27, 2021</p>
+      
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          ThreadPoolExecutor 类分析
+线程池实现类 ThreadPoolExecutor 是 Executor 框架最核心的类。
+
+构造方法ThreadPoolExecutor 类中提供的四个构造方法。我们来看参数最多的那个（一般看源码关注参数最多构造方法），其余三个都是在这个构造方 ...
+        
+      </div>
+      <a class="more" href="/java/concurrent/threadpool/useThreadPoolExecutor/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/java/concurrent/threadpool/index/">线程池初探</a>
       </h2>
       <p class="article-date">July 25, 2021</p>
@@ -245,7 +266,7 @@
 // git地址 版本3.5.8https://github.com/apache/zookeeper.git
 
 导入idea
-启动1.源码导入后，org.apache.zookeeper.Version类会报错，需要建一个辅助类     1234567891011package or ...
+启动1.源码导入后，org.apache.zookeeper.Version类会报错，需要建一个辅助类     package org.apache.zook ...
         
       </div>
       <a class="more" href="/middleware/zookeeper/sourcecode/">阅读更多</a>
@@ -290,7 +311,7 @@
       
       <div class="article-summary">
         
-          客户端API常规应用zookeeper 提供了java与C两种语言的客户端。本文引用的是java客户端。引入最新的maven依赖： 123456&lt;!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper  ...
+          客户端API常规应用zookeeper 提供了java与C两种语言的客户端。本文引用的是java客户端。引入最新的maven依赖： &lt;!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper --&gt; ...
         
       </div>
       <a class="more" href="/middleware/zookeeper/javaclient/">阅读更多</a>
@@ -311,9 +332,9 @@
       <div class="article-summary">
         
           zookeeper简介产生背景 从单体项目到分布式项目转变之后，会产生多个服务节点之间的协同问题。如
-1234每天的定时任务有哪个节点执行RPC调用时的服务发现如何保证并发请求的幂等性			...
+每天的定时任务有哪个节点执行RPC调用时的服务发现如何保证并发请求的幂等性			...
 
-这些问题可以统一归纳为多节点协调问题，如果靠节点自身进行协调这是非常不可靠的，性能也不可取。 ...
+这些问题可以统一归纳为多节点协调问题，如果靠节点自身进行协调这是非常不可靠的，性能也不可取。必须由一 ...
         
       </div>
       <a class="more" href="/middleware/zookeeper/index/">阅读更多</a>
@@ -335,7 +356,7 @@
         
           原文地址: zhangzhifeng的主页
 编程规约命名规约1.所有编程相关命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。
-123456// 反例： _name          __name          $Object         name_           ...
+// 反例： _name          __name          $Object         name_          name$  ...
         
       </div>
       <a class="more" href="/essay/standard/">阅读更多</a>
@@ -382,54 +403,6 @@ BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的�
       <a class="more" href="/framework/spring/BeanPostProcess/">阅读更多</a>
     </article>
   
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/middleware/redis/install/">redis单机安装</a>
-      </h2>
-      <p class="article-date">August 10, 2020</p>
-      
-        
-  <a href="/tags#Redis" >
-    <span class="tag-code">Redis</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          redis 官网
-
-下载: wget http://download.redis.io/releases/redis-5.0.3.tar.gz
-
-解压：tar xzf redis-5.0.3.tar.gz
-
-进入redis 目录: cd redis-5.0.3
-
-编译与安装: make (r ...
-        
-      </div>
-      <a class="more" href="/middleware/redis/install/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/jvm/ClassLoader/">类加载器子系统</a>
-      </h2>
-      <p class="article-date">August 9, 2020</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          类加载器  JVM中有两种类型的类加载器，由C++编写的及由Java编写的。除了启动类加载器（Bootstrap Class Loader）是由C++编写的，其他都是由Java编写的。由Java编写的类加载器都继承自类java.lang.ClassLoader。各种类加载器之间存在逻辑上的父 ...
-        
-      </div>
-      <a class="more" href="/java/jvm/ClassLoader/">阅读更多</a>
-    </article>
-  
 
   
     <div class="guide-pager">
@@ -449,7 +422,7 @@ BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的�
 </div>
     <footer class="app-footer">
 <!--  <p class="copyright">-->
-<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
 <!--    <br>-->
 <!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
 <!--  </p>-->
@@ -472,7 +445,7 @@ BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的�
 </script>
 
 <script>
-  var hasLine = 'true';
+  var hasLine = 'false';
   async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');

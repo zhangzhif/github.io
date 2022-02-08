@@ -30,30 +30,6 @@
   
   
   
-  
-    <!-- MathJax support START -->
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <!-- MathJax support END -->
-  
-
 
   
   
@@ -214,18 +190,20 @@
 <main class="app-body">
   <div id="category-cloud">
       
-        <a class="category1" data-name="category-middleware">middleware</a>
+        <a class="category2" data-name="category-middleware">middleware</a>
       
-        <a class="category0" data-name="category-java">java</a>
+        <a class="category3" data-name="category-java">java</a>
       
-        <a class="category2" data-name="category-framework">framework</a>
+        <a class="category3" data-name="category-framework">framework</a>
       
-        <a class="category0" data-name="category-essay">essay</a>
+        <a class="category1" data-name="category-essay">essay</a>
+      
+        <a class="category1" data-name="category-database">database</a>
       
   </div>
     
         <div class="categorieslist">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/framework/Spring/">Spring</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JAVAIO%E6%A8%A1%E5%9E%8B/">JAVAIO模型</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/JVM/">JVM</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%AE%B9%E5%99%A8/">容器</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%B9%B6%E5%8F%91/">并发</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/">middleware</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Zookeeper/">Zookeeper</a><span class="category-list-count">4</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/database/mysql/">mysql</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/framework/Spring/">Spring</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JAVAIO%E6%A8%A1%E5%9E%8B/">JAVAIO模型</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/JVM/">JVM</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%AE%B9%E5%99%A8/">容器</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%B9%B6%E5%8F%91/">并发</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/">middleware</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Zookeeper/">Zookeeper</a><span class="category-list-count">4</span></li></ul></li></ul>
         </div>
     
   
@@ -271,13 +249,13 @@
       
         <ul class="category-preview">
           <li>
-            <a href="/java/container/ArrayList/">ArrayList源码解析</a>
+            <a href="/java/io/iomodul/">JAVAIO模型之NIO、BIO、AIO</a>
           </li>
         </ul>
       
         <ul class="category-preview">
           <li>
-            <a href="/java/io/iomodul/">JAVAIO模型之NIO、BIO、AIO</a>
+            <a href="/java/container/ArrayList/">ArrayList源码解析</a>
           </li>
         </ul>
       
@@ -320,6 +298,12 @@
         <ul class="category-preview">
           <li>
             <a href="/java/concurrent/threadpool/index/">线程池初探</a>
+          </li>
+        </ul>
+      
+        <ul class="category-preview">
+          <li>
+            <a href="/java/concurrent/threadpool/useThreadPoolExecutor/">ThreadPoolExecutor介绍和使用</a>
           </li>
         </ul>
       
@@ -367,6 +351,18 @@
       
     </div>
   
+    <div class="category-list">
+      <h3 class="category-name" id="category-database">database</h3>
+      
+      
+        <ul class="category-preview">
+          <li>
+            <a href="/database/mysql/index-1/">MySQL索引概述</a>
+          </li>
+        </ul>
+      
+    </div>
+  
 </main>
 
 <script>
@@ -390,7 +386,7 @@
 </div>
     <footer class="app-footer">
 <!--  <p class="copyright">-->
-<!--    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
 <!--    <br>-->
 <!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
 <!--  </p>-->
@@ -413,7 +409,7 @@
 </script>
 
 <script>
-  var hasLine = 'true';
+  var hasLine = 'false';
   async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
