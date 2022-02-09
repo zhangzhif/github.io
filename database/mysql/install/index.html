@@ -10,7 +10,7 @@
   
   <title>
     
-      MySQL索引概述 | 张治峰的博客
+      mysql5.7 安装与配置（centos7） | 张治峰的博客
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -180,8 +180,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>MySQL索引概述</h2>
-  <p class="post-date">2021-11-25</p>
+  <h2>mysql5.7 安装与配置（centos7）</h2>
+  <p class="post-date">2021-09-10</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -189,47 +189,104 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="索引的本质"><a href="#索引的本质" class="headerlink" title="索引的本质"></a>索引的本质</h2><p>  索引是帮助MySQL高效获取数据的  <strong><font color="green" size="4">排好序</font></strong> 的 <strong><font color="green" size="4">数据结构</font></strong></p>
-<h2 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h2><p>  下面介绍几种数据结构,先有个影响。mysql索引支持B+树 和 hash。</p>
-<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>二叉树（binary tree）是指树中节点的度不大于2的有序树，它是一种最简单且最重要的树。但是对于单边增长的数据没有性能提升 最后相当于链表。<br><img src="/database/mysql/index-1/binaryTree.jpg" alt></p>
-<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><p> R-B Tree，全称是Red-Black Tree，又称为“红黑树”，它一种特殊的二叉查找树。红黑树的每个节点上都有存储位表示节点的颜色，可以是红(Red)或黑(Black)。红黑树不是一个平衡树 左右节点会存在高度差<br>   <img src="/database/mysql/index-1/redBlackTree.jpg" alt></p>
-<h3 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h3><p>对索引的key进行一次hash计算就可以定位出数据存储的位置，很多时候Hash索引要比B+ 树索引更高效但是仅能满足 “=”，“IN”，不支持范围查询并存在hash冲突问题。<br> <img src="/database/mysql/index-1/hash.jpg" alt></p>
-<h3 id="BTree"><a href="#BTree" class="headerlink" title="BTree"></a>BTree</h3><p>叶节点具有相同的深度，叶节点的指针为空,所有索引元素不重复,节点中的数据索引从左到右递增排列。但是对区间访问的能力不足。<br> <img src="/database/mysql/index-1/BTree.jpg" alt></p>
-<h3 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B+Tree"></a>B+Tree</h3><p>非叶子节点不存储data，只存储索引(冗余)，可以放更多的索引，叶子节点包含所有索引字段,叶子节点用指针连接，提高区间访问的性能。<br> <img src="/database/mysql/index-1/BPTree.jpg" alt></p>
-<h2 id="索引类别"><a href="#索引类别" class="headerlink" title="索引类别"></a>索引类别</h2><h3 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h3><p> 索引树叶子结点包含完整的数据（InnoDB主键索引） </p>
-<h3 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h3><p>   索引文件和数据文件是分离的 索引树叶子节点存储的是数据文件中数据对应的磁盘地址(MyschemaDB)，需要回表操作</p>
-<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p><em>数据库最终的数据都是落在磁盘上，mysql的存储引擎是可插拔的，有能力的话自己也可以实现一个存储引擎.不同存储引擎它在磁盘上的文件格式也不同。</em></p>
-<p><strong>Innodb：frm是表定义文件，ibd是数据文件</strong><br><strong>Myisam：frm是表定义文件，myd是数据文件，myi是索引文件。</strong></p>
-<h3 id="Myisam"><a href="#Myisam" class="headerlink" title="Myisam"></a>Myisam</h3><p><em>Myisam 的数据文件和索引文件是分开的，所以通过索引搜索到数据后需要在从数据文件中读取数据。（非聚集索引）</em><br><img src="/database/mysql/index-1/myisam.jpg" alt></p>
-<h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>InnoDB索引实现(聚集索引),表数据文件本身就是按B+Tree组织的一个索引结构文件，聚集索引-叶节点包含了完整的数据记录。</p>
-<ol>
-<li>主键索引: 数据直接挂在叶子结点上。<br><img src="/database/mysql/index-1/primaryIndex.jpg" alt="主键索引"></li>
-<li>非主键索引 :叶子节点存储的是主键值,可能需要回表操作。（若使用到覆盖索引则不需要回表）。<br><img src="/database/mysql/index-1/second.jpg" alt="主键索引"></li>
-</ol>
-<h2 id="联合索引（多列索引）"><a href="#联合索引（多列索引）" class="headerlink" title="联合索引（多列索引）"></a>联合索引（多列索引）</h2><p><em>联合索引是指对表上的多个列进行索引，联合索引也是一棵B+树，不同的是联合索引的键值数量不是1，而是大于等于2,按索引列顺序 建立b+树.如下图以name、age、position三个字段建立索引:</em><br><img src="/database/mysql/index-1/mutilIndex.jpg" alt="主键索引"></p>
-<h2 id="最左匹配原则（左列匹配原则）"><a href="#最左匹配原则（左列匹配原则）" class="headerlink" title="最左匹配原则（左列匹配原则）"></a>最左匹配原则（左列匹配原则）</h2><p>数据存储的结构是有序的（B+树） 所以需要按照索引建立的顺序进行数据搜索才能使用到索引结构。</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
-<li><p>为什么通常innoDB 表都推荐要建一个主键 ，并推荐使用整型的自增主键?</p>
-<p>  建立主键? </p>
-<p>  底层数据结构为B+树 需要一个不重复的列来构建树结构，如果没有设置主键 mysql会选择一个不重复的列进行树构建 若没有符合条件的列则会简历一个隐藏列</p>
-<p>  整型主键?</p>
-<p>  数据检索的过程实际的是数据值的大小进行比较 字符串大小比较需要从第一个字符开始比较,整型占有空间也更小 所以推荐整型主键</p>
-<p>  自增主键? </p>
-<p>  提高树的插入性能</p>
-</li>
-<li><p>聚集索引和非聚集索引查找数据哪个更快?</p>
-<p> 聚集索引快 因为数据和索引在同一个文件中可以直接获取?</p>
-</li>
-<li><p>innoDB为什么非主键索引结构叶子结点上存储的是主键而不是所有数据?</p>
-<p> 数据一致性和节省存储空间。   </p>
-</li>
-<li><p>索引实现导致全表扫描出现的情况(以B+树的特性出发进行分析)</p>
-</li>
-</ol>
-<ul>
-<li>in、not in : 可能会出现多次树检索 多次回表操作 mysql会认为直接进行全表扫描更快.</li>
-<li>字段类型不一致:字段类型不一致可能会触发数据库函数进行类型转换,此时b+树的顺序就不能用于检索了。 注意⚠️:数值字符串类型主键用 数值搜索会导致索引失效 但是数值主键用字符串搜索不会失效</li>
-</ul>
+    <section class="markdown-content"><h2 id="mysql5-7安装"><a href="#mysql5-7安装" class="headerlink" title="mysql5.7安装"></a>mysql5.7安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><blockquote>
+<p>[root@VM-4-3-centos soft]# wget <a href="http://mirrors.sohu.com/mysql/MySQL-5.7/mysql-5.7.33-linux-glibc2.12-x86_64.tar.gz" target="_blank" rel="noopener">http://mirrors.sohu.com/mysql/MySQL-5.7/mysql-5.7.33-linux-glibc2.12-x86_64.tar.gz</a></p>
+</blockquote>
+<p>1.查看系统中是否存在mysql</p>
+<blockquote>
+<p>[root@VM-4-3-centos soft]# rpm -qa | grep mysql</p>
+</blockquote>
+<p>2.如果安装过则删除旧版本</p>
+<blockquote>
+<p>root@VM-4-3-centos soft]# rpm -e 已经存在的MySQL全名</p>
+</blockquote>
+<h3 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h3><blockquote>
+<p>[root@VM-4-3-centos soft]# tar -zxvf  mysql-5.7.33-linux-glibc2.12-x86_64.tar.gz -C /usr/local/</p>
+</blockquote>
+<p>文件名改成mysql</p>
+<blockquote>
+<p>[root@VM-4-3-centos soft]# cd /usr/local/<br>[root@VM-4-3-centos local]# mv mysql-5.7.33-linux-glibc2.12-x86_64/ mysql</p>
+</blockquote>
+<h3 id="编辑启动文件"><a href="#编辑启动文件" class="headerlink" title="编辑启动文件"></a>编辑启动文件</h3><p>1.配置数据库编码</p>
+<blockquote>
+<p>[root@VM-4-3-centos local]# vi /etc/my.cnf</p>
+</blockquote>
+<p>添加内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[mysql]</span><br><span class="line">default-character-set&#x3D;utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">default-storage-engine&#x3D;INNODB</span><br><span class="line">character_set_server&#x3D;utf8</span><br></pre></td></tr></table></figure>
+
+<p>2.复制mysql.server到/etc/init.d/目录下(目的想实现开机自动执行效果)</p>
+<blockquote>
+<p>[root@VM-4-3-centos local]# cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql</p>
+</blockquote>
+<p>3.修改/etc/init.d/mysql参数</p>
+<blockquote>
+<p>[root@VM-4-3-centos local]# vim /etc/init.d/mysql</p>
+</blockquote>
+<p>修改内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line">datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data</span><br></pre></td></tr></table></figure>
+
+<p>4.出于安全便利，创建一个操作数据库的专门用户（可以忽略）<br>添加mysql组</p>
+<blockquote>
+<p>[root@VM-4-3-centos local]# groupadd mysql</p>
+</blockquote>
+<p>新建mysql用户并放入mysql组中</p>
+<blockquote>
+<p>[root@VM-4-3-centos local]# useradd -r -g mysql mysql</p>
+</blockquote>
+<p>设置mysql用户密码</p>
+<blockquote>
+<p>[root@VM-4-3-centos local]# passwd mysql</p>
+</blockquote>
+<p>给目录/usr/local/mysql 更改拥有者</p>
+<blockquote>
+<p>[root@VM-4-3-centos local]# chown -R mysql:mysql /usr/local/mysql/</p>
+</blockquote>
+<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><blockquote>
+<p>[root@VM-4-3-centos local]# cd /usr/local/mysql/bin/<br>[root@VM-4-3-centos bin]# ./mysqld –initialize –user=mysql –basedir=/usr/local/mysql –datadir=/usr/local/mysql/data</p>
+</blockquote>
+<p><em>初始化后会生成一个临时密码 root@localhost: Xsha(N,HQ3Fv(最好先记录这个临时密码)</em></p>
+<p>数据库加密</p>
+<blockquote>
+<p>[root@VM-4-3-centos bin]# ./mysql_ssl_rsa_setup –datadir=/usr/local/mysql/data</p>
+</blockquote>
+<p>启动mysql<br>[root@VM-4-3-centos bin]# ./mysqld_safe –user=mysql &amp;</p>
+<p><em>⚠️ 如果存在不能创建文件的问题则自己手动创建在启动</em></p>
+<p>检查是否启动</p>
+<h3 id="进入客户端"><a href="#进入客户端" class="headerlink" title="进入客户端"></a>进入客户端</h3><p>登录</p>
+<blockquote>
+<p>[root@VM-4-3-centos bin]# ./mysql -uroot -p<br>Enter password: 输入刚才的临时密码</p>
+</blockquote>
+<p>修改密码</p>
+<blockquote>
+<p>mysql&gt; set password=password(‘123456’);</p>
+</blockquote>
+<h3 id="设置远程访问"><a href="#设置远程访问" class="headerlink" title="设置远程访问"></a>设置远程访问</h3><p>开放3306端口</p>
+<blockquote>
+<p>[root@VM-4-3-centos bin] firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>success<br>[root@VM-4-3-centos bin] firewall-cmd –reload<br>success</p>
+</blockquote>
+<p>登录mysql设置远程访问</p>
+<blockquote>
+<p>mysql&gt; grant all privileges on <em>.</em> to root@’%’ identified by ‘root’;<br>mysql&gt;  flush privileges;</p>
+</blockquote>
+<h3 id="设置开机自启动"><a href="#设置开机自启动" class="headerlink" title="设置开机自启动"></a>设置开机自启动</h3><p>添加mysql服务</p>
+<blockquote>
+<p>[root@VM-4-3-centos bin]# chkconfig –add mysql</p>
+</blockquote>
+<p>设置mysql服务为自启动</p>
+<blockquote>
+<p>[root@VM-4-3-centos bin]# chkconfig mysql on</p>
+</blockquote>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><blockquote>
+<p>[root@VM-4-3-centos bin]# vim /etc/profile</p>
+</blockquote>
+<p>最后一行添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+
+<p>使修改生效</p>
+<blockquote>
+<p>[root@VM-4-3-centos bin]# source /etc/profile</p>
+</blockquote>
+<p>呼呼 , 大功告成!!!😊</p>
 </section>
     <!-- Tags START -->
     
@@ -248,17 +305,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/database/mysql/install/">
+      <a class="nav-left" href="/java/concurrent/threadpool/useThreadPoolExecutor/">
         <span class="nav-arrow">← </span>
         
-          mysql5.7 安装与配置（centos7）
+          ThreadPoolExecutor介绍和使用
         
       </a>
     
     
-      <a class="nav-right" href="/database/mysql/explain/">
+      <a class="nav-right" href="/database/mysql/index-1/">
         
-          Explain工具
+          MySQL索引概述
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -313,7 +370,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#索引的本质"><span class="toc-nav-text">索引的本质</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#索引的数据结构"><span class="toc-nav-text">索引的数据结构</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#二叉树"><span class="toc-nav-text">二叉树</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#红黑树"><span class="toc-nav-text">红黑树</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Hash"><span class="toc-nav-text">Hash</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#BTree"><span class="toc-nav-text">BTree</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#B-Tree"><span class="toc-nav-text">B+Tree</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#索引类别"><span class="toc-nav-text">索引类别</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#聚集索引"><span class="toc-nav-text">聚集索引</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#非聚集索引"><span class="toc-nav-text">非聚集索引</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#存储引擎"><span class="toc-nav-text">存储引擎</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Myisam"><span class="toc-nav-text">Myisam</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#InnoDB"><span class="toc-nav-text">InnoDB</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#联合索引（多列索引）"><span class="toc-nav-text">联合索引（多列索引）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#最左匹配原则（左列匹配原则）"><span class="toc-nav-text">最左匹配原则（左列匹配原则）</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#常见问题"><span class="toc-nav-text">常见问题</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#mysql5-7安装"><span class="toc-nav-text">mysql5.7安装</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#下载"><span class="toc-nav-text">下载</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#解压文件"><span class="toc-nav-text">解压文件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#编辑启动文件"><span class="toc-nav-text">编辑启动文件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#初始化数据库"><span class="toc-nav-text">初始化数据库</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#进入客户端"><span class="toc-nav-text">进入客户端</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#设置远程访问"><span class="toc-nav-text">设置远程访问</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#设置开机自启动"><span class="toc-nav-text">设置开机自启动</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#配置环境变量"><span class="toc-nav-text">配置环境变量</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -324,7 +381,7 @@
 <script>
   (function () {
 
-    var url = 'http://zev_gitee.gitee.io/database/mysql/index-1/';
+    var url = 'http://zev_gitee.gitee.io/database/mysql/install/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
