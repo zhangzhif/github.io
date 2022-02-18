@@ -255,59 +255,7 @@
 <h3 id="mysql的索引选择"><a href="#mysql的索引选择" class="headerlink" title="mysql的索引选择"></a>mysql的索引选择</h3><blockquote>
 <p>传送门——–&gt; <em><a href="/database/mysql/index_optimize_1/">MySQL Optimizer 分析（trace 工具）</a></em></p>
 </blockquote>
-<h3 id="Order-by与Group-by优化"><a href="#Order-by与Group-by优化" class="headerlink" title="Order by与Group by优化"></a>Order by与Group by优化</h3><h5 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h5><p><strong>1. EXPLAIN SELECT * from employees where name = “LiLei” and position =’dev’ ORDER BY age;</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_1.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>上面语句用到联合索引中 name 和 age两个字段。<br>利用最左前缀法则:中间字段不能断，因此查询用到了name索引，从key_len=74也能看出，age索引列用 在排序过程中，因为Extra字段里没有using filesort（文件排序）。</p>
-</blockquote>
-<p><strong>2. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_2.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>从 key_len=74可知查询使用了name索引，由于用了position进行排序，跳过了 age，出现了Using filesort。</p>
-</blockquote>
-<p><strong>3. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY age,position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_3.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>key_len=74 得查找只用到索引name;因为无Using filesort,age和position用于排序。</p>
-</blockquote>
-<p><strong>4. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY age,position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_4.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>与3中explain的执行结果一样，但是出现了文件排序 Using filesort，因为索引的创建顺序为 name,age,position，但是排序的时候age和position颠倒位置了，不符合最左前缀法则。</p>
-</blockquote>
-<p><strong>5. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY age,position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_5.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>与4对比，在Extra中并未出现Using filesort，因为age为常量，在排序中被优化，所以索引顺序未颠倒，符合 最左前缀法则 不会出现Using filesort。</p>
-</blockquote>
-<p><strong>6. EXPLAIN SELECT * from employees where name = “LiLei”   ORDER BY age asc,position desc;</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_6.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>虽然排序的字段列与索引顺序一样，且order by默认升序，这里position desc变成了降序，导致与索引的 排序方式不同，从而产生Using filesort。Mysql8以上版本有降序索引可以支持该种查询方式。</p>
-</blockquote>
-<p><strong>7. EXPLAIN SELECT * from employees where name in (“LiLei”,’zhangsan’)ORDER BY age,position;</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_7.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>对于排序来说，多个相等条件也是范围查询</p>
-</blockquote>
-<p><strong>8. EXPLAIN SELECT * from employees where name &gt; ‘a’ ORDER BY name</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_8.jpg" alt><br><strong>结果分析:</strong></p>
-<blockquote>
-<p>结合前面的mysql 索引选择 这条语句 经过mysql cost 计算 走的全表扫描 所以没有使用到索引 且使用use filesort。</p>
-<p>这种情况可以使用覆盖索引进行优化</p>
-</blockquote>
-<p>   <img src="/database/mysql/index_optimize_1/optimize_9.jpg" alt></p>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><ol>
-<li><p>MySQL支持两种方式的排序filesort和index，Using index是指MySQL扫描索引本身完成排序。index<br>效率高，filesort效率低。</p>
-</li>
-<li><p>order by满足两种情况会使用Using index。</p>
-<ul>
-<li>order by语句使用索引最左前列。</li>
-<li>使用where子句与order by子句条件列组合满足索引最左前列。 </li>
-</ul>
-</li>
-<li><p>尽量在索引列上完成排序，遵循索引建立(索引创建的顺序)时的最左前缀法则。</p>
-</li>
-<li><p>如果order by的条件不在索引列上，就会产生Using filesort。</p>
-</li>
-<li><p>能用覆盖索引尽量用覆盖索引</p>
-</li>
-<li><p>group by与order by很类似，其实质是先排序后分组，遵照索引创建顺序的最左前缀法则。对于group by的优化如果不需要排序的可以加上order by null禁止排序。注意，where高于having，能写在where中 的限定条件就不要去having限定了。</p>
-</li>
-</ol>
-<h4 id="索引设计原则"><a href="#索引设计原则" class="headerlink" title="索引设计原则"></a>索引设计原则</h4><ol>
+<h3 id="索引设计原则"><a href="#索引设计原则" class="headerlink" title="索引设计原则"></a>索引设计原则</h3><ol>
 <li><p>代码先行，索引后上</p>
 <p>不知大家一般是怎么给数据表建立索引的，是建完表马上就建立索引吗? 这其实是不对的，一般应该等到主体业务功能开发完毕，把涉及到该表相关sql都要拿出来分析之后再建立 索引。</p>
 </li>
@@ -322,9 +270,6 @@
 </li>
 <li><p>where与order by冲突时优先where</p>
 <p> 在where和order by出现索引设计冲突时，到底是针对where去设计索引，还是针对order by设计索引?到 底是让where去用上索引，还是让order by用上索引?<br> 一般这种时候往往都是让where条件去使用索引来快速筛选出来一部分指定的数据，接着再进行排序。 因为大多数情况基于索引进行where筛选往往可以最快速度筛选出你要的少部分数据，然后做排序的成本可 能会小很多。</p>
-</li>
-<li><p>基于慢sql查询做优化</p>
-<p> 可以根据监控后台的一些慢sql，针对这些慢sql查询做特定的索引优化。 关于慢sql查询不清楚的可以参考这篇文章:<a href="https://blog.csdn.net/qq_40884473/article/details/89455740" target="_blank" rel="noopener">https://blog.csdn.net/qq_40884473/article/details/89455740</a></p>
 </li>
 </ol>
 </section>
@@ -353,9 +298,9 @@
       </a>
     
     
-      <a class="nav-right" href="/database/mysql/using_filesort/">
+      <a class="nav-right" href="/database/mysql/order_by_group_by/">
         
-          mysql之单/双路排序
+          Order by与Group by优化
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -410,7 +355,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前期准备"><span class="toc-nav-text">前期准备</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#综合案例"><span class="toc-nav-text">综合案例</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#mysql的索引选择"><span class="toc-nav-text">mysql的索引选择</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Order-by与Group-by优化"><span class="toc-nav-text">Order by与Group by优化</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#案例分析"><span class="toc-nav-text">案例分析</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#总结"><span class="toc-nav-text">总结</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#索引设计原则"><span class="toc-nav-text">索引设计原则</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前期准备"><span class="toc-nav-text">前期准备</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#综合案例"><span class="toc-nav-text">综合案例</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#mysql的索引选择"><span class="toc-nav-text">mysql的索引选择</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#索引设计原则"><span class="toc-nav-text">索引设计原则</span></a></li></ol>
     
   </div>
 </aside>

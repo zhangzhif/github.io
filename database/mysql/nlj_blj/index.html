@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JAVA,">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      JOIN 优化 及 NLJ&amp;BNL 算法 | 张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>JOIN 优化 及 NLJ&BNL 算法</h2>
+  <p class="post-date">2021-09-30</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="表准备"><a href="#表准备" class="headerlink" title="表准备"></a>表准备</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 示例表:</span><br><span class="line">CREATE TABLE &#96;t1&#96; (</span><br><span class="line"> &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line"> &#96;a&#96; int(11) DEFAULT NULL,</span><br><span class="line"> &#96;b&#96; int(11) DEFAULT NULL,</span><br><span class="line"> PRIMARY KEY (&#96;id&#96;),</span><br><span class="line"> KEY &#96;idx_a&#96; (&#96;a&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line"></span><br><span class="line">create table t2 like t1;</span><br><span class="line"></span><br><span class="line"># 插入一些示例数据</span><br><span class="line"># 往t1表插入1万行记录</span><br><span class="line">drop procedure if exists insert_t1; </span><br><span class="line">delimiter ;;</span><br><span class="line">create procedure insert_t1()</span><br><span class="line">begin</span><br><span class="line">   declare i int;</span><br><span class="line">   set i&#x3D;1;</span><br><span class="line">   while(i&lt;&#x3D;10000)do</span><br><span class="line">     insert into t1(a,b) values(i,i);</span><br><span class="line">     set i&#x3D;i+1;</span><br><span class="line">   end while;</span><br><span class="line"> end;;</span><br><span class="line"> delimiter ;</span><br><span class="line">call insert_t1();</span><br><span class="line"></span><br><span class="line"># 往t2表插入100行记录</span><br><span class="line">drop procedure if exists insert_t2; </span><br><span class="line">delimiter ;;</span><br><span class="line">create procedure insert_t2()</span><br><span class="line">begin</span><br><span class="line">  declare i int;</span><br><span class="line">  set i&#x3D;1;</span><br><span class="line">  while(i&lt;&#x3D;100)do</span><br><span class="line">    insert into t2(a,b) values(i,i);</span><br><span class="line">    set i&#x3D;i+1;</span><br><span class="line">  end while;</span><br><span class="line">end;;</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br><span class="line">call insert_t2();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>mysql的表关联常见有两种算法</p>
+</blockquote>
+<ul>
+<li>Nested-Loop Join 算法</li>
+<li>Block Nested-Loop Join 算法</li>
+</ul>
+<h2 id="驱动表与被驱动表"><a href="#驱动表与被驱动表" class="headerlink" title="驱动表与被驱动表"></a>驱动表与被驱动表</h2><ol>
+<li>先执行的为驱动表,后执行的为被驱动表。</li>
+<li>优化器一般会优先选择小表做驱动表。所以使用 inner join 时，排在前面的表并不一定就是驱动表。</li>
+<li>当使用left join时，左表是驱动表，右表是被驱动表</li>
+<li>当使用right join时，右表时驱动表，左表是被驱动表</li>
+<li>当使用join时，mysql会选择数据量比较小的表作为驱动表，大表作为被驱动表。</li>
+</ol>
+<h2 id="Nested-Loop-Join"><a href="#Nested-Loop-Join" class="headerlink" title="Nested-Loop Join"></a>Nested-Loop Join</h2><p><strong>一次一行循环地从 驱动表 中读取行，在这行数据中取到关联字段，根据关联字段在  被驱动表  里取出满足条件的行，然后取出两张表的结果合集。</strong></p>
+<h3 id="语句分析"><a href="#语句分析" class="headerlink" title="语句分析"></a>语句分析</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">EXPLAIN select * from t1 inner join t2 on t1.a&#x3D; t2.a;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/nlj_blj/nlj_blj_1.jpg" alt></p>
+<p><strong>从执行计划中可以看到这些信息:</strong></p>
+<ol>
+<li>驱动表是 t2，被驱动表是 t1。(执行计划结果的id如果一样则按从上到下顺序执行sql);</li>
+<li>使用了 NLJ算法。一般 join 语句中，如果执行计划 Extra 中未出现 Using join buffer 则表示使用的 join 算 法是 NLJ。</li>
+</ol>
+<h3 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h3><p><strong>Nested-Loop Join 执行过程:</strong></p>
+<ol>
+<li>从表 t2 中读取一行数据(如果t2表有查询过滤条件的，会从过滤结果里取出一行数据) </li>
+<li>从第 1 步的数据中，取出关联字段 a，到表 t1 中查找</li>
+<li>取出表 t1 中满足条件的行，跟 t2 中获取到的结果合并，作为结果返回给客户端</li>
+<li>重复上面 3 步。</li>
+</ol>
+<p><strong>上面步骤就像是嵌套循环:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (int i &#x3D; 0; i &lt; t2表长度; i++) &#123;</span><br><span class="line">    &#x2F;&#x2F; 获取关联字段 t2.a</span><br><span class="line">    for (int j &#x3D; 0; j &lt;t1 表长度 ; j++) &#123;</span><br><span class="line">        if(t1.a&#x3D;&#x3D;t2.a)&#123;</span><br><span class="line">           &#x2F;&#x2F; 返回到客户端</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="扫描行分析"><a href="#扫描行分析" class="headerlink" title="扫描行分析"></a>扫描行分析</h3><p><strong>整个过程会读取 t2 表的所有数据(扫描100行)，然后遍历这每行数据中字段 a 的值，根据 t2 表中 a 的值索引扫描 t1 表 中的对应行(扫描100次 t1 表的索引，1次扫描可以认为最终只扫描 t1 表一行完整数据，也就是总共 t1 表也扫描了100 行)。因此整个过程扫描了 200 行。</strong></p>
+<p><strong>如果被驱动表的关联字段没索引，使用NLJ算法性能会比较低。让我们来算一算没有索引的情况</strong></p>
+<p><strong>t2 还是一样扫描所有数据（扫描100行）,由于被驱动表t1 没有索引 所以进行全表扫描，一条数据扫描一次全表 所以总扫描次数 为 10000 X 100 = 100W,加t2的100 条 总数为 100万零100条</strong></p>
+<blockquote>
+<p>被驱动表的关联字段没索引，使用NLJ算法性能会比较低 ,mysql会选择Block Nested-Loop Join 算法</p>
+</blockquote>
+<h2 id="Block-Nested-Loop-Join-BNL"><a href="#Block-Nested-Loop-Join-BNL" class="headerlink" title="Block Nested-Loop Join(BNL)"></a>Block Nested-Loop Join(BNL)</h2><h3 id="语句分析-1"><a href="#语句分析-1" class="headerlink" title="语句分析"></a>语句分析</h3><p><strong>接上面的分析 我们这次使用非索引字段做关联查询。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">EXPLAIN select * from t1 inner join t2 on t1.b&#x3D; t2.b;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/nlj_blj/nlj_bnl.jpg" alt></p>
+<p><strong>执行计划 Extra 中 的Using join buffer (Block Nested Loop)说明该关联查询使用的是 BNL 算法。</strong></p>
+<h3 id="执行过程-1"><a href="#执行过程-1" class="headerlink" title="执行过程"></a>执行过程</h3><ol>
+<li>把 t2 的所有数据放入到 join_buffer 中</li>
+<li>把表 t1 中每一行取出来，跟 join_buffer 中的数据做对比 </li>
+<li>返回满足 join 条件的数据</li>
+</ol>
+<h3 id="扫描行分析-1"><a href="#扫描行分析-1" class="headerlink" title="扫描行分析"></a>扫描行分析</h3><p><strong>整个过程对表 t1 和 t2 都做了一次全表扫描，因此扫描的总行数为10000(表 t1 的数据总量) + 100(表 t2 的数据总量) = 10100。<br>但是 join_buffer 里的数据是无序的，因此对表 t1 中的每一行，都要做 100 次判断，所以内存中的判断次数是 100 * 10000= 100 万次。</strong></p>
+<blockquote>
+<p><strong>这个例子里表 t2 才 100 行，要是表 t2 是一个大表，join_buffer 放不下怎么办呢?</strong></p>
+</blockquote>
+<p>join_buffer 的大小是由参数 join_buffer_size 设定的，默认值是 256k。<br>如果放不下表 t2 的所有数据话，策略很简单， 就是分段放。<br>比如 t2 表有1000行记录， join_buffer 一次只能放800行数据，那么执行过程就是先往 join_buffer 里放800行记录，然 后从 t1 表里取数据跟 join_buffer 中数据对比得到部分结果，然后清空 join_buffer ，再放入 t2 表剩余200行记录，再 次从 t1 表里取数据跟 join_buffer 中数据对比。<br>所以多分一次断就会多扫一次 t1 表。</p>
+<blockquote>
+<p>被驱动表的关联字段没索引为什么要选择使用 BNL 算法而不使用 Nested-Loop Join 呢?</p>
+</blockquote>
+<p>在上面已经分析过 上面第二条sql使用 Nested-Loop Join，那么扫描行数为 100 * 10000 + 100= 100万零100次，这个是磁盘扫描。<br>很显然，用BNL磁盘扫描次数少很多，相比于磁盘扫描，BNL的内存计算会快得多。<br>因此MySQL对于被驱动表的关联字段没索引的关联查询，一般都会使用 BNL 算法。如果有索引一般选择 NLJ 算法，有 索引的情况下 NLJ 算法比 BNL算法性能更高</p>
+<h2 id="JOIN的优化"><a href="#JOIN的优化" class="headerlink" title="JOIN的优化"></a>JOIN的优化</h2><ol>
+<li>关联字段加索引，让mysql做join操作时尽量选择NLJ算法 </li>
+<li>小表驱动大表，写多表连接sql时如果明确知道哪张表是小表可以用straight_join写法固定连接驱动方式，省去mysql优化器自己判断的时间。</li>
+</ol>
+<p><strong>straight_join功能同join类似，但能让左边的表来驱动右边的表，能改表优化器对于联表查询的执 行顺序。</strong></p>
+<p>比如:select * from t2 straight_join t1 on t2.a = t1.a; 代表指定mysql选着 t2 表作为驱动表。</p>
+<p>⚠️ straight_join只适用于inner join，并不适用于left join，right join。(因为left join，right join已经代表指 定了表的执行顺序)</p>
+<p>⚠️ 尽可能让优化器去判断，因为大部分情况下mysql优化器是比人要聪明的。使用straight_join一定要慎重，因 为部分情况下人为指定的执行顺序并不一定会比优化引擎要靠谱。</p>
+<h2 id="小表选择方式"><a href="#小表选择方式" class="headerlink" title="小表选择方式"></a>小表选择方式</h2><p>在决定哪个表做驱动表的时候，应该是两个表按照各自的条件过滤，过滤完成之后，计算参与 join 的各个字段的总数据 量，数据量小的那个表，就是“小表”，应该作为驱动表。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/database/mysql/using_filesort/">
+        <span class="nav-arrow">← </span>
+        
+          mysql之单/双路排序
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">目录</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#表准备"><span class="toc-nav-text">表准备</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#驱动表与被驱动表"><span class="toc-nav-text">驱动表与被驱动表</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Nested-Loop-Join"><span class="toc-nav-text">Nested-Loop Join</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#语句分析"><span class="toc-nav-text">语句分析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#执行过程"><span class="toc-nav-text">执行过程</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#扫描行分析"><span class="toc-nav-text">扫描行分析</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Block-Nested-Loop-Join-BNL"><span class="toc-nav-text">Block Nested-Loop Join(BNL)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#语句分析-1"><span class="toc-nav-text">语句分析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#执行过程-1"><span class="toc-nav-text">执行过程</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#扫描行分析-1"><span class="toc-nav-text">扫描行分析</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#JOIN的优化"><span class="toc-nav-text">JOIN的优化</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#小表选择方式"><span class="toc-nav-text">小表选择方式</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/database/mysql/nlj_blj/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

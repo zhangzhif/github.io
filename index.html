@@ -183,6 +183,26 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/database/mysql/nlj_blj/">JOIN 优化 及 NLJ&BNL 算法</a>
+      </h2>
+      <p class="article-date">September 30, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          表准备# 示例表:CREATE TABLE &#96;t1&#96; ( &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT, &#96;a&#96; int(11) DEFAULT NULL, &#96;b&#96; int(11) DEFAULT N ...
+        
+      </div>
+      <a class="more" href="/database/mysql/nlj_blj/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/database/mysql/using_filesort/">mysql之单/双路排序</a>
       </h2>
       <p class="article-date">September 27, 2021</p>
@@ -203,6 +223,54 @@ EXPLAIN SELECT * from employ ...
         
       </div>
       <a class="more" href="/database/mysql/using_filesort/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/limit/">分页查询优化</a>
+      </h2>
+      <p class="article-date">September 24, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+示例表参照 Order by与Group by优化
+
+背景平时开发过程中在我们的业务系统实现分页功能 都会使用到如下sql实现
+select * from employees limit 10000,10;
+这条语句表示在 employees 中取出从 10001 行开始的 10 行记录。 ...
+        
+      </div>
+      <a class="more" href="/database/mysql/limit/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/order_by_group_by/">Order by与Group by优化</a>
+      </h2>
+      <p class="article-date">September 23, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+在看本篇文章时一起跟着操作更有感觉呦～
+
+前期准备# 创建测试表CREATE TABLE &#96;employees&#96; ( &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT, &#96;name&#96; varchar(24) NOT N ...
+        
+      </div>
+      <a class="more" href="/database/mysql/order_by_group_by/">阅读更多</a>
     </article>
   
     <article class="article-card">
@@ -339,75 +407,6 @@ set session opt ...
         
       </div>
       <a class="more" href="/database/mysql/index-1/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/database/mysql/install/">mysql5.7.33 安装与配置（centos7）</a>
-      </h2>
-      <p class="article-date">September 10, 2021</p>
-      
-        
-  <a href="/tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          mysql5.7安装下载
-[root@VM-4-3-centos soft]# wget http://mirrors.sohu.com/mysql/MySQL-5.7/mysql-5.7.33-linux-glibc2.12-x86_64.tar.gz
-
-1.查看系统中是否存在mysql
- ...
-        
-      </div>
-      <a class="more" href="/database/mysql/install/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/concurrent/threadpool/useThreadPoolExecutor/">ThreadPoolExecutor介绍和使用</a>
-      </h2>
-      <p class="article-date">July 27, 2021</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          ThreadPoolExecutor 类分析
-线程池实现类 ThreadPoolExecutor 是 Executor 框架最核心的类。
-
-构造方法ThreadPoolExecutor 类中提供的四个构造方法。我们来看参数最多的那个（一般看源码关注参数最多构造方法），其余三个都是在这个构造方 ...
-        
-      </div>
-      <a class="more" href="/java/concurrent/threadpool/useThreadPoolExecutor/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/concurrent/threadpool/index/">线程池初探</a>
-      </h2>
-      <p class="article-date">July 25, 2021</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          简介 线程池”，顾名思义就是一个线程缓存。线程是稀缺资源，如果被无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，因此Java中提供线程池对线程进行统一分配、调优和监控。
-优势
-池化技术相比大家已经屡见不鲜了，线程池、数据库连接池、Http 连接池等等都是对这个思想的应用。池化技术的思 ...
-        
-      </div>
-      <a class="more" href="/java/concurrent/threadpool/index/">阅读更多</a>
     </article>
   
 
