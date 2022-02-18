@@ -3,14 +3,14 @@
   <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta name="description" content="一只程序员～">
+  <meta name="description" content="JAVA,">
   <meta name="keyword" content="java, 编程">
   
     <link rel="shortcut icon" href="/css/images/logo.png">
   
   <title>
     
-      MySQL索引概述 | 张治峰的博客
+      MySQL索引概述 | 小新的博客
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
   <div class="header-container">
     <a class="home-link" href="/">
       <div class="logo"></div>
-      <span>张治峰的博客</span>
+      <span>小新的博客</span>
     </a>
     <ul class="right-list">
       
@@ -181,7 +181,7 @@
 
     <div id="article-banner">
   <h2>MySQL索引概述</h2>
-  <p class="post-date">2021-11-25</p>
+  <p class="post-date">2021-09-15</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -196,6 +196,17 @@
 <h3 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h3><p>对索引的key进行一次hash计算就可以定位出数据存储的位置，很多时候Hash索引要比B+ 树索引更高效但是仅能满足 “=”，“IN”，不支持范围查询并存在hash冲突问题。<br> <img src="/database/mysql/index-1/hash.jpg" alt></p>
 <h3 id="BTree"><a href="#BTree" class="headerlink" title="BTree"></a>BTree</h3><p>叶节点具有相同的深度，叶节点的指针为空,所有索引元素不重复,节点中的数据索引从左到右递增排列。但是对区间访问的能力不足。<br> <img src="/database/mysql/index-1/BTree.jpg" alt></p>
 <h3 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B+Tree"></a>B+Tree</h3><p>非叶子节点不存储data，只存储索引(冗余)，可以放更多的索引，叶子节点包含所有索引字段,叶子节点用指针连接，提高区间访问的性能。<br> <img src="/database/mysql/index-1/BPTree.jpg" alt></p>
+<blockquote>
+<p>为什么说B+比B树更适合实际应用中操作系统的文件索引和数据库索引？</p>
+</blockquote>
+<ol>
+<li><p>B+的磁盘读写代价更低。</p>
+<p> <em>B+的内部结点并没有指向关键字具体信息的指针，因此其内部结点相对B树更小。</em><br> <em>如果把所有同一内部结点的关键字存放在同一盘块中，那么盘块所能容纳的关键字数量也越多。一次性读入内存中的需要查找的关键字也就越多。相对来说IO读写次数也就降低了。</em></p>
+</li>
+<li><p>B+-tree的查询效率更加稳定。 </p>
+<p> <em>由于非叶子节点并不是最终指向文件内容的结点，而只是叶子结点中关键字的索引。所以任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。</em> </p>
+</li>
+</ol>
 <h2 id="索引类别"><a href="#索引类别" class="headerlink" title="索引类别"></a>索引类别</h2><h3 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h3><p> 索引树叶子结点包含完整的数据（InnoDB主键索引） </p>
 <h3 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h3><p>   索引文件和数据文件是分离的 索引树叶子节点存储的是数据文件中数据对应的磁盘地址(MyschemaDB)，需要回表操作</p>
 <h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p><em>数据库最终的数据都是落在磁盘上，mysql的存储引擎是可插拔的，有能力的话自己也可以实现一个存储引擎.不同存储引擎它在磁盘上的文件格式也不同。</em></p>
@@ -251,7 +262,7 @@
       <a class="nav-left" href="/database/mysql/install/">
         <span class="nav-arrow">← </span>
         
-          mysql5.7 安装与配置（centos7）
+          mysql5.7.33 安装与配置（centos7）
         
       </a>
     

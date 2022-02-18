@@ -3,14 +3,14 @@
   <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta name="description" content="一只程序员～">
+  <meta name="description" content="JAVA,">
   <meta name="keyword" content="java, 编程">
   
     <link rel="shortcut icon" href="/css/images/logo.png">
   
   <title>
     
-      JAVA开发规范-阿里规约 | 张治峰的博客
+      JAVA开发规范-阿里规约 | 小新的博客
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
   <div class="header-container">
     <a class="home-link" href="/">
       <div class="logo"></div>
-      <span>张治峰的博客</span>
+      <span>小新的博客</span>
     </a>
     <ul class="right-list">
       
@@ -348,6 +348,29 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;正例</span><br><span class="line">logger.error(各类参数或者对象toString +&quot;_&quot; + e.getMessage(), e);</span><br></pre></td></tr></table></figure>
 <p>7.输出的POJO类必须重写toString方法，否则只输出此对象的hashCode值（地址值），没啥参考意义。<br>8.可以使用warn日志级别来记录用户输入参数错误的情况，避免用户投诉时，无所适从。注意日志输出的级别，error级别只记录系统逻辑出错、异常、或者重要的错误信息。如非必要，请不要在此场景打出error级别，避免频繁报警。<br>9.谨慎地记录日志。生产环境禁止输出debug日志；有选择地输出info日志；如果使用warn来记录刚上线时的业务行为信息，一定要注意日志输出量的问题，避免把服务器磁盘撑爆，并记得及时删除这些观察日志。<br><strong><em>大量地输出无效日志，不利于系统性能提升，也不利于快速定位错误点。纪录日志时请思考：这些日志真的有人看吗？看到这条日志你能做什么？能不能给问题排查带来好处？</em></strong></p>
 <p>10.如果日志用英文描述不清楚，推荐使用中文注释。对于中文UTF-8的日志，在secureCRT 中，set encoding=utf-8；如果中文字符还乱码，请设置：全局&gt;默认的会话设置&gt;外观&gt;字体&gt; 选择字符集gb2312；如果还不行，执行命令：set termencoding=gbk，并且直接使用中文来进行检索。</p>
+<h2 id="接口定义"><a href="#接口定义" class="headerlink" title="接口定义"></a>接口定义</h2><h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">modelName: 模块名</span><br><span class="line">obj : 对应模块实体类</span><br><span class="line">query: 查询类对象</span><br><span class="line">Id: 对应模块实体id</span><br></pre></td></tr></table></figure>
+<h3 id="接口定义-1"><a href="#接口定义-1" class="headerlink" title="接口定义"></a>接口定义</h3><ul>
+<li><p>获取对象详情</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求类型 get </span><br><span class="line">路径名称: &#x2F;$&#123;version&#125;&#x2F;$&#123;modelName&#125;&#x2F;$&#123;id&#125;</span><br><span class="line">代码</span><br><span class="line">public R getById(@PathVariable(“id”) id)</span><br></pre></td></tr></table></figure></li>
+<li><p>新增</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求类型 put </span><br><span class="line">路径名称: &#x2F;$&#123;version&#125;&#x2F;$&#123;modelName&#125;&#x2F;</span><br><span class="line">代码</span><br><span class="line">public R add(@RequestBody Object obj)</span><br></pre></td></tr></table></figure></li>
+<li><p>修改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求类型 post </span><br><span class="line"> 路径名称: &#x2F;$&#123;version&#125;&#x2F;$&#123;modelName&#125;&#x2F;</span><br><span class="line"> 代码</span><br><span class="line"> public R update(@RequestBody obj)</span><br></pre></td></tr></table></figure></li>
+<li><p>删除</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求类型 delete </span><br><span class="line">路径名称: &#x2F;$&#123;version&#125;&#x2F;$&#123;modelName&#125;&#x2F;$&#123;id&#125;</span><br><span class="line">代码</span><br><span class="line">public R delete(@PathVariable(“id”) id)</span><br></pre></td></tr></table></figure></li>
+<li><p>分页查询:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求类型 get </span><br><span class="line">路径名称: &#x2F;$&#123;version&#125;&#x2F;$&#123;modelName&#125;&#x2F;$&#123;id&#125;</span><br><span class="line">代码</span><br><span class="line">public R delete(Page page,Object query);</span><br></pre></td></tr></table></figure>
+<h3 id="swagger-集成"><a href="#swagger-集成" class="headerlink" title="swagger 集成"></a>swagger 集成</h3><blockquote>
+<p>接口完成后需要集成到swagger当中</p>
+</blockquote>
+<ol>
+<li>填写接口说明</li>
+<li>请求参数说明</li>
+<li>返回结果说明</li>
+<li>返回结果示例</li>
+</ol>
+</li>
+</ul>
 <h2 id="MYSQL规约"><a href="#MYSQL规约" class="headerlink" title="MYSQL规约"></a>MYSQL规约</h2><p><strong><em>本模块待完善</em></strong></p>
 <h3 id="命名规约-1"><a href="#命名规约-1" class="headerlink" title="命名规约"></a>命名规约</h3><h3 id="索引规约"><a href="#索引规约" class="headerlink" title="索引规约"></a>索引规约</h3><h3 id="SQL规约"><a href="#SQL规约" class="headerlink" title="SQL规约"></a>SQL规约</h3><h2 id="工程规约"><a href="#工程规约" class="headerlink" title="工程规约"></a>工程规约</h2><h3 id="应用分层"><a href="#应用分层" class="headerlink" title="应用分层"></a>应用分层</h3><p>web-&gt;service-&gt;mapper</p>
 <h3 id="平台项目结构"><a href="#平台项目结构" class="headerlink" title="平台项目结构"></a>平台项目结构</h3><p><strong><em>待完善</em></strong></p>
@@ -434,7 +457,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#编程规约"><span class="toc-nav-text">编程规约</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#命名规约"><span class="toc-nav-text">命名规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#常量定义"><span class="toc-nav-text">常量定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#格式规约"><span class="toc-nav-text">格式规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#OOP规约"><span class="toc-nav-text">OOP规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#集合处理"><span class="toc-nav-text">集合处理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#并发处理"><span class="toc-nav-text">并发处理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#控制语句"><span class="toc-nav-text">控制语句</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#注释规约"><span class="toc-nav-text">注释规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#其它"><span class="toc-nav-text">其它</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#异常日志"><span class="toc-nav-text">异常日志</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#异常处理"><span class="toc-nav-text">异常处理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#日志规约"><span class="toc-nav-text">日志规约</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#MYSQL规约"><span class="toc-nav-text">MYSQL规约</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#命名规约-1"><span class="toc-nav-text">命名规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#索引规约"><span class="toc-nav-text">索引规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SQL规约"><span class="toc-nav-text">SQL规约</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#工程规约"><span class="toc-nav-text">工程规约</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#应用分层"><span class="toc-nav-text">应用分层</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#平台项目结构"><span class="toc-nav-text">平台项目结构</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#编程规约"><span class="toc-nav-text">编程规约</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#命名规约"><span class="toc-nav-text">命名规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#常量定义"><span class="toc-nav-text">常量定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#格式规约"><span class="toc-nav-text">格式规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#OOP规约"><span class="toc-nav-text">OOP规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#集合处理"><span class="toc-nav-text">集合处理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#并发处理"><span class="toc-nav-text">并发处理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#控制语句"><span class="toc-nav-text">控制语句</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#注释规约"><span class="toc-nav-text">注释规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#其它"><span class="toc-nav-text">其它</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#异常日志"><span class="toc-nav-text">异常日志</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#异常处理"><span class="toc-nav-text">异常处理</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#日志规约"><span class="toc-nav-text">日志规约</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#接口定义"><span class="toc-nav-text">接口定义</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#说明"><span class="toc-nav-text">说明</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#接口定义-1"><span class="toc-nav-text">接口定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#swagger-集成"><span class="toc-nav-text">swagger 集成</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#MYSQL规约"><span class="toc-nav-text">MYSQL规约</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#命名规约-1"><span class="toc-nav-text">命名规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#索引规约"><span class="toc-nav-text">索引规约</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SQL规约"><span class="toc-nav-text">SQL规约</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#工程规约"><span class="toc-nav-text">工程规约</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#应用分层"><span class="toc-nav-text">应用分层</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#平台项目结构"><span class="toc-nav-text">平台项目结构</span></a></li></ol></li></ol>
     
   </div>
 </aside>

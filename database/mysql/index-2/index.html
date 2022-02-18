@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JAVA,">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      MySQL索引实战（mysql5.7.33） | 小新的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>小新的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>MySQL索引实战（mysql5.7.33）</h2>
+  <p class="post-date">2021-09-20</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">drop table if EXISTS &#96;employees&#96; ;</span><br><span class="line"></span><br><span class="line">CREATE TABLE &#96;employees&#96; (</span><br><span class="line">	 &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">	 &#96;name&#96; varchar(24) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;姓名&#39;,</span><br><span class="line">	 &#96;age&#96; int(11) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;年龄&#39;,</span><br><span class="line">	 &#96;position&#96; varchar(20) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;职位&#39;,</span><br><span class="line">	 &#96;hire_time&#96; timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;入职时间&#39;,</span><br><span class="line">	 PRIMARY KEY (&#96;id&#96;),</span><br><span class="line">	 KEY &#96;idx_name_age_position&#96; (&#96;name&#96;,&#96;age&#96;,&#96;position&#96;) USING BTREE</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;4 DEFAULT CHARSET&#x3D;utf8 COMMENT&#x3D;&#39;员工记录表&#39;;</span><br><span class="line"></span><br><span class="line">INSERT INTO employees(name,age,position,hire_time) VALUES(&#39;LiLei&#39;,22,&#39;manager&#39;,NOW());</span><br><span class="line">INSERT INTO employees(name,age,position,hire_time) VALUES(&#39;HanMeimei&#39;, 23,&#39;dev&#39;,NOW());</span><br><span class="line">INSERT INTO employees(name,age,position,hire_time) VALUES(&#39;Lucy&#39;,23,&#39;dev&#39;,NOW());</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>表中含有五个字段,其中id为主键,idx_name_age_position 为 name、age、position 三个字段的联合索引。</p>
+</blockquote>
+<h2 id="实战开始"><a href="#实战开始" class="headerlink" title="实战开始"></a>实战开始</h2><h3 id="全值匹配"><a href="#全值匹配" class="headerlink" title="全值匹配"></a>全值匹配</h3><ol>
+<li><p><strong>EXPLAIN SELECT * FROM employees WHERE name= ‘LiLei’;</strong><br><img src="/database/mysql/index-2/all_match_1.jpg" alt></p>
+</li>
+<li><p><strong>EXPLAIN SELECT * FROM employees WHERE name= ‘LiLei’ AND age = 22;</strong><br><img src="/database/mysql/index-2/all_match_2.jpg" alt></p>
+</li>
+<li><p><strong>EXPLAIN SELECT * FROM employees WHERE name= ‘LiLei’ AND age = 22 AND position =’manager’;</strong><br><img src="/database/mysql/index-2/all_match_3.jpg" alt></p>
+</li>
+</ol>
+<p>上面三个查询语句通过执行计划 通过看引用参数的个数和key_len 可以分析出第一个语句只用到 索引idx_name_age_position中name字段,第二个语句使用到name_age ,第三个语句使用三个字段。</p>
+<blockquote>
+<p>返回结果参数含义 以及 key_len 计算方式 见  <em><a href="/database/mysql/explain/">explain工具</a></em></p>
+</blockquote>
+<h3 id="最左前缀法则"><a href="#最左前缀法则" class="headerlink" title="最左前缀法则"></a>最左前缀法则</h3><p><em>如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。(需要保证B+tree 的有序性)</em></p>
+<ol>
+<li><p><strong>EXPLAIN SELECT * FROM employees WHERE name = ‘Bill’ and age = 31</strong><br><img src="/database/mysql/index-2/left_match_1.jpg" alt></p>
+</li>
+<li><p><strong>EXPLAIN SELECT * FROM employees WHERE age = 30 AND position = ‘dev’;</strong><br><img src="/database/mysql/index-2/left_match_2.jpg" alt></p>
+</li>
+<li><p><strong>EXPLAIN SELECT * FROM employees WHERE age = 30 AND position = ‘dev’;</strong><br><img src="/database/mysql/index-2/left_match_3.jpg" alt></p>
+</li>
+</ol>
+<blockquote>
+<p>上面三个结果中,第一个满足最左前缀法则 走了索引检索，2，3测试中不满足法则,走的全表扫描。</p>
+</blockquote>
+<h3 id="计算-函数-类型转换"><a href="#计算-函数-类型转换" class="headerlink" title="计算|函数|类型转换"></a>计算|函数|类型转换</h3><p>在索引列上做这些操作(计算、函数、(自动or手动)类型转换)，会导致索引失效而转向全表扫描。存在计算时最好使用java等语言进行处理。<br><img src="/database/mysql/index-2/index_bad.jpg" alt></p>
+<h3 id="索引中存在范围查询"><a href="#索引中存在范围查询" class="headerlink" title="索引中存在范围查询"></a>索引中存在范围查询</h3><p><em>存储引擎不能使用索引中范围条件右边的列</em><br><strong>EXPLAIN SELECT * FROM employees WHERE name= ‘LiLei’ AND age &gt; 22 AND position =’manager’;</strong><br><img src="/database/mysql/index-2/index_bad.jpg" alt></p>
+<blockquote>
+<p>索引长度中可以看出来只用到了索引字段 name和age ,字段position 并没有使用到。</p>
+</blockquote>
+<h3 id="使用覆盖索引"><a href="#使用覆盖索引" class="headerlink" title="使用覆盖索引"></a>使用覆盖索引</h3><p><em>尽量使用覆盖索引(只访问二级索引的查询(索引列包含查询列))，减少 select * 语句</em><br><strong>EXPLAIN SELECT name,age FROM employees WHERE name= ‘LiLei’ AND age = 23 AND position =’manager’;</strong><br><img src="/database/mysql/index-2/use_index.jpg" alt><br><img src="/database/mysql/index-2/use_index_1.jpg" alt></p>
+<blockquote>
+<p>使用覆盖索引在扫描二级索引的时候就能返回查询结果，不会进行回表操作,效率高。</p>
+</blockquote>
+<h3 id="比较操作"><a href="#比较操作" class="headerlink" title="比较操作"></a>比较操作</h3><p><em>mysql在使用不等于(!=或者&lt;&gt;)，not in ，not exists, &lt; 、 &gt; 、 &lt;=、&gt;= 这些，mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引</em><br><strong>EXPLAIN SELECT * FROM employees WHERE name not In ‘LiLei’;</strong><br><img src="/database/mysql/index-2/index_compare.jpg" alt></p>
+<blockquote>
+<p>在mysql5.6 以下版本使用不等于(!=或者&lt;&gt;)，not in ，not exists 的时候无法使用索引会导致全表扫描，可以自己explain 试一下</p>
+</blockquote>
+<h3 id="isnull-isnotnull"><a href="#isnull-isnotnull" class="headerlink" title="isnull isnotnull"></a>isnull isnotnull</h3><p><img src="/database/mysql/index-2/index_isnull.jpg" alt><br><strong>EXPLAIN SELECT * FROM employees WHERE name is null</strong><br><em>is null,is not null <strong>一般情况下</strong> 也无法使用索引</em></p>
+<h3 id="like"><a href="#like" class="headerlink" title="like"></a>like</h3><p><em>like以通配符开头(‘%abc…’)mysql索引失效会变成全表扫描操作</em></p>
+<p><strong>EXPLAIN SELECT * FROM employees WHERE name like ‘%Lei’</strong><br><img src="/database/mysql/index-2/left_match.jpg" alt><br><strong>EXPLAIN SELECT * FROM employees WHERE name like ‘Lei%’</strong><br><img src="/database/mysql/index-2/like_match.jpg" alt></p>
+<h3 id="or-和-in"><a href="#or-和-in" class="headerlink" title="or 和 in"></a>or 和 in</h3><p><em>少用or或in，用它查询时，mysql不一定使用索引，mysql内部优化器会根据检索比例、表大小等多个因素整体评 估是否使用索引，详见范围查询优化</em><br><strong>EXPLAIN SELECT * FROM employees WHERE name = ‘LiLei’ or name = ‘HanMeimei’;</strong><br><img src="/database/mysql/index-2/or_and_in.jpg" alt></p>
+<h3 id="范围查询优化"><a href="#范围查询优化" class="headerlink" title="范围查询优化"></a>范围查询优化</h3><p><strong>给年龄添加单值索引：ALTER TABLE <code>employees</code> ADD INDEX <code>idx_age</code> (<code>age</code>) USING BTREE ;</strong><br><strong>explain select * from employees where age &gt;=1 and age &lt;=2000;</strong></p>
+<blockquote>
+<p>没走索引原因:mysql内部优化器会根据检索比例、表大小等多个因素整体评估是否使用索引。比如这个例子，可能是 由于单次数据量查询过大导致优化器最终选择不走索引</p>
+</blockquote>
+<ul>
+<li><p>优化方法:可以将大的范围拆分成多个小范围</p>
+<p>  <strong>explain select * from employees where age &gt;=1 and age &lt;=1000;</strong><br>  <strong>explain select * from employees where age &gt;=1001 and age &lt;=2000;</strong></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/database/mysql/index-2/result.jpg" alt></p>
+<blockquote>
+<p>like KK%相当于=常量，%KK和%KK% 相当于范围 </p>
+</blockquote>
+<blockquote>
+<p>回到之前讲过的B+索引是一个有序的数据结构 在它的保证有序的情况下才能高效的检索数据。如果不是使用覆盖索引，在使用二级索引后还需要进行回表操作。</p>
+</blockquote>
+<blockquote>
+<p>mysql在执行语句之前会进行成本分析，如果回表成本很高，它可能会放弃走索引而进行全表扫描。</p>
+</blockquote>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/database/mysql/command/">
+        <span class="nav-arrow">← </span>
+        
+          mysql常用命令及配置
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/database/mysql/index_chose/">
+        
+          MySQL Optimizer 分析（trace 工具）
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">目录</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#前期准备"><span class="toc-nav-text">前期准备</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实战开始"><span class="toc-nav-text">实战开始</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#全值匹配"><span class="toc-nav-text">全值匹配</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#最左前缀法则"><span class="toc-nav-text">最左前缀法则</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#计算-函数-类型转换"><span class="toc-nav-text">计算|函数|类型转换</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#索引中存在范围查询"><span class="toc-nav-text">索引中存在范围查询</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#使用覆盖索引"><span class="toc-nav-text">使用覆盖索引</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#比较操作"><span class="toc-nav-text">比较操作</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#isnull-isnotnull"><span class="toc-nav-text">isnull isnotnull</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#like"><span class="toc-nav-text">like</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#or-和-in"><span class="toc-nav-text">or 和 in</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#范围查询优化"><span class="toc-nav-text">范围查询优化</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结"><span class="toc-nav-text">总结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/database/mysql/index-2/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

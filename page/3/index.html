@@ -3,14 +3,14 @@
   <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta name="description" content="一只程序员～">
+  <meta name="description" content="JAVA,">
   <meta name="keyword" content="java, 编程">
   
     <link rel="shortcut icon" href="/css/images/logo.png">
   
   <title>
     
-      张治峰的博客
+      小新的博客
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
   <div class="header-container">
     <a class="home-link" href="/">
       <div class="logo"></div>
-      <span>张治峰的博客</span>
+      <span>小新的博客</span>
     </a>
     <ul class="right-list">
       
@@ -183,23 +183,96 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/framework/spring/ioc/">Spring容器及Spring Bean</a>
+        <a href="/java/jvm/synchronized/">synchronized锁状态及性能对比</a>
       </h2>
-      <p class="article-date">December 1, 2019</p>
+      <p class="article-date">April 1, 2020</p>
       
         
-  <a href="/tags#spring源码" >
-    <span class="tag-code">spring源码</span>
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
   </a>
 
       
       <div class="article-summary">
         
-          Spring容器什么是容器官网解释
-The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instanti ...
+          锁状态概述
+无锁 没有synchronized关键字修饰
+偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需 ...
         
       </div>
-      <a class="more" href="/framework/spring/ioc/">阅读更多</a>
+      <a class="more" href="/java/jvm/synchronized/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/jvm/introduce/">JVM虚拟机</a>
+      </h2>
+      <p class="article-date">March 15, 2020</p>
+      
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。
+JVM组成J ...
+        
+      </div>
+      <a class="more" href="/java/jvm/introduce/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/framework/mybatis/index/">mybatis简介</a>
+      </h2>
+      <p class="article-date">January 17, 2020</p>
+      
+        
+  <a href="/tags#mybatis源码" >
+    <span class="tag-code">mybatis源码</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          mybatis简介
+
+        
+      </div>
+      <a class="more" href="/framework/mybatis/index/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/container/CopyOnWriteArrayList/">CopyOnWriteArrayList源码解析</a>
+      </h2>
+      <p class="article-date">December 8, 2019</p>
+      
+      <div class="article-summary">
+        
+          特性public class CopyOnWriteArrayList&lt;E&gt;    implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
+特性基本与ArrayList一致，底层也是数组结构
+ ...
+        
+      </div>
+      <a class="more" href="/java/container/CopyOnWriteArrayList/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/java/container/LinkedList/">LinkedList源码解析</a>
+      </h2>
+      <p class="article-date">December 3, 2019</p>
+      
+      <div class="article-summary">
+        
+          特性public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Seri ...
+        
+      </div>
+      <a class="more" href="/java/container/LinkedList/">阅读更多</a>
     </article>
   
     <article class="article-card">
@@ -232,6 +305,27 @@ BIO （Blocking IO）同步阻塞模型,一个客户端连接对应一个处理�
         
       </div>
       <a class="more" href="/java/io/iomodul/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/framework/spring/ioc/">Spring容器及Spring Bean</a>
+      </h2>
+      <p class="article-date">December 1, 2019</p>
+      
+        
+  <a href="/tags#spring源码" >
+    <span class="tag-code">spring源码</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Spring容器什么是容器官网解释
+The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instanti ...
+        
+      </div>
+      <a class="more" href="/framework/spring/ioc/">阅读更多</a>
     </article>
   
 

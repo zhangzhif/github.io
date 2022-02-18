@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JAVA,">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      MySQL索引分析及设计原则 | 小新的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>小新的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>MySQL索引分析及设计原则</h2>
+  <p class="post-date">2021-09-22</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>在看本篇文章时一起跟着操作更有感觉呦～</p>
+</blockquote>
+<h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 创建测试表</span><br><span class="line">CREATE TABLE &#96;employees&#96; (</span><br><span class="line"> &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line"> &#96;name&#96; varchar(24) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;姓名&#39;,</span><br><span class="line"> &#96;age&#96; INT ( 11 ) NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;年龄&#39;,</span><br><span class="line"> &#96;position&#96; VARCHAR ( 20 ) NOT NULL DEFAULT &#39;&#39; COMMENT &#39;职位&#39;,</span><br><span class="line"> &#96;hire_time&#96; timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT &#39;入职时间&#39;,</span><br><span class="line"> PRIMARY KEY (&#96;id&#96;),</span><br><span class="line"> KEY &#96;idx_name_age_position&#96; (&#96;name&#96;,&#96;age&#96;,&#96;position&#96;) USING BTREE</span><br><span class="line"> ) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;1 DEFAULT CHARSET&#x3D;utf8 COMMENT&#x3D;&#39;员工记录表&#39;;</span><br><span class="line"></span><br><span class="line">INSERT INTO employees(name,age,position,hire_time) VALUES(&#39;LiLei&#39;,22,&#39;manager&#39;,NOW());</span><br><span class="line">INSERT INTO employees(name,age,position,hire_time) VALUES(&#39;HanMeimei&#39;, 23,&#39;dev&#39;,NOW());</span><br><span class="line">INSERT INTO employees(name,age,position,hire_time) VALUES(&#39;Lucy&#39;,23,&#39;dev&#39;,NOW());</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 插入一些示例数据</span><br><span class="line"> drop procedure if exists insert_emp;</span><br><span class="line"> delimiter ;;</span><br><span class="line"> create procedure insert_emp()</span><br><span class="line"> begin</span><br><span class="line"> declare i int;</span><br><span class="line"> set i&#x3D;1;</span><br><span class="line"> while(i&lt;&#x3D;100000)do</span><br><span class="line"> insert into employees(name,age,position) values(CONCAT(&#39;zhuge&#39;,i),i,&#39;dev&#39;);</span><br><span class="line"> set i&#x3D;i+1;</span><br><span class="line">end while;</span><br><span class="line"> end;;</span><br><span class="line"> delimiter ;</span><br><span class="line"> call insert_emp();</span><br></pre></td></tr></table></figure>
+
+<h3 id="综合案例"><a href="#综合案例" class="headerlink" title="综合案例"></a>综合案例</h3><ol>
+<li><p>联合索引第一个字段用范围不会走索引</p>
+<p> <strong>EXPLAIN SELECT * FROM employees WHERE name &gt; ‘LiLei’;</strong><br> <img src="/database/mysql/index_optimize_1/case_1_1.jpg" alt></p>
+<blockquote>
+<p>结论:联合索引第一个字段就用范围查找不会走索引，mysql内部可能觉得第一个字段就用范围查找 结果集应该很大，回表效率不高，还不如就全表扫描快。</p>
+</blockquote>
+</li>
+<li><p>强制走索引(force index)<br> <strong>EXPLAIN SELECT * FROM employees force index(idx_name_age_position) WHERE name &gt; ‘LiLei’</strong><br> <img src="/database/mysql/index_optimize_1/case_1_2.jpg" alt>    </p>
+</li>
+</ol>
+<ul>
+<li>实验:全表扫描 vs 索引 (10w数据)<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#关闭查询缓存</span><br><span class="line">set global query_cache_size&#x3D;0;</span><br><span class="line">set global query_cache_type&#x3D;0;</span><br><span class="line">#执行时间 5.752s</span><br><span class="line">SELECT * FROM employees WHERE name &gt; &#39;LiLei&#39;; </span><br><span class="line"># 执行时间6.349</span><br><span class="line">SELECT * FROM employees force index(idx_name_age_position) WHERE name &gt; &#39;LiLei&#39;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>结论:虽然使用了强制走索引让联合索引第一个字段范围查找也走索引，扫描的行rows看上去也少了点，但是最终查找效率不一定比全表 扫描高，因为回表效率不高</p>
+</blockquote>
+</li>
+</ul>
+<ol start="3">
+<li><p><strong>覆盖索引优化</strong></p>
+<p><strong>EXPLAIN SELECT name,age,position FROM employees WHERE name &gt; ‘LiLei’;</strong><br><img src="/database/mysql/index_optimize_1/case_1_3.jpg" alt>  </p>
+<blockquote>
+<p>覆盖索引不需要回表，效率高。查找时最好不要使用 select * ；</p>
+</blockquote>
+</li>
+<li><p><strong>in和or在表数据量比较大的情况会走索引，在表记录不多的情况下会选择全表扫描</strong></p>
+</li>
+</ol>
+<ul>
+<li><p><strong># 表总数量10w</strong></p>
+<p> <strong>EXPLAIN SELECT * FROM employees WHERE name in (‘LiLei’,’HanMeimei’,’Lucy’) AND age = 22 AND position =’manager’;</strong><br> <img src="/database/mysql/index_optimize_1/case_1_4.jpg" alt>  </p>
+<p> <strong>EXPLAIN SELECT * FROM employees WHERE (name = ‘LiLei’ or name = ‘HanMeimei’) AND age = 22 AND position =’manager’</strong><br> <img src="/database/mysql/index_optimize_1/case_1_6.jpg" alt>  </p>
+</li>
+<li><p><strong># copy employees 表 保留三条记录 表总数量 3 条</strong></p>
+<p> <strong>EXPLAIN SELECT * FROM employees_copy1 WHERE name in (‘LiLei’,’HanMeimei’,’Lucy’) AND age = 22 AND position =’manager’;</strong><br> <img src="/database/mysql/index_optimize_1/case_1_5.jpg" alt> </p>
+<p> <strong>EXPLAIN SELECT * FROM employees_copy1 WHERE (name = ‘LiLei’ or name = ‘HanMeimei’) AND age = 22 AND position =’manager’;</strong><br> <img src="/database/mysql/index_optimize_1/case_1_7.jpg" alt> </p>
+</li>
+</ul>
+<ol start="5">
+<li><p>like KK% 一般情况都会走索引（注意索引长度）</p>
+<p> <strong>EXPLAIN SELECT * FROM employees WHERE name like ‘LiLei%’ AND age = 22 AND position =’manager’;</strong><br> <img src="/database/mysql/index_optimize_1/case_1_8.jpg" alt> </p>
+<blockquote>
+<p>上面结果使用到索引长度为140，说明使用到了索引中到三个字段都使用到了，按照之前的  这条语句索引只会使用到name字段,长度应该为74。</p>
+<p>那为什么会使用到三个字段呢？</p>
+<p>这里有个索引下推的概念 like KK%其实就是用到了索引下推优化。 </p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><p>索引下推</p>
+<p>  对于辅助的联合索引(name,age,position)，正常情况按照最左前缀原则，SELECT * FROM employees WHERE name like ‘LiLei%’ AND age = 22 AND position =’manager’ 这种情况只会走name字段索引，因为根据name字段过滤完，得到的索引行里的age和 position是无序的，无法很好的利用索引。</p>
+<p>  在MySQL5.6之前的版本，这个查询只能在联合索引里匹配到名字是 ‘LiLei’ 开头的索引，然后拿这些索引对应的主键逐个回表，到主键索 引上找出相应的记录，再比对age和position这两个字段的值是否符合。</p>
+<p>  MySQL 5.6引入了索引下推优化，可以在索引遍历过程中，对索引中包含的所有字段先做判断，过滤掉不符合条件的记录之后再回表，可 以有效的减少回表次数。使用了索引下推优化后，上面那个查询在联合索引里匹配到名字是 ‘LiLei’ 开头的索引之后，同时还会在索引里过 滤age和position这两个字段，拿着过滤完剩下的索引对应的主键id再回表查整行数据。</p>
+<p>  索引下推会减少回表次数，对于innodb引擎的表索引下推只能用于二级索引，innodb的主键索引(聚簇索引)树叶子节点上保存的是全 行数据，所以这个时候索引下推并不会起到减少查询全行数据的效果。</p>
+<p>  <strong>为什么范围查找Mysql没有用索引下推优化?</strong></p>
+<p>  估计应该是Mysql认为范围查找过滤的结果集过大，like KK% 在绝大多数情况来看，过滤后的结果集比较小，所以这里Mysql选择给 like KK% 用了索引下推优化，当然这也不是绝对的，有时like KK% 也不一定就会走索引下推。</p>
+</li>
+</ul>
+<h3 id="mysql的索引选择"><a href="#mysql的索引选择" class="headerlink" title="mysql的索引选择"></a>mysql的索引选择</h3><blockquote>
+<p>传送门——–&gt; <em><a href="/database/mysql/index_optimize_1/">MySQL Optimizer 分析（trace 工具）</a></em></p>
+</blockquote>
+<h3 id="Order-by与Group-by优化"><a href="#Order-by与Group-by优化" class="headerlink" title="Order by与Group by优化"></a>Order by与Group by优化</h3><h5 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h5><p><strong>1. EXPLAIN SELECT * from employees where name = “LiLei” and position =’dev’ ORDER BY age;</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_1.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>上面语句用到联合索引中 name 和 age两个字段。<br>利用最左前缀法则:中间字段不能断，因此查询用到了name索引，从key_len=74也能看出，age索引列用 在排序过程中，因为Extra字段里没有using filesort（文件排序）。</p>
+</blockquote>
+<p><strong>2. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_2.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>从 key_len=74可知查询使用了name索引，由于用了position进行排序，跳过了 age，出现了Using filesort。</p>
+</blockquote>
+<p><strong>3. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY age,position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_3.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>key_len=74 得查找只用到索引name;因为无Using filesort,age和position用于排序。</p>
+</blockquote>
+<p><strong>4. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY age,position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_4.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>与3中explain的执行结果一样，但是出现了文件排序 Using filesort，因为索引的创建顺序为 name,age,position，但是排序的时候age和position颠倒位置了，不符合最左前缀法则。</p>
+</blockquote>
+<p><strong>5. EXPLAIN SELECT * from employees where name = “LiLei”  ORDER BY age,position</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_5.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>与4对比，在Extra中并未出现Using filesort，因为age为常量，在排序中被优化，所以索引顺序未颠倒，符合 最左前缀法则 不会出现Using filesort。</p>
+</blockquote>
+<p><strong>6. EXPLAIN SELECT * from employees where name = “LiLei”   ORDER BY age asc,position desc;</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_6.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>虽然排序的字段列与索引顺序一样，且order by默认升序，这里position desc变成了降序，导致与索引的 排序方式不同，从而产生Using filesort。Mysql8以上版本有降序索引可以支持该种查询方式。</p>
+</blockquote>
+<p><strong>7. EXPLAIN SELECT * from employees where name in (“LiLei”,’zhangsan’)ORDER BY age,position;</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_7.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>对于排序来说，多个相等条件也是范围查询</p>
+</blockquote>
+<p><strong>8. EXPLAIN SELECT * from employees where name &gt; ‘a’ ORDER BY name</strong><br>    <img src="/database/mysql/index_optimize_1/optimize_8.jpg" alt><br><strong>结果分析:</strong></p>
+<blockquote>
+<p>结合前面的mysql 索引选择 这条语句 经过mysql cost 计算 走的全表扫描 所以没有使用到索引 且使用use filesort。</p>
+<p>这种情况可以使用覆盖索引进行优化</p>
+</blockquote>
+<p>   <img src="/database/mysql/index_optimize_1/optimize_9.jpg" alt></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><ol>
+<li><p>MySQL支持两种方式的排序filesort和index，Using index是指MySQL扫描索引本身完成排序。index<br>效率高，filesort效率低。</p>
+</li>
+<li><p>order by满足两种情况会使用Using index。</p>
+<ul>
+<li>order by语句使用索引最左前列。</li>
+<li>使用where子句与order by子句条件列组合满足索引最左前列。 </li>
+</ul>
+</li>
+<li><p>尽量在索引列上完成排序，遵循索引建立(索引创建的顺序)时的最左前缀法则。</p>
+</li>
+<li><p>如果order by的条件不在索引列上，就会产生Using filesort。</p>
+</li>
+<li><p>能用覆盖索引尽量用覆盖索引</p>
+</li>
+<li><p>group by与order by很类似，其实质是先排序后分组，遵照索引创建顺序的最左前缀法则。对于group by的优化如果不需要排序的可以加上order by null禁止排序。注意，where高于having，能写在where中 的限定条件就不要去having限定了。</p>
+</li>
+</ol>
+<h4 id="索引设计原则"><a href="#索引设计原则" class="headerlink" title="索引设计原则"></a>索引设计原则</h4><ol>
+<li><p>代码先行，索引后上</p>
+<p>不知大家一般是怎么给数据表建立索引的，是建完表马上就建立索引吗? 这其实是不对的，一般应该等到主体业务功能开发完毕，把涉及到该表相关sql都要拿出来分析之后再建立 索引。</p>
+</li>
+<li><p>联合索引尽量覆盖条件</p>
+<p>比如可以设计一个或者两三个联合索引(尽量少建单值索引)，让每一个联合索引都尽量去包含sql语句里的 where、order by、group by的字段，还要确保这些联合索引的字段顺序尽量满足sql查询的最左前缀原 则。</p>
+</li>
+<li><p>不要在小基数字段上建立索引</p>
+<p>索引基数是指这个字段在表里总共有多少个不同的值，比如一张表总共100万行记录，其中有个性别字段， 其值不是男就是女，那么该字段的基数就是2。 如果对这种小基数字段建立索引的话，还不如全表扫描了，因为你的索引树里就包含男和女两种值，根本没 法进行快速的二分查找，那用索引就没有太大的意义了。 一般建立索引，尽量使用那些基数比较大的字段，就是值比较多的字段，那么才能发挥出B+树快速二分查 找的优势来。</p>
+</li>
+<li><p>长字符串我们可以采用前缀索引</p>
+<p>尽量对字段类型较小的列设计索引，比如说什么tinyint之类的，因为字段类型较小的话，占用磁盘空间也会 比较小，此时你在搜索的时候性能也会比较好一点。 当然，这个所谓的字段类型小一点的列，也不是绝对的，很多时候你就是要针对varchar(255)这种字段建立 索引，哪怕多占用一些磁盘空间也是有必要的。 对于这种varchar(255)的大字段可能会比较占用磁盘空间，可以稍微优化下，比如针对这个字段的前20个 字符建立索引，就是说，对这个字段里的每个值的前20个字符放在索引树里，类似于 KEY index(name(20),age,position)。 此时你在where条件里搜索的时候，如果是根据name字段来搜索，那么此时就会先到索引树里根据name 字段的前20个字符去搜索，定位到之后前20个字符的前缀匹配的部分数据之后，再回到聚簇索引提取出来 完整的name字段值进行比对。<br>但是假如你要是order by name，那么此时你的name因为在索引树里仅仅包含了前20个字符，所以这个排 序是没法用上索引的， group by也是同理。所以这里大家要对前缀索引有一个了解。</p>
+</li>
+<li><p>where与order by冲突时优先where</p>
+<p> 在where和order by出现索引设计冲突时，到底是针对where去设计索引，还是针对order by设计索引?到 底是让where去用上索引，还是让order by用上索引?<br> 一般这种时候往往都是让where条件去使用索引来快速筛选出来一部分指定的数据，接着再进行排序。 因为大多数情况基于索引进行where筛选往往可以最快速度筛选出你要的少部分数据，然后做排序的成本可 能会小很多。</p>
+</li>
+<li><p>基于慢sql查询做优化</p>
+<p> 可以根据监控后台的一些慢sql，针对这些慢sql查询做特定的索引优化。 关于慢sql查询不清楚的可以参考这篇文章:<a href="https://blog.csdn.net/qq_40884473/article/details/89455740" target="_blank" rel="noopener">https://blog.csdn.net/qq_40884473/article/details/89455740</a></p>
+</li>
+</ol>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/database/mysql/index_chose/">
+        <span class="nav-arrow">← </span>
+        
+          MySQL Optimizer 分析（trace 工具）
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/database/mysql/using_filesort/">
+        
+          mysql之单/双路排序
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Utterances START -->
+      <div id="utterances"></div>
+      <script src="https://utteranc.es/client.js"
+        repo=""
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async></script>    
+      <!-- Utterances END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">目录</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#前期准备"><span class="toc-nav-text">前期准备</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#综合案例"><span class="toc-nav-text">综合案例</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#mysql的索引选择"><span class="toc-nav-text">mysql的索引选择</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Order-by与Group-by优化"><span class="toc-nav-text">Order by与Group by优化</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#案例分析"><span class="toc-nav-text">案例分析</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#总结"><span class="toc-nav-text">总结</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#索引设计原则"><span class="toc-nav-text">索引设计原则</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/database/mysql/index_optimize_1/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

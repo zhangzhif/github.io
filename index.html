@@ -3,14 +3,14 @@
   <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-  <meta name="description" content="一只程序员～">
+  <meta name="description" content="JAVA,">
   <meta name="keyword" content="java, 编程">
   
     <link rel="shortcut icon" href="/css/images/logo.png">
   
   <title>
     
-      张治峰的博客
+      小新的博客
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
   <div class="header-container">
     <a class="home-link" href="/">
       <div class="logo"></div>
-      <span>张治峰的博客</span>
+      <span>小新的博客</span>
     </a>
     <ul class="right-list">
       
@@ -183,9 +183,126 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/database/mysql/using_filesort/">mysql之单/双路排序</a>
+      </h2>
+      <p class="article-date">September 27, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          Using filesort
+当语句中使用到 order by 排序时,尽可能遵照索引键的最佳左前缀，在索引列上进行排序操作。
+如果排序字段 不能通过索引树的排序时 就会出现 using filesort 文件排序。如下图执行语句。
+
+EXPLAIN SELECT * from employ ...
+        
+      </div>
+      <a class="more" href="/database/mysql/using_filesort/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/index_optimize_1/">MySQL索引分析及设计原则</a>
+      </h2>
+      <p class="article-date">September 22, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+在看本篇文章时一起跟着操作更有感觉呦～
+
+前期准备# 创建测试表CREATE TABLE &#96;employees&#96; ( &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT, &#96;name&#96; varchar(24) NOT N ...
+        
+      </div>
+      <a class="more" href="/database/mysql/index_optimize_1/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/index_chose/">MySQL Optimizer 分析（trace 工具）</a>
+      </h2>
+      <p class="article-date">September 21, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          trace工具
+MySQL5.6版本后提供了对SQL的跟踪工具trace，通过使用trace可以让我们明白optimizer如何选择执行计划的。
+⚠️开启trace工具会影响mysql性能，所以只能临时分析sql使用，用 完之后立即关闭
+
+使用方式
+开启 traceset session o ...
+        
+      </div>
+      <a class="more" href="/database/mysql/index_chose/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/index-2/">MySQL索引实战（mysql5.7.33）</a>
+      </h2>
+      <p class="article-date">September 20, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          前期准备drop table if EXISTS &#96;employees&#96; ;CREATE TABLE &#96;employees&#96; (	 &#96;id&#96; int(11) NOT NULL AUTO_INCREMENT,	 &#96;name&#96; va ...
+        
+      </div>
+      <a class="more" href="/database/mysql/index-2/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/command/">mysql常用命令及配置</a>
+      </h2>
+      <p class="article-date">September 18, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          关闭查询缓存set global query_cache_size&#x3D;0;set global query_cache_type&#x3D;0;
+
+开启trace
+开启trace工具会影响mysql性能，所以只能临时分析sql使用，用 完之后立即关闭
+
+set session opt ...
+        
+      </div>
+      <a class="more" href="/database/mysql/command/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/database/mysql/explain/">Explain工具</a>
       </h2>
-      <p class="article-date">November 28, 2021</p>
+      <p class="article-date">September 17, 2021</p>
       
         
   <a href="/tags#mysql" >
@@ -206,7 +323,7 @@
       <h2 class="article-head">
         <a href="/database/mysql/index-1/">MySQL索引概述</a>
       </h2>
-      <p class="article-date">November 25, 2021</p>
+      <p class="article-date">September 15, 2021</p>
       
         
   <a href="/tags#mysql" >
@@ -226,7 +343,7 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/database/mysql/install/">mysql5.7 安装与配置（centos7）</a>
+        <a href="/database/mysql/install/">mysql5.7.33 安装与配置（centos7）</a>
       </h2>
       <p class="article-date">September 10, 2021</p>
       
@@ -291,120 +408,6 @@
         
       </div>
       <a class="more" href="/java/concurrent/threadpool/index/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/middleware/zookeeper/sourcecode/">Zookeeper源码启动</a>
-      </h2>
-      <p class="article-date">February 10, 2021</p>
-      
-        
-  <a href="/tags#Zookeeper" >
-    <span class="tag-code">Zookeeper</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          下载
-// git地址 版本3.5.8https://github.com/apache/zookeeper.git
-
-导入idea
-启动1.源码导入后，org.apache.zookeeper.Version类会报错，需要建一个辅助类     package org.apache.zook ...
-        
-      </div>
-      <a class="more" href="/middleware/zookeeper/sourcecode/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/middleware/zookeeper/cluster/">Zookeeper集群</a>
-      </h2>
-      <p class="article-date">February 9, 2021</p>
-      
-        
-  <a href="/tags#Zookeeper" >
-    <span class="tag-code">Zookeeper</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Zookeeper集群zookeeper集群的目的是为了保证系统的性能承载更多的客户端连接设专门提供的机制。通过集群可以实现以下功能：
-
-读写分离：提高承载，为更多的客户端提供连接，并保障性能。
-主从自动切换：提高服务容错性，部分节点故障不会影响整个服务集群。
-
-运行机制说明:集群至少需要三 ...
-        
-      </div>
-      <a class="more" href="/middleware/zookeeper/cluster/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/middleware/zookeeper/javaclient/">Zookeeper Java客户端使用</a>
-      </h2>
-      <p class="article-date">February 8, 2021</p>
-      
-        
-  <a href="/tags#Zookeeper" >
-    <span class="tag-code">Zookeeper</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          客户端API常规应用zookeeper 提供了java与C两种语言的客户端。本文引用的是java客户端。引入最新的maven依赖： &lt;!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper --&gt; ...
-        
-      </div>
-      <a class="more" href="/middleware/zookeeper/javaclient/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/middleware/zookeeper/index/">zookeeper介绍及基本使用</a>
-      </h2>
-      <p class="article-date">February 7, 2021</p>
-      
-        
-  <a href="/tags#Zookeeper" >
-    <span class="tag-code">Zookeeper</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          zookeeper简介产生背景 从单体项目到分布式项目转变之后，会产生多个服务节点之间的协同问题。如
-每天的定时任务有哪个节点执行RPC调用时的服务发现如何保证并发请求的幂等性			...
-
-这些问题可以统一归纳为多节点协调问题，如果靠节点自身进行协调这是非常不可靠的，性能也不可取。必须由一 ...
-        
-      </div>
-      <a class="more" href="/middleware/zookeeper/index/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/essay/standard/">JAVA开发规范-阿里规约</a>
-      </h2>
-      <p class="article-date">October 20, 2020</p>
-      
-        
-  <a href="/tags#随笔" >
-    <span class="tag-code">随笔</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          原文地址: zhangzhifeng的主页
-编程规约命名规约1.所有编程相关命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。
-// 反例： _name          __name          $Object         name_          name$  ...
-        
-      </div>
-      <a class="more" href="/essay/standard/">阅读更多</a>
     </article>
   
 
