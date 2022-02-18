@@ -227,6 +227,33 @@ EXPLAIN SELECT * from employ ...
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/database/mysql/in_exist_count/">in、exist 与 count(*)优化</a>
+      </h2>
+      <p class="article-date">September 24, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          in 与 exist
+原则: 小表驱动大表 , 即小的数据集驱动大的数据集（A.id 索引字段）
+
+in
+当B表的数据集小于A表的数据集时，in优于exists 
+
+语句分析
+select * from A where id in (select id from B)等价于for(selec ...
+        
+      </div>
+      <a class="more" href="/database/mysql/in_exist_count/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/database/mysql/limit/">分页查询优化</a>
       </h2>
       <p class="article-date">September 24, 2021</p>
@@ -385,28 +412,6 @@ set session opt ...
         
       </div>
       <a class="more" href="/database/mysql/explain/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/database/mysql/index-1/">MySQL索引概述</a>
-      </h2>
-      <p class="article-date">September 15, 2021</p>
-      
-        
-  <a href="/tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          索引的本质  索引是帮助MySQL高效获取数据的  排好序 的 数据结构
-索引的数据结构  下面介绍几种数据结构,先有个影响。mysql索引支持B+树 和 hash。
-二叉树二叉树（binary tree）是指树中节点的度不大于2的有序树，它是一种最简单且最重要的树。但是对于单边增长的数据没 ...
-        
-      </div>
-      <a class="more" href="/database/mysql/index-1/">阅读更多</a>
     </article>
   
 
