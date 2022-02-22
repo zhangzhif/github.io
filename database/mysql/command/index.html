@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -28,6 +32,10 @@
 <script src="/js/qrious.js"></script>
 
   
+  
+    
+<script src="/js/gitment.js"></script>
+
   
   
 
@@ -226,7 +234,16 @@
 <li>修改配置文件my.cnf，在[mysqld]下的下方加入**<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">slow_query_log &#x3D; ON</span><br><span class="line">slow_query_log_file &#x3D; &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;data&#x2F;slow_query.log</span><br><span class="line">long_query_time &#x3D; 1</span><br></pre></td></tr></table></figure></li>
 <li>重启mysql</li>
 </ol>
-</section>
+<h3 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h3><blockquote>
+<p>传送门: <em><a href="/database/mysql/transaction/">MySQL 事务隔离级别</a></em></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#查看当前数据库的事务隔离级别:</span><br><span class="line">show variables like &#39;tx_isolation&#39;;</span><br><span class="line"></span><br><span class="line">#设置事务隔离级别</span><br><span class="line">set tx_isolation&#x3D;&#39;REPEATABLE-READ&#39;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 手动加锁语句</span><br><span class="line">lock table 表名称 read(write),表名称2 read(write);</span><br><span class="line"># 查看表上加过的锁</span><br><span class="line"> show open tables;</span><br><span class="line"># 删除表锁</span><br><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
+
+<h3 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 查看 innodb_locks_unsafe_for_binlog 是否禁用</span><br><span class="line">show variables like &#39;innodb_locks_unsafe_for_binlog&#39;;</span><br></pre></td></tr></table></figure>
+<p><strong>innodb_locks_unsafe_for_binlog：默认值为OFF，即启用间隙锁。因为此参数是只读模式，如果想要禁用间隙锁，需要修改 my.cnf（windows是my.ini） 重新启动才行。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在 my.cnf 里面的[mysqld]添加</span><br><span class="line">[mysqld]</span><br><span class="line">innodb_locks_unsafe_for_binlog &#x3D; 1</span><br></pre></td></tr></table></figure></section>
     <!-- Tags START -->
     
       <div class="tags">
@@ -291,15 +308,9 @@
     
     <!-- 二维码 END -->
     
-      <!-- Utterances START -->
-      <div id="utterances"></div>
-      <script src="https://utteranc.es/client.js"
-        repo=""
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async></script>    
-      <!-- Utterances END -->
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
     
   </article>
   <!-- Article END -->
@@ -309,7 +320,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#关闭查询缓存"><span class="toc-nav-text">关闭查询缓存</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开启trace"><span class="toc-nav-text">开启trace</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#EXPLAIN-工具"><span class="toc-nav-text">EXPLAIN 工具</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开启慢查询"><span class="toc-nav-text">开启慢查询</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#全局变量设置"><span class="toc-nav-text">全局变量设置</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#配置文件设置"><span class="toc-nav-text">配置文件设置</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#关闭查询缓存"><span class="toc-nav-text">关闭查询缓存</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开启trace"><span class="toc-nav-text">开启trace</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#EXPLAIN-工具"><span class="toc-nav-text">EXPLAIN 工具</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#开启慢查询"><span class="toc-nav-text">开启慢查询</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#全局变量设置"><span class="toc-nav-text">全局变量设置</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#配置文件设置"><span class="toc-nav-text">配置文件设置</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#事务隔离级别"><span class="toc-nav-text">事务隔离级别</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#表锁"><span class="toc-nav-text">表锁</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#间隙锁"><span class="toc-nav-text">间隙锁</span></a></li></ol>
     
   </div>
 </aside>
@@ -377,6 +388,34 @@
   </script>
 
 
+
+  <script>
+    var gitmentConfig = "zhangzhif";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "mysql常用命令及配置",
+        owner: "zhangzhif",
+        repo: "blog-comment",
+        oauth: {
+          client_id: "7c19a6dde1744eaa8c8e",
+          client_secret: "689f2f34a11a1edad102d8b1c63c57e3ebb87512"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
 
 
 

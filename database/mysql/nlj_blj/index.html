@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -28,6 +32,10 @@
 <script src="/js/qrious.js"></script>
 
   
+  
+    
+<script src="/js/gitment.js"></script>
+
   
   
 
@@ -282,6 +290,13 @@
       </a>
     
     
+      <a class="nav-right" href="/database/mysql/transaction/">
+        
+          MySQL 事务隔离级别
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
   </div>
 
     <!-- NAV END -->
@@ -314,15 +329,9 @@
     
     <!-- 二维码 END -->
     
-      <!-- Utterances START -->
-      <div id="utterances"></div>
-      <script src="https://utteranc.es/client.js"
-        repo=""
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async></script>    
-      <!-- Utterances END -->
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
     
   </article>
   <!-- Article END -->
@@ -400,6 +409,34 @@
   </script>
 
 
+
+  <script>
+    var gitmentConfig = "zhangzhif";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "JOIN 优化 及 NLJ&BNL 算法",
+        owner: "zhangzhif",
+        repo: "blog-comment",
+        oauth: {
+          client_id: "7c19a6dde1744eaa8c8e",
+          client_secret: "689f2f34a11a1edad102d8b1c63c57e3ebb87512"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
 
 
 

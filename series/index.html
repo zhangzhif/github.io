@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -28,6 +32,10 @@
 <script src="/js/qrious.js"></script>
 
   
+  
+    
+<script src="/js/gitment.js"></script>
+
   
   
 
@@ -190,20 +198,20 @@
 <main class="app-body">
   <div id="category-cloud">
       
-        <a class="category0" data-name="category-middleware">middleware</a>
+        <a class="category1" data-name="category-middleware">middleware</a>
       
-        <a class="category1" data-name="category-java">java</a>
+        <a class="category2" data-name="category-java">java</a>
       
         <a class="category1" data-name="category-framework">framework</a>
       
-        <a class="category1" data-name="category-essay">essay</a>
+        <a class="category2" data-name="category-essay">essay</a>
       
         <a class="category2" data-name="category-database">database</a>
       
   </div>
     
         <div class="categorieslist">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/database/mysql/">mysql</a><span class="category-list-count">12</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/framework/Spring/">Spring</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JAVAIO%E6%A8%A1%E5%9E%8B/">JAVAIO模型</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/JVM/">JVM</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%AE%B9%E5%99%A8/">容器</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%B9%B6%E5%8F%91/">并发</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/">middleware</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Zookeeper/">Zookeeper</a><span class="category-list-count">4</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/database/">database</a><span class="category-list-count">14</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/database/mysql/">mysql</a><span class="category-list-count">14</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/%E9%9A%8F%E7%AC%94/">随笔</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/">framework</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/framework/Spring/">Spring</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/framework/mybatis/">mybatis</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/java/JAVAIO%E6%A8%A1%E5%9E%8B/">JAVAIO模型</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/JVM/">JVM</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%AE%B9%E5%99%A8/">容器</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/%E5%B9%B6%E5%8F%91/">并发</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/">middleware</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Redis/">Redis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/middleware/Zookeeper/">Zookeeper</a><span class="category-list-count">4</span></li></ul></li></ul>
         </div>
     
   
@@ -424,6 +432,18 @@
         <ul class="category-preview">
           <li>
             <a href="/database/mysql/nlj_blj/">JOIN 优化 及 NLJ&BNL 算法</a>
+          </li>
+        </ul>
+      
+        <ul class="category-preview">
+          <li>
+            <a href="/database/mysql/lock/">MySQL 锁机制</a>
+          </li>
+        </ul>
+      
+        <ul class="category-preview">
+          <li>
+            <a href="/database/mysql/transaction/">MySQL 事务隔离级别</a>
           </li>
         </ul>
       

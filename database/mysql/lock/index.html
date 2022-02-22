@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JAVA,">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      MySQL 锁机制 | 张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>MySQL 锁机制</h2>
+  <p class="post-date">2021-10-02</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。<br>在数据库中，除了传统的计算资源(如CPU、RAM、I/O等)的争用以外，数据也是一种供需要用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。</p>
+<h2 id="锁分类"><a href="#锁分类" class="headerlink" title="锁分类"></a>锁分类</h2><ul>
+<li>从性能上分为乐观锁(用版本对比来实现)和悲观锁 </li>
+<li>从对数据库操作的类型分，分为读锁和写锁(都属于悲观锁)<ul>
+<li>读锁(共享锁，S锁(Shared)):针对同一份数据，多个读操作可以同时进行而不会互相影响</li>
+<li>写锁(排它锁，X锁(eXclusive)):当前写操作没有完成前，它会阻断其他写锁和读锁</li>
+</ul>
+</li>
+<li>从对数据操作的粒度分，分为表锁和行锁</li>
+</ul>
+<h2 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h2><p>每次操作锁住整张表。开销小，加锁快、不会出现死锁。锁定粒度大，发生锁冲突的概率最高，并发度最低。<br><strong>一般用在整表数据迁移的场景。</strong></p>
+<p> 案例<br><strong>数据准备</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 建表</span><br><span class="line">CREATE TABLE &#96;mylock&#96;(</span><br><span class="line"> &#96;id&#96; INT (11) NOT NULL AUTO_INCREMENT,</span><br><span class="line"> &#96;NAME&#96; VARCHAR (20) DEFAULT NULL,</span><br><span class="line"> PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">)ENGINE&#x3D;MyISAM DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line">#插入数据 </span><br><span class="line">INSERT INTO&#96;test&#96;.&#96;mylock&#96;(&#96;id&#96;,&#96;NAME&#96;)VALUES(&#39;1&#39;,&#39;a&#39;);</span><br><span class="line">INSERT INTO&#96;test&#96;.&#96;mylock&#96;(&#96;id&#96;,&#96;NAME&#96;)VALUES(&#39;2&#39;,&#39;b&#39;);</span><br><span class="line">INSERT INTO&#96;test&#96;.&#96;mylock&#96;(&#96;id&#96;,&#96;NAME&#96;)VALUES(&#39;3&#39;,&#39;c&#39;); </span><br><span class="line">INSERT INTO&#96;test&#96;.&#96;mylock&#96;(&#96;id&#96;,&#96;NAME&#96;)VALUES(&#39;4&#39;,&#39;d&#39;);</span><br></pre></td></tr></table></figure>
+<p><strong>读锁</strong></p>
+<ol>
+<li><p>客户端A 加读锁</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LOCK table mylock read;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/lock/lock_1.jpg" alt></p>
+</li>
+<li><p>客户端A 查询表 mylock</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * from mylock;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/lock/lock_2.jpg" alt></p>
+</li>
+<li><p>客户端B 查询表 mylock 数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT * from mylock;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/lock/lock_3.jpg" alt></p>
+<blockquote>
+<p>从3，4结果客户端A和客户端B都可以读该表，所以读锁不阻塞读</p>
+</blockquote>
+</li>
+<li><p>客户端A 插入或者更新锁定的表都会报错</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UPDATE mylock set &#96;name&#96; &#x3D; &quot;aa&quot; where id &#x3D;1;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/lock/lock_4.jpg" alt></p>
+</li>
+<li><p>客户端B 插入或更新会等待</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UPDATE mylock set &#96;name&#96; &#x3D; &quot;aa&quot; where id &#x3D;1;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/lock/lock_5.jpg" alt></p>
+</li>
+</ol>
+<p><strong>写锁</strong><br>客户端A对该表的增删改查都没有问题，客户端B对该表的所有操作被阻塞。（按照读锁的操作步骤自行实验,截图好累。。。。）</p>
+<p><strong>结论</strong><br>1、对MyISAM表的读操作(加读锁) ,不会阻塞其他进程对同一表的读请求,但会阻塞对同一表的写请求。只有当读锁释放后,才会执行其它进程的写操作。<br>2、对MylSAM表的写操作(加写锁) ,会阻塞其他进程对同一表的读和写操作,只有当写锁释放后,才会执行其它进程的读写操作。</p>
+<h2 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h2><p>每次操作锁住一行数据。开销大，加锁慢;会出现死锁;锁定粒度最小，发生锁冲突的概率最低，并发度最 高。<br>一个session开启事务更新不提交，另一个session更新同一条记录会阻塞，更新不同记录不会阻塞</p>
+<p><strong>InnoDB与MYISAM的最大不同有两点:</strong></p>
+<ul>
+<li>InnoDB支持事务(TRANSACTION)</li>
+<li>InnoDB支持行级锁</li>
+</ul>
+<p><strong>无索引行锁会升级为表锁</strong></p>
+<p>锁主要是加在索引上，如果对非索引字段更新，行锁可能会变表锁<br>客户端A 执行:update account set balance = 800 where name = ‘zhangsan’;<br>客户端B 对该表任一行操作都会阻塞住,InnoDB的行锁是针对索引加的锁，不是针对记录加的锁。并且该索引不能失效，否则都会从行锁升级为表锁。</p>
+<p>锁定某一行还可以用lock in share mode(共享锁) 和for update(排它锁)，例如:select * from test_innodb_lock where a = 2 for update; 这样其他session只能读这行数据，修改则会被阻塞，直到锁定 行的session提交</p>
+<p><strong>MyISAM/InnoDB对比分析</strong><br>MyISAM在执行查询语句SELECT前，会自动给涉及的所有表加读锁,在执行update、insert、delete操作会自 动给涉及的表加写锁。<br>InnoDB在执行查询语句SELECT时(非串行隔离级别)，不会加锁。但是update、insert、delete操作会加行锁。<br>简而言之，就是读锁会阻塞写，但是不会阻塞读。而写锁则会把读和写都阻塞。</p>
+<p><strong>行锁分析</strong><br>通过检查InnoDB_row_lock状态变量来分析系统上的行锁的争夺情况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show status like&#39;innodb_row_lock%&#39;;</span><br></pre></td></tr></table></figure>
+<p>对各个状态量的说明如下:</p>
+<table>
+<thead>
+<tr>
+<th align="center">状态量</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Innodb_row_lock_current_waits</td>
+<td align="center">当前正在等待锁定的数量</td>
+</tr>
+<tr>
+<td align="center">Innodb_row_lock_time</td>
+<td align="center">(重要)从系统启动到现在锁定总时间</td>
+</tr>
+<tr>
+<td align="center">Innodb_row_lock_time_avg</td>
+<td align="center">(重要)每次等待所花平均时间</td>
+</tr>
+<tr>
+<td align="center">Innodb_row_lock_time_max</td>
+<td align="center">从系统启动到现在等待最长的一次所花时间</td>
+</tr>
+<tr>
+<td align="center">Innodb_row_lock_waits</td>
+<td align="center">(重要)系统启动后到现在总共等待的次数</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>当等待次数很高，而且每次等待时长也不小的时候，我们就需要分析系统中为什么会有如此多的等待， 然后根据分析结果着手制定优化计划。</p>
+</blockquote>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>set tx_isolation=’repeatable-read’;</p>
+<p>Session_1执行:select * from account where id=1 for update;</p>
+<p>Session_2执行:select * from account where id=2 for update;</p>
+<p>Session_1执行:select * from account where id=2 for update;</p>
+<p>Session_2执行:select * from account where id=1 for update;</p>
+<p>查看近期死锁日志信息:show engine innodb status\G;</p>
+<p> 大多数情况mysql可以自动检测死锁并回滚产生死锁的那个事务，但是有些情况mysql没法自动检测死锁</p>
+<h2 id="间隙锁-Gap-Locks"><a href="#间隙锁-Gap-Locks" class="headerlink" title="间隙锁(Gap Locks)"></a>间隙锁(Gap Locks)</h2><p>间隙锁是封锁索引记录中的间隔(后面具体用例子讲解说明是间隔)，或者第一条索引记录之前的范围，又或者最后一条索引记录之后的范围。间隙锁 在某些情况下可以解决幻读问题。</p>
+<blockquote>
+<p>mysql间隙锁默认开启 查看间隙锁状态 传送门 -&gt;<a href="/database/mysql/command/">mysql常用命令及配置</a></p>
+</blockquote>
+<p><strong>间隙锁的产生条件（RR事务隔离级别下）</strong></p>
+<ol>
+<li>使用普通索引锁定；</li>
+<li>使用多列唯一索引；</li>
+<li>使用唯一索引锁定多行记录。</li>
+</ol>
+<p><strong>案例一.唯一索引的间隙锁</strong><br>数据环境: MySQL，InnoDB，默认的隔离级别 可重复读（RR）<br>数据准备</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE &#96;gap_locks&#96; (</span><br><span class="line">  &#96;id&#96; int(1) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  &#96;name&#96; varchar(8) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line">INSERT INTO &#96;gap_locks&#96; VALUES (&#39;1&#39;, &#39;张三&#39;);</span><br><span class="line">INSERT INTO &#96;gap_locks&#96; VALUES (&#39;4&#39;, &#39;李四&#39;);</span><br><span class="line">INSERT INTO &#96;gap_locks&#96; VALUES (&#39;7&#39;, &#39;王五&#39;);</span><br><span class="line">INSERT INTO &#96;gap_locks&#96; VALUES (&#39;11&#39;, &#39;赵六&#39;);</span><br><span class="line">INSERT INTO &#96;gap_locks&#96; VALUES (&#39;15&#39;, &#39;孙七&#39;);</span><br></pre></td></tr></table></figure>
+<p>开始之前 我们先来看看什么是间隙,id 字段的值 为 1 4 7 11 , 1-4这个区间内还空了 2,3 这两个值 这就是一个间隙。那么这张表一共有下面6个间隙（整个数据区间为 负无穷 到 正无穷）</p>
+<ul>
+<li>(-∞,1] </li>
+<li>(1,4]</li>
+<li>(4.7)</li>
+<li>(7,11]</li>
+<li>(11,15]</li>
+<li>(15,+∞]</li>
+</ul>
+<p><strong>我们首先打开两个mysql 会话 分别叫做客户端A 和 客户端B</strong></p>
+<ol>
+<li>客户端A 打开事务 进行批量更新 不提交事务。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE gap_locks set name &#x3D; &#39;测试&#39; where id &gt; 5 and id &lt; 14;</span><br></pre></td></tr></table></figure>
+<img src="/database/mysql/lock/gap_locks_1.jpg" alt></li>
+<li>客户端B 分别插入各个区间中的 数据<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 客户端B插入一条 id &#x3D; 3，name &#x3D; &#39;小张3&#39; 的数据 </span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (3, &#39;小张3&#39;); # 正常执行</span><br><span class="line"></span><br><span class="line"># 客户端B插入一条 id &#x3D; 5，name &#x3D; &#39;小张5&#39; 的数据 </span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (5, &#39;小张5&#39;); # 阻塞</span><br><span class="line"></span><br><span class="line"># 客户端B插入一条 id &#x3D; 8，name &#x3D; &#39;小张8&#39; 的数据 </span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (8, &#39;小张8&#39;); # 阻塞</span><br><span class="line"></span><br><span class="line"># 客户端B插入一条 id &#x3D; 12， name &#x3D; &#39;小张12&#39; 的数据 </span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (12, &#39;小张12&#39;); # 阻塞</span><br><span class="line"></span><br><span class="line"># 客户端B插入一条 id &#x3D; 16， name &#x3D; &#39;小张16&#39; 的数据 </span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (16, &#39;小张16&#39;); # 正常执行</span><br></pre></td></tr></table></figure>
+<img src="/database/mysql/lock/gap_locks_2.jpg" alt></li>
+</ol>
+<p>从上面我们可以看到，(4, 7]、(11, 15]这两个区间，都不可插入数据，其它区间，都可以正常插入数据。所以我们可以得出结论：当我们给 (5, 14] 这个区间加锁的时候，会锁住 (4, 7],(11,15] 这两个区间。</p>
+<p><strong>如果锁住不存在的的数据（截图太累此处直接给案例及结果）</strong></p>
+<ol>
+<li>客户端A 打开事务 更新不存在的数据 不提交事务。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BEGIN;</span><br><span class="line">UPDATE gap_locks set name &#x3D; &#39;测试&#39; where id &#x3D; 3;</span><br></pre></td></tr></table></figure></li>
+<li>客户端B 分别插入各个区间中的 数据<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (2, &#39;小张2&#39;); # 阻塞</span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (3, &#39;小张3&#39;); # 阻塞</span><br><span class="line"># 客户端B插入一条 id &#x3D; 8，name &#x3D; &#39;小张8&#39; 的数据 </span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (8, &#39;小张8&#39;); # 正常执行</span><br><span class="line"># 客户端B插入一条 id &#x3D; 12， name &#x3D; &#39;小张12&#39; 的数据 </span><br><span class="line">INSERT INTO &#96;gap_locks&#96; (&#96;id&#96;, &#96;name&#96;) VALUES (12, &#39;小张12&#39;); # 正常执行</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>结论</strong><br>结论<br>1.对于指定查询某一条记录的加锁语句，如果该记录不存在，会产生记录锁和间隙锁，如果记录存在，则只会产生记录锁，如：WHERE <code>id</code> = 5 FOR UPDATE;<br>2. 对于查找某一范围内的查询语句，会产生间隙锁，如：WHERE <code>id</code> BETWEEN 5 AND 7 FOR UPDATE;</p>
+<p><strong>普通索引的间隙锁</strong></p>
+<h2 id="临键锁"><a href="#临键锁" class="headerlink" title="临键锁"></a>临键锁</h2><p>临键锁(Next-key Locks)<br>Next-Key Locks是行锁与间隙锁的组合。像上面那个例子1里的这个(4,15]的整个区间可以叫做临键锁。</p>
+<h2 id="锁优化建议"><a href="#锁优化建议" class="headerlink" title="锁优化建议"></a>锁优化建议</h2><ul>
+<li>尽可能让所有数据检索都通过索引来完成，避免无索引行锁升级为表锁 </li>
+<li>合理设计索引，尽量缩小锁的范围</li>
+<li>尽可能减少检索条件范围，避免间隙锁 </li>
+<li>尽量控制事务大小，减少锁定资源量和时间长度，涉及事务加锁的sql尽量放在事务最后执行 </li>
+<li>尽可能低级别事务隔离</li>
+</ul>
+<p><strong>INFORMATION_SCHEMA</strong><br>查看INFORMATION_SCHEMA系统库锁相关数据表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#查看事务</span><br><span class="line">select * from INFORMATION_SCHEMA.INNODB_TRX;</span><br><span class="line">#查看锁</span><br><span class="line">select * from INFORMATION_SCHEMA.INNODB_LOCKS;</span><br><span class="line">#查看锁等待</span><br><span class="line">select * from INFORMATION_SCHEMA.INNODB_LOCK_WAITS;</span><br><span class="line"></span><br><span class="line">#释放锁，trx_mysql_thread_id可以从INNODB_TRX表里查看到</span><br><span class="line">kill trx_mysql_thread_id</span><br><span class="line"></span><br><span class="line"># 查看锁等待详细信息</span><br><span class="line">show engine innodb status\G;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/database/mysql/transaction/">
+        <span class="nav-arrow">← </span>
+        
+          MySQL 事务隔离级别
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">目录</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#概述"><span class="toc-nav-text">概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#锁分类"><span class="toc-nav-text">锁分类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#表锁"><span class="toc-nav-text">表锁</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#行锁"><span class="toc-nav-text">行锁</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#死锁"><span class="toc-nav-text">死锁</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#间隙锁-Gap-Locks"><span class="toc-nav-text">间隙锁(Gap Locks)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#临键锁"><span class="toc-nav-text">临键锁</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#锁优化建议"><span class="toc-nav-text">锁优化建议</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/database/mysql/lock/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "zhangzhif";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "MySQL 锁机制",
+        owner: "zhangzhif",
+        repo: "blog-comment",
+        oauth: {
+          client_id: "7c19a6dde1744eaa8c8e",
+          client_secret: "689f2f34a11a1edad102d8b1c63c57e3ebb87512"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>

@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -28,6 +32,10 @@
 <script src="/js/qrious.js"></script>
 
   
+  
+    
+<script src="/js/gitment.js"></script>
+
   
   
 
@@ -180,6 +188,52 @@
 </header>
 
     <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/command/">mysql常用命令及配置</a>
+      </h2>
+      <p class="article-date">September 18, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          关闭查询缓存set global query_cache_size&#x3D;0;set global query_cache_type&#x3D;0;
+
+开启trace
+开启trace工具会影响mysql性能，所以只能临时分析sql使用，用 完之后立即关闭
+
+set session opt ...
+        
+      </div>
+      <a class="more" href="/database/mysql/command/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/explain/">Explain工具</a>
+      </h2>
+      <p class="article-date">September 17, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          介绍mysql安装: mysql5.7 安装与配置（centos7)
+使用EXPLAIN关键字可以模拟优化器执行SQL语句，分析你的查询语句或是结构的性能瓶颈。在 select 语句之前增加 explain 关键字，MySQL 会在查询上设置一个标记，执行查询会返回执行计划的信息，而不是 执 ...
+        
+      </div>
+      <a class="more" href="/database/mysql/explain/">阅读更多</a>
+    </article>
   
     <article class="article-card">
       <h2 class="article-head">
@@ -362,49 +416,6 @@
         
       </div>
       <a class="more" href="/middleware/zookeeper/index/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/essay/standard/">JAVA开发规范-阿里规约</a>
-      </h2>
-      <p class="article-date">October 20, 2020</p>
-      
-        
-  <a href="/tags#随笔" >
-    <span class="tag-code">随笔</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          原文地址: zhangzhifeng的主页
-编程规约命名规约1.所有编程相关命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。
-// 反例： _name          __name          $Object         name_          name$  ...
-        
-      </div>
-      <a class="more" href="/essay/standard/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/framework/spring/core/">Spring核心概念（源码相关）</a>
-      </h2>
-      <p class="article-date">October 17, 2020</p>
-      
-        
-  <a href="/tags#spring源码" >
-    <span class="tag-code">spring源码</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          本文主要讲解Spring源码中经常看到的类的作用，中间会有会有部分代码讲解，各模块的具体源码会写在后面的文章中
-BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的定义下面三种方式1. xml配置2.@Bean3.@Componentsprin ...
-        
-      </div>
-      <a class="more" href="/framework/spring/core/">阅读更多</a>
     </article>
   
 

@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -28,6 +32,10 @@
 <script src="/js/qrious.js"></script>
 
   
+  
+    
+<script src="/js/gitment.js"></script>
+
   
   
 
@@ -211,52 +219,52 @@
 <p>count统计总数平时我们都用的很多,那么count(*)、count(主键ID)、count(字段)、count(1)那个效率高更高呢？</p>
 </blockquote>
 <p>先上结论: 统计时不用花里胡哨,直接count(*) 就完事了.</p>
-<p><strong>照旧我们看执行计划,上语句</strong><br>示例表见 <a href="/database/mysql/order_by_group_by/">Order by与Group by优化</a></p>
+<h3 id="语句分析"><a href="#语句分析" class="headerlink" title="语句分析"></a>语句分析</h3><p><strong>照旧我们看执行计划,上语句</strong><br>示例表见 <a href="/database/mysql/order_by_group_by/">Order by与Group by优化</a></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 临时关闭mysql查询缓存，为了查看sql多次执行的真实时间</span><br><span class="line">set global query_cache_size&#x3D;0;</span><br><span class="line">set global query_cache_type&#x3D;0;</span><br><span class="line"></span><br><span class="line">EXPLAIN select count(1) from employees;</span><br><span class="line">EXPLAIN select count(id) from employees;</span><br><span class="line">EXPLAIN select count(name) from employees;</span><br><span class="line">EXPLAIN select count(*) from employees;</span><br></pre></td></tr></table></figure>
 <p>⚠️ 以上4条sql只有根据某个字段count不会统计字段为null值的数据行</p>
 <p><img src="/database/mysql/in_exist_count/count_1.jpg" alt> </p>
 <blockquote>
 <p>四个sql的执行计划一样如上图，说明这四个sql执行效率应该差不多。</p>
 </blockquote>
-<ul>
-<li>mysql 对 count(<em>) 的优化<br>MySQL对于count(</em>)这样的操作，不管遍历那个索引树得到的结果在逻辑上都一样。主键索引叶子节点挂载了整行数据,所以普通索引的比主键索引小很多<br>因此，优化器会找到最小的那棵树来遍历，索引count(*)也走的索引树，在保证正确的逻辑前提下，尽量减少扫描数据量，是数据库系统设计的通用法则之一。</li>
-</ul>
-<ol>
-<li>count(主键ID)</li>
-</ol>
-<p><strong>innodb引擎会遍历整张表，把每一行的ID值都那出来，然后返回给server层，server层拿到ID后，判断不可能为空，进行累加。</strong></p>
-<ol start="2">
-<li>count(1)</li>
-</ol>
-<p><strong>count(1)跟count(字段)执行过程类似，不过count(1)不需要取出字段统计，就用常量1做统计，count(字段)还需要取出 字段，所以理论上count(1)比count(字段)会快一点。</strong></p>
-<ol start="3">
-<li>count(*)</li>
-</ol>
-<p><strong>count(@) 是例外，mysql并不会把全部字段取出来，而是专门做了优化，不取值，按行累加，效率很高，所以不需要用 count(列名)或count(常量)来替代 count(@)。</strong></p>
-<ol start="4">
-<li>count(字段)</li>
-</ol>
-<p><strong>分为两种情况，字段定义为not null和null</strong></p>
+<h3 id="不同count的用法"><a href="#不同count的用法" class="headerlink" title="不同count的用法"></a>不同count的用法</h3><p><strong>1. count(主键ID)</strong></p>
+<p>   innodb引擎会遍历整张表，把每一行的ID值都那出来，然后返回给server层，server层拿到ID后，判断不可能为空，进行累加。</p>
+<p><strong>2. count(1)</strong></p>
+<p>   count(1)跟count(字段)执行过程类似，不过count(1)不需要取出字段统计，就用常量1做统计，count(字段)还需要取出 字段，所以理论上count(1)比count(字段)会快一点。</p>
+<p><strong>3. count(*)</strong></p>
+<p>   count(@) 是例外，mysql并不会把全部字段取出来，而是专门做了优化，不取值，按行累加，效率很高，所以不需要用 count(列名)或count(常量)来替代 count(@)。</p>
+<p><strong>4. count(字段)</strong></p>
+<p>分为两种情况，字段定义为not null和null</p>
 <ul>
 <li>not null：逐行从记录里面读出这个字段，判断不能为null，累加</li>
 <li>null：执行时，判断到有可能是null，还要把值取出来再判断一下，不是null才累加。</li>
 </ul>
-<p><strong>结论</strong><br>字段有索引:count(<em>)≈count(1)&gt;count(字段)&gt;count(主键 id) //字段有索引，count(字段)统计走二级索引，二级索引存储数据比主键索引少，所以count(字段)&gt;count(主键id)<br>字段无索引:count(</em>)≈count(1)&gt;count(主键 d)&gt;count(字段) //字段没有索引count(字段)统计走不了索引， count(主键 id)还可以走主键索引，所以count(主键 id)&gt;count(字段)</p>
+<h3 id="查询效率结论"><a href="#查询效率结论" class="headerlink" title="查询效率结论"></a>查询效率结论</h3><p>1.字段有索引:count(*)≈count(1)&gt;count(字段)&gt;count(主键 id) </p>
 <blockquote>
-<p>为什么对于案例 count(id)，mysql最终选择辅助索引而不是主键聚集索引?</p>
+<p>字段有索引，count(字段)统计走二级索引，二级索引存储数据比主键索引少，所以count(字段)&gt;count(主键id)</p>
 </blockquote>
-<p><strong>因为二级索引相对主键索引存储数据更少，检索 性能应该更高，mysql内部做了点优化(应该是在5.7版本才优化)</strong></p>
-<h3 id="优化手段"><a href="#优化手段" class="headerlink" title="优化手段"></a>优化手段</h3><ol>
-<li>查询mysql自己维护的总行数<br><strong>对于myisam存储引擎的表做不带where条件的count查询性能是很高的，因为myisam存储引擎的表的总行数会被 mysql存储在磁盘上，查询不需要计算</strong><br><strong>对于innodb存储引擎的表mysql不会存储表的总记录行数(因为有MVCC机制，不同事务中查询的总量不一致，后面会讲)，查询count需要实时计算</strong></li>
-<li>show table status<br><strong>如果只需要知道表总行数的估计值可以用如下sql查询，性能很高。</strong><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show table status like &#39;employees&#39;;</span><br></pre></td></tr></table></figure>
-<img src="/database/mysql/in_exist_count/count_2.jpg" alt> </li>
-<li>将总数维护到Redis里</li>
-</ol>
+<p>2.字段无索引:count(*)≈count(1)&gt;count(主键 d)&gt;count(字段) </p>
+<blockquote>
+<p>字段没有索引count(字段)统计走不了索引， count(主键 id)还可以走主键索引，所以count(主键 id)&gt;count(字段)</p>
+</blockquote>
+<p><strong>为什么对于案例 count(id)，mysql最终选择辅助索引而不是主键聚集索引?</strong></p>
+<p>因为二级索引相对主键索引存储数据更少，检索 性能应该更高，mysql内部做了点优化(应该是在5.7版本才优化)</p>
+<h3 id="mysql对count-优化"><a href="#mysql对count-优化" class="headerlink" title="mysql对count(*) 优化"></a>mysql对count(*) 优化</h3><p>MySQL对于count(*)这样的操作，不管遍历那个索引树得到的结果在逻辑上都一样。主键索引叶子节点挂载了整行数据,所以普通索引的比主键索引小很多<br>因此，优化器会找到最小的那棵树来遍历，所以也走的索引树，在保证正确的逻辑前提下，尽量减少扫描数据量，是数据库系统设计的通用法则之一。</p>
+<h3 id="count-优化手段"><a href="#count-优化手段" class="headerlink" title="count()优化手段"></a>count()优化手段</h3><ol>
+<li><p>查询mysql自己维护的总行数</p>
+<p><strong>对于myisam存储引擎的表做不带where条件的count查询性能是很高的，因为myisam存储引擎的表的总行数会被 mysql存储在磁盘上，查询不需要计算</strong><br><strong>对于innodb存储引擎的表mysql不会存储表的总记录行数(因为有MVCC机制，不同事务中查询的总量不一致，后面会讲)，查询count需要实时计算</strong></p>
+</li>
+<li><p>show table status</p>
+<p><strong>如果只需要知道表总行数的估计值可以用如下sql查询，性能很高。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show table status like &#39;employees&#39;;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/in_exist_count/count_2.jpg" alt> </p>
+</li>
+<li><p>将总数维护到Redis里</p>
 <p><strong>插入或删除表数据行的时候同时维护redis里的表总行数key的计数值(用incr或decr命令)，但是这种方式可能不准，很难保证表操作和redis操作的事务一致性</strong></p>
-<ol start="4">
-<li>增加数据库计数表</li>
-</ol>
+</li>
+<li><p>增加数据库计数表</p>
 <p><strong>插入或删除表数据行的时候同时维护计数表，让他们在同一个事务里操作</strong></p>
+</li>
+</ol>
 </section>
     <!-- Tags START -->
     
@@ -322,15 +330,9 @@
     
     <!-- 二维码 END -->
     
-      <!-- Utterances START -->
-      <div id="utterances"></div>
-      <script src="https://utteranc.es/client.js"
-        repo=""
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async></script>    
-      <!-- Utterances END -->
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
     
   </article>
   <!-- Article END -->
@@ -340,7 +342,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#in-与-exist"><span class="toc-nav-text">in 与 exist</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#in"><span class="toc-nav-text">in</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#exist"><span class="toc-nav-text">exist</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#count-Innodb"><span class="toc-nav-text">count(*) (Innodb)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#优化手段"><span class="toc-nav-text">优化手段</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#in-与-exist"><span class="toc-nav-text">in 与 exist</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#in"><span class="toc-nav-text">in</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#exist"><span class="toc-nav-text">exist</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#count-Innodb"><span class="toc-nav-text">count(*) (Innodb)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#语句分析"><span class="toc-nav-text">语句分析</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#不同count的用法"><span class="toc-nav-text">不同count的用法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#查询效率结论"><span class="toc-nav-text">查询效率结论</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#mysql对count-优化"><span class="toc-nav-text">mysql对count(*) 优化</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#count-优化手段"><span class="toc-nav-text">count()优化手段</span></a></li></ol></li></ol>
     
   </div>
 </aside>
@@ -408,6 +410,34 @@
   </script>
 
 
+
+  <script>
+    var gitmentConfig = "zhangzhif";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "in、exist 与 count(*)优化",
+        owner: "zhangzhif",
+        repo: "blog-comment",
+        oauth: {
+          client_id: "7c19a6dde1744eaa8c8e",
+          client_secret: "689f2f34a11a1edad102d8b1c63c57e3ebb87512"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
 
 
 

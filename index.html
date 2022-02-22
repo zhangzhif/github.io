@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -28,6 +32,10 @@
 <script src="/js/qrious.js"></script>
 
   
+  
+    
+<script src="/js/gitment.js"></script>
+
   
   
 
@@ -180,6 +188,48 @@
 </header>
 
     <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/lock/">MySQL 锁机制</a>
+      </h2>
+      <p class="article-date">October 2, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          概述锁是计算机协调多个进程或线程并发访问某一资源的机制。在数据库中，除了传统的计算资源(如CPU、RAM、I/O等)的争用以外，数据也是一种供需要用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。
+锁分类
+从性 ...
+        
+      </div>
+      <a class="more" href="/database/mysql/lock/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/database/mysql/transaction/">MySQL 事务隔离级别</a>
+      </h2>
+      <p class="article-date">October 2, 2021</p>
+      
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          概述我们的数据库一般都会并发执行多个事务，多个事务可能会并发的对相同的一批数据进行增删改查操作，可能 就会导致我们说的脏写、脏读、不可重复读、幻读这些问题。 这些问题的本质都是数据库的多事务并发问题，为了解决多事务并发问题，数据库设计了锁机制、MVCC多版本并发控制隔离机制,解决多事务并发问 ...
+        
+      </div>
+      <a class="more" href="/database/mysql/transaction/">阅读更多</a>
+    </article>
   
     <article class="article-card">
       <h2 class="article-head">
@@ -366,52 +416,6 @@ MySQL5.6版本后提供了对SQL的跟踪工具trace，通过使用trace可以�
         
       </div>
       <a class="more" href="/database/mysql/index-2/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/database/mysql/command/">mysql常用命令及配置</a>
-      </h2>
-      <p class="article-date">September 18, 2021</p>
-      
-        
-  <a href="/tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          关闭查询缓存set global query_cache_size&#x3D;0;set global query_cache_type&#x3D;0;
-
-开启trace
-开启trace工具会影响mysql性能，所以只能临时分析sql使用，用 完之后立即关闭
-
-set session opt ...
-        
-      </div>
-      <a class="more" href="/database/mysql/command/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/database/mysql/explain/">Explain工具</a>
-      </h2>
-      <p class="article-date">September 17, 2021</p>
-      
-        
-  <a href="/tags#mysql" >
-    <span class="tag-code">mysql</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          介绍mysql安装: mysql5.7 安装与配置（centos7)
-使用EXPLAIN关键字可以模拟优化器执行SQL语句，分析你的查询语句或是结构的性能瓶颈。在 select 语句之前增加 explain 关键字，MySQL 会在查询上设置一个标记，执行查询会返回执行计划的信息，而不是 执 ...
-        
-      </div>
-      <a class="more" href="/database/mysql/explain/">阅读更多</a>
     </article>
   
 

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JAVA,">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      MySQL 事务隔离级别 | 张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>MySQL 事务隔离级别</h2>
+  <p class="post-date">2021-10-02</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>我们的数据库一般都会并发执行多个事务，多个事务可能会并发的对相同的一批数据进行增删改查操作，可能 就会导致我们说的脏写、脏读、不可重复读、幻读这些问题。 这些问题的本质都是数据库的多事务并发问题，为了解决多事务并发问题，数据库设计了锁机制、MVCC多版本并发控制隔离机制,解决多事务并发问题。接下来，我们会依次深入讲解这些机制，让大家彻底理解数据库内部的执行原理。</strong></p>
+<h2 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h2><p><strong>事务是由一组SQL语句组成的逻辑处理单元,事务具有以下4个属性,通常简称为事务的ACID属性。</strong></p>
+<ul>
+<li><p>原子性(Atomicity)  : 事务是一个原子操作单元,其对数据的修改,要么全都执行,要么全都不执行。</p>
+</li>
+<li><p>一致性(Consistent) : 在事务开始和完成时,数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改,以保持数据的完整性。</p>
+</li>
+<li><p>隔离性(Isolation)  : 数据库系统提供一定的隔离机制,保证事务在不受外部并发操作影响的“独立”环境执行。这意味着事务处理过程中的中间状态对外部是不可见的,反之亦然。</p>
+</li>
+<li><p>持久性(Durable)    : 事务完成之后,它对于数据的修改是永久性的,即使出现系统故障也能够保持。</p>
+</li>
+</ul>
+<h2 id="并发事务处理带来的问题"><a href="#并发事务处理带来的问题" class="headerlink" title="并发事务处理带来的问题"></a>并发事务处理带来的问题</h2><ol>
+<li><p>更新丢失(Lost Update)或脏写</p>
+<p>当两个或多个事务选择同一行，然后基于最初选定的值更新该行时，由于每个事务都不知道其他事务的存 在，就会发生丢失更新问题–最后的更新覆盖了由其他事务所做的更新。</p>
+</li>
+<li><p>脏读(Dirty Reads)</p>
+<p>一个事务正在对一条记录做修改，在这个事务完成并提交前，这条记录的数据就处于不一致的状态;这 时，另一个事务也来读取同一条记录，如果不加控制，第二个事务读取了这些“脏”数据，并据此作进一步的 处理，就会产生未提交的数据依赖关系。这种现象被形象的叫做“脏读”。   一句话:事务A读取到了事务B已经修改但尚未提交的数据，还在这个数据基础上做了操作。此时，如果B 事务回滚，A读取的数据无效，不符合一致性要求。</p>
+</li>
+<li><p>不可重读(Non-Repeatable Reads)</p>
+<p>一个事务在读取某些数据后的某个时间，再次读取以前读过的数据，却发现其读出的数据已经发生了改 变、或某些记录已经被删除了!这种现象就叫做“不可重复读”。   一句话:事务A内部的相同查询语句在不同时刻读出的结果不一致，不符合隔离性</p>
+</li>
+<li><p>幻读(Phantom Reads)</p>
+<p>一个事务按相同的查询条件重新读取以前检索过的数据，却发现其他事务插入了满足其查询条件的新数 据，这种现象就称为“幻读”。<br>一句话:事务A读取到了事务B提交的新增数据，不符合隔离性</p>
+</li>
+</ol>
+<h2 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h2><p><strong>“脏读”、”不可重复读”和”幻读”,其实都是数据库读一致性问题,必须由数据库提供一定的事务隔离机制 来解决。</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">隔离级别</th>
+<th align="center">脏读</th>
+<th align="center">不可重复读</th>
+<th align="center">幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">读未提交(Read uncommitted)</td>
+<td align="center">√</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">读已提交（Read committed)</td>
+<td align="center">×</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">可重复读(Repeatable read)</td>
+<td align="center">×</td>
+<td align="center">×</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td align="center">可串行话(Serializable)</td>
+<td align="center">×</td>
+<td align="center">×</td>
+<td align="center">×</td>
+</tr>
+</tbody></table>
+<h2 id="隔离级别设置"><a href="#隔离级别设置" class="headerlink" title="隔离级别设置"></a>隔离级别设置</h2><p>常看当前数据库的事务隔离级别<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show variables like &#39;tx_isolation&#39;;</span><br></pre></td></tr></table></figure></p>
+<p>设置事务隔离级别</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set tx_isolation&#x3D;&#39;REPEATABLE-READ&#39;;</span><br></pre></td></tr></table></figure>
+<p>数据库的事务隔离越严格,并发副作用越小,但付出的代价也就越大,因为事务隔离实质上就是使事务在一定程度 上“串行化”进行,这显然与“并发”是矛盾的。 同时,不同的应用对读一致性和事务隔离程度的要求也是不同的,比如许多应用对“不可重复读”和“幻读”并不 敏感,可能更关心数据并发访问的能力。</p>
+<blockquote>
+<p>Mysql默认的事务隔离级别是可重复读，用Spring开发程序时，如果不设置隔离级别默认用Mysql设置的隔 离级别，如果Spring设置了就用已经设置的隔离级别</p>
+</blockquote>
+<h2 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h2><p><strong>先将下面的示例表导出,然后打开两个mysql会话窗口</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE TABLE&#96;account&#96;(</span><br><span class="line">&#96;id&#96; int(11) NOT NULL AUTO_INCREMENT, </span><br><span class="line">&#96;name&#96; varchar(255) DEFAULT NULL, </span><br><span class="line">&#96;balance&#96; int(11) DEFAULT NULL,</span><br><span class="line"> PRIMARY KEY (&#96;id&#96;)</span><br><span class="line">)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;</span><br><span class="line">INSERT INTO&#96;test&#96;.&#96;account&#96;(&#96;name&#96;,&#96;balance&#96;)VALUES(&#39;zhangsan&#39;,&#39;520&#39;); </span><br><span class="line">INSERT INTO&#96;test&#96;.&#96;account&#96;(&#96;name&#96;,&#96;balance&#96;)VALUES(&#39;lisi&#39;,&#39;13000&#39;);</span><br><span class="line">INSERT INTO&#96;test&#96;.&#96;account&#96;(&#96;name&#96;,&#96;balance&#96;)VALUES(&#39;wangwu&#39;,&#39;1400&#39;);</span><br></pre></td></tr></table></figure>
+<p><strong>navicat 打开两个会话窗口</strong><br> <img src="/database/mysql/transaction/example.jpg" alt> </p>
+<h3 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h3><ol>
+<li><p>(客户端A查询数据) 将客户端A当前事务模式设置为read uncommitted(未提交读)，并查询表account的初始值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set tx_isolation&#x3D;&#39;read-uncommitted&#39;;</span><br><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_uncommitted_1.jpg" alt> </p>
+</li>
+<li><p>(客户端B更新数据)打开另一个客户端B，开启事务并更新表account id 为 1 的数据 (不提交事务)。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">begin ;</span><br><span class="line">UPDATE account set balance &#x3D;  balance-10 where id &#x3D;1</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_uncommitted_2.jpg" alt> </p>
+</li>
+<li><p>(客户端A查询) 这时，虽然客户端B的事务还没提交，但是客户端A就可以查询到B已经更新的数据 510。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_uncommitted_3.jpg" alt> </p>
+</li>
+<li><p>(客户端B错误回滚) 一旦客户端B的事务因为某种原因回滚，所有的操作都将会被撤销，那客户端A查询到的数据其实就是脏 数据。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ROLLBACK;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_uncommitted_4.jpg" alt> </p>
+</li>
+<li><p>(客户端A查询) </p>
+<p><img src="/database/mysql/transaction/read_uncommitted_5.jpg" alt> </p>
+<blockquote>
+<p>再次查询数据 id = 1 的余额 还是 520 ，如果应用程序使用开始查到的 510 进行运算操作然后更新 就会造成数据不一致，要想解决这个问题可以采用读已提交的隔离级别。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h3><ol>
+<li><p>(客户端A查询数据) 将客户端A当前事务模式设置为read committed(已提交读)，并查询表account的初始值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set tx_isolation&#x3D;&#39;read-committed&#39;;</span><br><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_committed_1.jpg" alt></p>
+</li>
+<li><p>(客户端B更新数据)打开另一个客户端B，开启事务并更新表account id 为 1 的数据 (不提交事务)。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">begin ;</span><br><span class="line">UPDATE account set balance &#x3D;  balance-10 where id &#x3D;1</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_committed_2.jpg" alt>  </p>
+</li>
+<li><p>(客户端A查询) 这时，客户端B的事务还没提交，客户端A不能查询到B已经更新的数据，解决了脏读问题。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_committed_3.jpg" alt> </p>
+</li>
+<li><p>客户端B正常提交事务 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_committed_4.jpg" alt> </p>
+</li>
+<li><p>(客户端A再次查询)  客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_committed_5.jpg" alt> </p>
+</li>
+</ol>
+<h3 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h3><ol>
+<li><p>(客户端A查询数据) 将客户端A当前事务模式设置为repeatable_read(可重复读)，并查询表account的初始值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set tx_isolation&#x3D;&#39;repeatable-read&#39;;</span><br><span class="line">BEGIN;</span><br><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/repeatable-read_1.jpg" alt></p>
+</li>
+<li><p>(客户端B更新数据)打开另一个客户端B,更新表account并提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">begin ;</span><br><span class="line">UPDATE account set balance &#x3D;  520 where id &#x3D;1;</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/repeatable-read_2.jpg" alt></p>
+</li>
+<li><p>(客户端A查询) 这时，在客户端A查询表account的所有记录，与步骤(1)查询结果一致，没有出现不可重复读的问题。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/repeatable-read_3.jpg" alt></p>
+</li>
+<li><p>客户端B正常提交事务 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_committed_4.jpg" alt> </p>
+</li>
+<li><p>(客户端A再次查询)  客户端A执行与上一步相同的查询，结果 与上一步不一致，即产生了不可重复读的问题。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from account;</span><br></pre></td></tr></table></figure>
+<p><img src="/database/mysql/transaction/read_committed_5.jpg" alt> </p>
+</li>
+</ol>
+<h3 id="串行化"><a href="#串行化" class="headerlink" title="串行化"></a>串行化</h3><ol>
+<li>打开一个客户端A，并设置当前事务模式为serializable，查询表account的初始值.<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set tx_isolation&#x3D;&#39;serializable&#39;;</span><br><span class="line">select * from account where id &#x3D; 1;</span><br></pre></td></tr></table></figure>
+<img src="/database/mysql/transaction/serializable_1.jpg" alt> </li>
+<li>打开一个客户端B，并设置当前事务模式为serializable，更新id为1的记录会被阻塞等待，更新id 为2的记录可以成功，说明在串行模式下innodb的查询也会被加上行锁。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UPDATE account set balance &#x3D;  520 where id &#x3D;1;</span><br></pre></td></tr></table></figure>
+<img src="/database/mysql/transaction/serializable_2.jpg" alt> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UPDATE account set balance &#x3D;  520 where id &#x3D;2;</span><br></pre></td></tr></table></figure>
+<img src="/database/mysql/transaction/serializable_3.jpg" alt> <blockquote>
+<p>这种隔离级别并发性极低，开发中很少会用到。</p>
+</blockquote>
+</li>
+</ol>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#mysql" >
+    <span class="tag-code">mysql</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/database/mysql/nlj_blj/">
+        <span class="nav-arrow">← </span>
+        
+          JOIN 优化 及 NLJ&amp;BNL 算法
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/database/mysql/lock/">
+        
+          MySQL 锁机制
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">目录</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#概述"><span class="toc-nav-text">概述</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ACID"><span class="toc-nav-text">ACID</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#并发事务处理带来的问题"><span class="toc-nav-text">并发事务处理带来的问题</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#事务隔离级别"><span class="toc-nav-text">事务隔离级别</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#隔离级别设置"><span class="toc-nav-text">隔离级别设置</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#案例分析"><span class="toc-nav-text">案例分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#读未提交"><span class="toc-nav-text">读未提交</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#读已提交"><span class="toc-nav-text">读已提交</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#可重复读"><span class="toc-nav-text">可重复读</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#串行化"><span class="toc-nav-text">串行化</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/database/mysql/transaction/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+  <script>
+    var gitmentConfig = "zhangzhif";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "MySQL 事务隔离级别",
+        owner: "zhangzhif",
+        repo: "blog-comment",
+        oauth: {
+          client_id: "7c19a6dde1744eaa8c8e",
+          client_secret: "689f2f34a11a1edad102d8b1c63c57e3ebb87512"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>
