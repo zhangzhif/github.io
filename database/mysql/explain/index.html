@@ -20,10 +20,6 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
-    
-<link rel="stylesheet" href="/css/plugins/gitment.css">
-
-  
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -32,10 +28,6 @@
 <script src="/js/qrious.js"></script>
 
   
-  
-    
-<script src="/js/gitment.js"></script>
-
   
   
 
@@ -393,7 +385,9 @@
   
   <!-- Catalog END -->
 </main>
-
+<link rel="stylesheet" href="https://unpkg.com/gitalk@latest/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+<script src="https://priesttomb.github.io/js/md5.min.js"></script>
 <script>
   (function () {
 
@@ -455,33 +449,24 @@
 
 
 
+
+
   <script>
-    var gitmentConfig = "zhangzhif";
-    if (gitmentConfig !== 'undefined') {
-      var gitment = new Gitment({
-        id: "Explain工具",
-        owner: "zhangzhif",
-        repo: "blog-comment",
-        oauth: {
-          client_id: "7c19a6dde1744eaa8c8e",
-          client_secret: "689f2f34a11a1edad102d8b1c63c57e3ebb87512"
-        },
-        theme: {
-          render(state, instance) {
-            const container = document.createElement('div')
-            container.lang = "en-US"
-            container.className = 'gitment-container gitment-root-container'
-            container.appendChild(instance.renderHeader(state, instance))
-            container.appendChild(instance.renderEditor(state, instance))
-            container.appendChild(instance.renderComments(state, instance))
-            container.appendChild(instance.renderFooter(state, instance))
-            return container;
-          }
-        }
-      })
-      gitment.render(document.getElementById('comments'))
-    }
+    let gitalk = new Gitalk({
+      clientID: '7c19a6dde1744eaa8c8e',
+      clientSecret: '689f2f34a11a1edad102d8b1c63c57e3ebb87512',
+      repo: 'blog-comment',
+      owner: 'zhangzhif',
+      admin: 'zhangzhif',
+      id: '2021-09-17T00-00-00',
+      distractionFreeMode: true  // Facebook-like distraction free mode
+    });
+    gitalk.render(document.getElementById('comments'));
   </script>
+
+
+
+
 
 
 
