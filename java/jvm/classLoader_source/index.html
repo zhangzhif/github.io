@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="JAVA,">
+  <meta name="keyword" content="java, 编程">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      JDK源码级别理解双亲委派机制 | 张治峰的博客
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+    
+<script src="/js/qrious.js"></script>
+
+  
+  
+  
+
+  
+  
+    
+<script src="/js/local-search.js"></script>
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>张治峰的博客</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">主页</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/java/" class="item-link">JAVA</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/framework/" class="item-link">开发框架</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/database/" class="item-link">数据库</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/middleware/" class="item-link">中间件</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/essay/" class="item-link">随笔</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">关于</a>
+          
+        </li>
+      
+      
+        <li class="menu-item menu-item-search right-list">
+    <a role="button" class="popup-trigger">
+        <i class="fa fa-search fa-fw"></i>
+    </a>
+</li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">主页</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/java/" class="menu-link">JAVA</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/framework/" class="menu-link">开发框架</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/database/" class="menu-link">数据库</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/middleware/" class="menu-link">中间件</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/essay/" class="menu-link">随笔</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">关于</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+    
+      <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+            <span class="search-icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <div class="search-input-container">
+                <input autocomplete="off" autocapitalize="off"
+                    placeholder="Please enter your keyword(s) to search." spellcheck="false"
+                    type="search" class="search-input">
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+    
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>JDK源码级别理解双亲委派机制</h2>
+  <p class="post-date">2021-01-02</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h1 id="java-启动流程"><a href="#java-启动流程" class="headerlink" title="java 启动流程"></a>java 启动流程</h1><blockquote>
+<p>先来一个java 代码</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;hello world&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>先通过javac 编译 然后使用 java 命令启动，流程图如下:</strong><br> <img src="/java/jvm/classLoader_source/classloader_1.jpg" alt></p>
+<blockquote>
+<p>接下来我们根据流程图进行源码分析,hotspot 启动入口为 java.c 文件中的JavaMain(void * _args)</p>
+</blockquote>
+<h1 id="JavaMain-void-args"><a href="#JavaMain-void-args" class="headerlink" title="JavaMain(void * _args)"></a>JavaMain(void * _args)</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JavaMain(void * _args)</span><br><span class="line">&#123;</span><br><span class="line">    .......</span><br><span class="line">    &#x2F;&#x2F; 加载主类</span><br><span class="line">    mainClass &#x3D; LoadMainClass(env, mode, what);</span><br><span class="line"></span><br><span class="line">    .......</span><br><span class="line">    &#x2F;&#x2F; 获取 main 函数</span><br><span class="line">    mainID &#x3D; (*env)-&gt;GetStaticMethodID(env, mainClass, &quot;main&quot;,</span><br><span class="line">                                       &quot;([Ljava&#x2F;lang&#x2F;String;)V&quot;);</span><br><span class="line"></span><br><span class="line">    ........</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取启动类的main 方法</span><br><span class="line">    (*env)-&gt;CallStaticVoidMethod(env, mainClass, mainID, mainArgs);</span><br><span class="line"></span><br><span class="line">    ........</span><br><span class="line">    &#x2F;&#x2F; 执行启动类的main 方法</span><br><span class="line">    (*env)-&gt;CallStaticVoidMethod(env, mainClass, mainID, mainArgs);</span><br><span class="line">     </span><br><span class="line">    ........</span><br><span class="line">    &#x2F;&#x2F; 结束并销毁虚拟机</span><br><span class="line">    LEAVE();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LoadMainClass"><a href="#LoadMainClass" class="headerlink" title="LoadMainClass"></a>LoadMainClass</h2><blockquote>
+<p>java.c#LoadMainClass(JNIEnv *env, int mode, char *name) 加载启动类</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LoadMainClass(JNIEnv *env, int mode, char *name)</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">    &#x2F;&#x2F; 获取 LauncherHelper 类  sun&#x2F;launcher&#x2F;LauncherHelper(java类)</span><br><span class="line">    jclass cls &#x3D; GetLauncherHelperClass(env);</span><br><span class="line">    NULL_CHECK0(cls);</span><br><span class="line">    if (JLI_IsTraceLauncher()) &#123;</span><br><span class="line">        start &#x3D; CounterGet();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取 LauncherHelper 的静态方法 checkAndLoadMain 方法 赋值给mid</span><br><span class="line">    NULL_CHECK0(mid &#x3D; (*env)-&gt;GetStaticMethodID(env, cls,</span><br><span class="line">                &quot;checkAndLoadMain&quot;,</span><br><span class="line">                &quot;(ZILjava&#x2F;lang&#x2F;String;)Ljava&#x2F;lang&#x2F;Class;&quot;));</span><br><span class="line">    .....</span><br><span class="line">    str &#x3D; NewPlatformString(env, name);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 调用 LauncherHelper 的静态方法 checkAndLoadMain 方法 即（mid方法）</span><br><span class="line">    CHECK_JNI_RETURN_0(</span><br><span class="line">        result &#x3D; (*env)-&gt;CallStaticObjectMethod(</span><br><span class="line">            env, cls, mid, USE_STDERR, mode, str));</span><br><span class="line"></span><br><span class="line">    if (JLI_IsTraceLauncher()) &#123;</span><br><span class="line">        end &#x3D; CounterGet();</span><br><span class="line">        printf(&quot;%ld micro seconds to load main class\n&quot;,</span><br><span class="line">               (long)(jint)Counter2Micros(end-start));</span><br><span class="line">        printf(&quot;----%s----\n&quot;, JLDEBUG_ENV_ENTRY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return (jclass)result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="GetLauncherHelperClass"><a href="#GetLauncherHelperClass" class="headerlink" title="GetLauncherHelperClass"></a>GetLauncherHelperClass</h3><blockquote>
+<p>获取java 类 sun/launcher/LauncherHelper 实例</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GetLauncherHelperClass(JNIEnv *env)</span><br><span class="line">&#123;</span><br><span class="line">    if (helperClass &#x3D;&#x3D; NULL) &#123;</span><br><span class="line">        NULL_CHECK0(helperClass &#x3D; FindBootStrapClass(env,</span><br><span class="line">                &quot;sun&#x2F;launcher&#x2F;LauncherHelper&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">    return helperClass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="CheckAndLoadMain"><a href="#CheckAndLoadMain" class="headerlink" title="CheckAndLoadMain"></a>CheckAndLoadMain</h3><blockquote>
+<p> 调用java 类 sun/launcher/LauncherHelper 的静态方法 checkAndLoadMain 检查启动类并返回.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static Class&lt;?&gt; checkAndLoadMain(boolean printToStderr,</span><br><span class="line">                                            int mode,</span><br><span class="line">                                            String what) &#123;</span><br><span class="line">        initOutput(printToStderr);</span><br><span class="line">        &#x2F;&#x2F; get the class name</span><br><span class="line">        String cn &#x3D; null;</span><br><span class="line">        &#x2F;&#x2F; 判断java 命令 运行模式为 指定类启动 还是 指定 jar 并获取运行主类（我们使用的java com.jvm.classloader.Test 及 类方式运行）</span><br><span class="line">        switch (mode) &#123;</span><br><span class="line">            case LM_CLASS:</span><br><span class="line">                cn &#x3D; what;</span><br><span class="line">                break;</span><br><span class="line">            case LM_JAR:</span><br><span class="line">                &#x2F;&#x2F; jar 包方式启动从jar 包中获取 主类 （感兴趣的同学自行点击方法进行查看获取细节）</span><br><span class="line">                cn &#x3D; getMainClassFromJar(what);</span><br><span class="line">                break;</span><br><span class="line">            default:</span><br><span class="line">                &#x2F;&#x2F; should never happen</span><br><span class="line">                throw new InternalError(&quot;&quot; + mode + &quot;: Unknown launch mode&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 将文件路径 &#x2F; 换成. 即改成类的全限定名</span><br><span class="line">        cn &#x3D; cn.replace(&#39;&#x2F;&#39;, &#39;.&#39;);</span><br><span class="line">        Class&lt;?&gt; mainClass &#x3D; null;</span><br><span class="line">        try &#123;</span><br><span class="line">            &#x2F;&#x2F; 通过类加载器加载启动类 </span><br><span class="line">            &#x2F;&#x2F;scloader 为 LauncherHelper 的一个 静态常量  </span><br><span class="line">            &#x2F;&#x2F;private static final ClassLoader scloader &#x3D;</span><br><span class="line">             &#x2F;&#x2F; ClassLoader.getSystemClassLoader();</span><br><span class="line">            &#x2F;&#x2F; ClassLoader.getSystemClassLoader() 源码看右侧-&gt;App及Ext类加载器初始化 getSystemClassLoader()</span><br><span class="line">            &#x2F;&#x2F; 看面类加载器初始化可知 scloader 为 AppClassLoader</span><br><span class="line">            &#x2F;&#x2F; ClassLoader.getSystemClassLoader() 源码看右侧-&gt;类加载源码 ClassLoader.loader</span><br><span class="line">             mainClass &#x3D; scloader.loadClass(cn);</span><br><span class="line">        &#125; catch (NoClassDefFoundError | ClassNotFoundException cnfe) &#123;</span><br><span class="line">            if (System.getProperty(&quot;os.name&quot;, &quot;&quot;).contains(&quot;OS X&quot;)</span><br><span class="line">                &amp;&amp; Normalizer.isNormalized(cn, Normalizer.Form.NFD)) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    &#x2F;&#x2F; On Mac OS X since all names with diacretic symbols are given as decomposed it</span><br><span class="line">                    &#x2F;&#x2F; is possible that main class name comes incorrectly from the command line</span><br><span class="line">                    &#x2F;&#x2F; and we have to re-compose it</span><br><span class="line">                    mainClass &#x3D; scloader.loadClass(Normalizer.normalize(cn, Normalizer.Form.NFC));</span><br><span class="line">                &#125; catch (NoClassDefFoundError | ClassNotFoundException cnfe1) &#123;</span><br><span class="line">                    abort(cnfe, &quot;java.launcher.cls.error1&quot;, cn);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                abort(cnfe, &quot;java.launcher.cls.error1&quot;, cn);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; set to mainClass</span><br><span class="line">        &#x2F;&#x2F; 将 LauncherHelper 的属性指向 主类</span><br><span class="line">        appClass &#x3D; mainClass;</span><br><span class="line"></span><br><span class="line">        &#x2F;*</span><br><span class="line">         * Check if FXHelper can launch it using the FX launcher. In an FX app,</span><br><span class="line">         * the main class may or may not have a main method, so do this before</span><br><span class="line">         * validating the main class.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        &#x2F;&#x2F;  判断是不是特殊的类 进行其他处理 （跳过）</span><br><span class="line">        if (mainClass.equals(FXHelper.class) ||</span><br><span class="line">                FXHelper.doesExtendFXApplication(mainClass)) &#123;</span><br><span class="line">            &#x2F;&#x2F; Will abort() if there are problems with the FX runtime</span><br><span class="line">            FXHelper.setFXLaunchParameters(what, mode);</span><br><span class="line">            return FXHelper.class;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 校验主类信息是否完整:是否名字为main 的静态方法</span><br><span class="line">        validateMainClass(mainClass);</span><br><span class="line">        &#x2F;&#x2F; 返回主类信息 及返回 上述 到c++ 代码中 </span><br><span class="line">        return mainClass;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="GetStaticMethodID"><a href="#GetStaticMethodID" class="headerlink" title="GetStaticMethodID"></a>GetStaticMethodID</h2><blockquote>
+<p>javac#javaMain 方法中 获取启动类的main 方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mainID &#x3D; (*env)-&gt;GetStaticMethodID(env, mainClass, &quot;main&quot;,</span><br><span class="line">                                       &quot;([Ljava&#x2F;lang&#x2F;String;)V&quot;);</span><br></pre></td></tr></table></figure>
+<h2 id="执行启动类的main-方法"><a href="#执行启动类的main-方法" class="headerlink" title="执行启动类的main 方法"></a>执行启动类的main 方法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(*env)-&gt;CallStaticVoidMethod(env, mainClass, mainID, mainArgs);</span><br></pre></td></tr></table></figure>
+
+<h2 id="结束并销毁虚拟机"><a href="#结束并销毁虚拟机" class="headerlink" title="结束并销毁虚拟机"></a>结束并销毁虚拟机</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LEAVE();</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="App及Ext类加载器初始化"><a href="#App及Ext类加载器初始化" class="headerlink" title="App及Ext类加载器初始化"></a>App及Ext类加载器初始化</h1><blockquote>
+<p>刚才有个主类加载  mainClass = scloader.loadClass(cn); 属性 scloader = ClassLoader.getSystemClassLoader(); 下面我们就ClassLoader.getSystemClassLoader()方法继续跟进<br>这一块是类加载链的创建过程</p>
+</blockquote>
+<h1 id="getSystemClassLoader"><a href="#getSystemClassLoader" class="headerlink" title="getSystemClassLoader()"></a>getSystemClassLoader()</h1><blockquote>
+<p>java类: java.lang.ClassLoader#getSystemClassLoader()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static ClassLoader getSystemClassLoader() &#123;</span><br><span class="line">       &#x2F;&#x2F; 初始化系统类加载器</span><br><span class="line">       initSystemClassLoader();</span><br><span class="line">       </span><br><span class="line">       if (scl &#x3D;&#x3D; null) &#123;</span><br><span class="line">           return null;</span><br><span class="line">       &#125;</span><br><span class="line">       SecurityManager sm &#x3D; System.getSecurityManager();</span><br><span class="line">       if (sm !&#x3D; null) &#123;</span><br><span class="line">           checkClassLoaderPermission(scl, Reflection.getCallerClass());</span><br><span class="line">       &#125;</span><br><span class="line">       return scl;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="initSystemClassLoader"><a href="#initSystemClassLoader" class="headerlink" title="initSystemClassLoader()"></a>initSystemClassLoader()</h2><blockquote>
+<p>java类调用 java.lang.ClassLoader#initSystemClassLoader()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static synchronized void initSystemClassLoader() &#123;</span><br><span class="line">        &#x2F;&#x2F; 类加载器  是否初始化完成  （该方法结束后会把值 设置成 true）</span><br><span class="line">        if (!sclSet) &#123;</span><br><span class="line">            &#x2F;&#x2F; scl 不等于空说明 初始化过过了 抛异常（个人觉得一般不会出现这种问题 只是让逻辑更加严谨）</span><br><span class="line">            if (scl !&#x3D; null)</span><br><span class="line">                throw new IllegalStateException(&quot;recursive invocation&quot;);</span><br><span class="line">            &#x2F;&#x2F; 获取 启动工具类 </span><br><span class="line">            sun.misc.Launcher l &#x3D; sun.misc.Launcher.getLauncher();</span><br><span class="line">            </span><br><span class="line">            if (l !&#x3D; null) &#123;</span><br><span class="line">                Throwable oops &#x3D; null;</span><br><span class="line">                &#x2F;&#x2F; 获取类加载器 此处为AppclassLoader 看下面分析</span><br><span class="line">                scl &#x3D; l.getClassLoader();</span><br><span class="line">                try &#123;</span><br><span class="line">                    scl &#x3D; AccessController.doPrivileged(</span><br><span class="line">                        new SystemClassLoaderAction(scl));</span><br><span class="line">                &#125; catch (PrivilegedActionException pae) &#123;</span><br><span class="line">                    oops &#x3D; pae.getCause();</span><br><span class="line">                    if (oops instanceof InvocationTargetException) &#123;</span><br><span class="line">                        oops &#x3D; oops.getCause();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                if (oops !&#x3D; null) &#123;</span><br><span class="line">                    if (oops instanceof Error) &#123;</span><br><span class="line">                        throw (Error) oops;</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        &#x2F;&#x2F; wrap the exception</span><br><span class="line">                        throw new Error(oops);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            sclSet &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Launcher-getLauncher"><a href="#Launcher-getLauncher" class="headerlink" title="Launcher#getLauncher()"></a>Launcher#getLauncher()</h3><blockquote>
+<p>sun.misc.Launcher#getLauncher()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Launcher &#123;</span><br><span class="line">    private static URLStreamHandlerFactory factory &#x3D; new Factory();</span><br><span class="line">    private static Launcher launcher &#x3D; new Launcher();</span><br><span class="line">    private static String bootClassPath &#x3D;</span><br><span class="line">        System.getProperty(&quot;sun.boot.class.path&quot;);</span><br><span class="line"></span><br><span class="line">    public static Launcher getLauncher() &#123;</span><br><span class="line">        return launcher;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static Launcher getLauncher() &#123; </span><br><span class="line">        &#x2F;&#x2F; launcher 是 Launcher 类的静态属性 </span><br><span class="line">        &#x2F;&#x2F; private static Launcher launcher &#x3D; new Launcher();</span><br><span class="line">        return launcher;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Launcher-Launcher"><a href="#Launcher-Launcher" class="headerlink" title="Launcher#Launcher()"></a>Launcher#Launcher()</h3><blockquote>
+<p>sun.misc.Launcher#Launcher()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Launcher() &#123;</span><br><span class="line">    &#x2F;&#x2F; Create the extension class loader</span><br><span class="line">    ClassLoader extcl;</span><br><span class="line">    try &#123;</span><br><span class="line">        &#x2F;&#x2F; 创建 ExtClassLoader 对象</span><br><span class="line">        extcl &#x3D; ExtClassLoader.getExtClassLoader();</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        throw new InternalError(</span><br><span class="line">            &quot;Could not create extension class loader&quot;, e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Now create the class loader to use to launch the application</span><br><span class="line">    try &#123;</span><br><span class="line">        &#x2F;&#x2F; 创建 AppClassLoader 并把 ExtClassLoader 对象 extcl 传入(设置AppClassLoader 的 parent 为 extcl）</span><br><span class="line">        loader &#x3D; AppClassLoader.getAppClassLoader(extcl);</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        throw new InternalError(</span><br><span class="line">            &quot;Could not create application class loader&quot;, e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Also set the context class loader for the primordial thread.</span><br><span class="line">    Thread.currentThread().setContextClassLoader(loader);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Finally, install a security manager if requested</span><br><span class="line">    String s &#x3D; System.getProperty(&quot;java.security.manager&quot;);</span><br><span class="line">    if (s !&#x3D; null) &#123;</span><br><span class="line">        &#x2F;&#x2F; init FileSystem machinery before SecurityManager installation</span><br><span class="line">        sun.nio.fs.DefaultFileSystemProvider.create();</span><br><span class="line"></span><br><span class="line">        SecurityManager sm &#x3D; null;</span><br><span class="line">        if (&quot;&quot;.equals(s) || &quot;default&quot;.equals(s)) &#123;</span><br><span class="line">            sm &#x3D; new java.lang.SecurityManager();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                sm &#x3D; (SecurityManager)loader.loadClass(s).newInstance();</span><br><span class="line">            &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            &#125; catch (InstantiationException e) &#123;</span><br><span class="line">            &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            &#125; catch (ClassCastException e) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (sm !&#x3D; null) &#123;</span><br><span class="line">            System.setSecurityManager(sm);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            throw new InternalError(</span><br><span class="line">                &quot;Could not create SecurityManager: &quot; + s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="getExtClassLoader"><a href="#getExtClassLoader" class="headerlink" title="getExtClassLoader()"></a>getExtClassLoader()</h4><blockquote>
+<p>ExtClassLoader.getExtClassLoader();</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 单例获取 ExtClassLoader 实例对象</span><br><span class="line">public static ExtClassLoader getExtClassLoader() throws IOException</span><br><span class="line">    &#123;</span><br><span class="line">        if (instance &#x3D;&#x3D; null) &#123;</span><br><span class="line">            synchronized(ExtClassLoader.class) &#123;</span><br><span class="line">                if (instance &#x3D;&#x3D; null) &#123;</span><br><span class="line">                    instance &#x3D; createExtClassLoader();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="createExtClassLoader"><a href="#createExtClassLoader" class="headerlink" title="createExtClassLoader()"></a>createExtClassLoader()</h5><blockquote>
+<p>ExtClassLoader#createExtClassLoader()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">private static ExtClassLoader createExtClassLoader() throws IOException &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        &#x2F;&#x2F; Prior implementations of this doPrivileged() block supplied</span><br><span class="line">        &#x2F;&#x2F; aa synthesized ACC via a call to the private method</span><br><span class="line">        &#x2F;&#x2F; ExtClassLoader.getContext().</span><br><span class="line"></span><br><span class="line">        return AccessController.doPrivileged(</span><br><span class="line">            new PrivilegedExceptionAction&lt;ExtClassLoader&gt;() &#123;</span><br><span class="line">                public ExtClassLoader run() throws IOException &#123;</span><br><span class="line">                    &#x2F;&#x2F; 获取ExtClassLoader 加载的 文件路径</span><br><span class="line">                    final File[] dirs &#x3D; getExtDirs();</span><br><span class="line">                    int len &#x3D; dirs.length;</span><br><span class="line">                    for (int i &#x3D; 0; i &lt; len; i++) &#123;</span><br><span class="line">                        MetaIndex.registerDirectory(dirs[i]);</span><br><span class="line">                    &#125;</span><br><span class="line">                    &#x2F;&#x2F; 创建ExtClassLoader对象并返回</span><br><span class="line">                    return new ExtClassLoader(dirs);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125; catch (java.security.PrivilegedActionException e) &#123;</span><br><span class="line">        throw (IOException) e.getException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h4 id="getAppClassLoader"><a href="#getAppClassLoader" class="headerlink" title="getAppClassLoader"></a>getAppClassLoader</h4><blockquote>
+<p> AppClassLoader#getAppClassLoader(extcl) 这个方法将会把 AppClassLoader 的 parent 属性设置为 ExtClassLoader</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static ClassLoader getAppClassLoader(final ClassLoader extcl)</span><br><span class="line">    throws IOException</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F; 获取classpath 路径 也就是AppClassLoader 加载的类路径</span><br><span class="line">    final String s &#x3D; System.getProperty(&quot;java.class.path&quot;);</span><br><span class="line">    final File[] path &#x3D; (s &#x3D;&#x3D; null) ? new File[0] : getClassPath(s);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Note: on bugid 4256530</span><br><span class="line">    &#x2F;&#x2F; Prior implementations of this doPrivileged() block supplied</span><br><span class="line">    &#x2F;&#x2F; a rather restrictive ACC via a call to the private method</span><br><span class="line">    &#x2F;&#x2F; AppClassLoader.getContext(). This proved overly restrictive</span><br><span class="line">    &#x2F;&#x2F; when loading  classes. Specifically it prevent</span><br><span class="line">    &#x2F;&#x2F; accessClassInPackage.sun.* grants from being honored.</span><br><span class="line">    &#x2F;&#x2F;</span><br><span class="line">    return AccessController.doPrivileged(</span><br><span class="line">        new PrivilegedAction&lt;AppClassLoader&gt;() &#123;</span><br><span class="line">            public AppClassLoader run() &#123;</span><br><span class="line">            URL[] urls &#x3D;</span><br><span class="line">                (s &#x3D;&#x3D; null) ? new URL[0] : pathToURLs(path);</span><br><span class="line">            &#x2F;&#x2F; 返回AppClassLoader 实例对象 并传入 extclassLoader 对象</span><br><span class="line">            return new AppClassLoader(urls, extcl);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="AppClassLoader"><a href="#AppClassLoader" class="headerlink" title="AppClassLoader"></a>AppClassLoader</h5><blockquote>
+<p>执行AppClassLoader构造方法 AppClassLoader#AppClassLoader(urls, extcl);</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AppClassLoader(URL[] urls, ClassLoader parent) &#123;</span><br><span class="line">    &#x2F;&#x2F; 该方法调用URLClassLoader#URLClassLoader</span><br><span class="line">    super(urls, parent, factory);</span><br><span class="line">    ucp &#x3D; SharedSecrets.getJavaNetAccess().getURLClassPath(this);</span><br><span class="line">    ucp.initLookupCache(this);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># URLClassLoader#URLClassLoader(urls, extcl);</span><br><span class="line">public URLClassLoader(URL[] urls, ClassLoader parent,</span><br><span class="line">                      URLStreamHandlerFactory factory) &#123;</span><br><span class="line">    &#x2F;&#x2F;  该方法调用SecureClassLoader#SecureClassLoader(ClassLoader parent)</span><br><span class="line">    super(parent);</span><br><span class="line">    &#x2F;&#x2F; this is to make the stack depth consistent with 1.1</span><br><span class="line">    SecurityManager security &#x3D; System.getSecurityManager();</span><br><span class="line">    if (security !&#x3D; null) &#123;</span><br><span class="line">        security.checkCreateClassLoader();</span><br><span class="line">    &#125;</span><br><span class="line">    acc &#x3D; AccessController.getContext();</span><br><span class="line">    ucp &#x3D; new URLClassPath(urls, factory, acc);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#SecureClassLoader#SecureClassLoader(ClassLoader parent)</span><br><span class="line"></span><br><span class="line"> protected SecureClassLoader(ClassLoader parent) &#123;</span><br><span class="line">        &#x2F;&#x2F; 调用ClassLoader#ClassLoader(ClassLoader parent)</span><br><span class="line">        super(parent);</span><br><span class="line">        &#x2F;&#x2F; this is to make the stack depth consistent with 1.1</span><br><span class="line">        SecurityManager security &#x3D; System.getSecurityManager();</span><br><span class="line">        if (security !&#x3D; null) &#123;</span><br><span class="line">            security.checkCreateClassLoader();</span><br><span class="line">        &#125;</span><br><span class="line">        initialized &#x3D; true;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private ClassLoader(Void unused, ClassLoader parent) &#123;</span><br><span class="line">        &#x2F;&#x2F;  设置 parent 属性</span><br><span class="line">        this.parent &#x3D; parent;</span><br><span class="line">        if (ParallelLoaders.isRegistered(this.getClass())) &#123;</span><br><span class="line">            parallelLockMap &#x3D; new ConcurrentHashMap&lt;&gt;();</span><br><span class="line">            package2certs &#x3D; new ConcurrentHashMap&lt;&gt;();</span><br><span class="line">            assertionLock &#x3D; new Object();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            &#x2F;&#x2F; no finer-grained lock; lock on the classloader instance</span><br><span class="line">            parallelLockMap &#x3D; null;</span><br><span class="line">            package2certs &#x3D; new Hashtable&lt;&gt;();</span><br><span class="line">            assertionLock &#x3D; this;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>java.lang.ClassLoader#loadClass(String name)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Class&lt;?&gt; loadClass(String name) throws ClassNotFoundException &#123;</span><br><span class="line">    return loadClass(name, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>java.lang.ClassLoader#loadClass(String name,boolean resolve)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">protected Class&lt;?&gt; loadClass(String name, boolean resolve)</span><br><span class="line">       throws ClassNotFoundException</span><br><span class="line">   &#123;</span><br><span class="line">       &#x2F;&#x2F; 加锁 防止同一个类重复加载</span><br><span class="line">       synchronized (getClassLoadingLock(name)) &#123;</span><br><span class="line">           &#x2F;&#x2F; First, check if the class has already been loaded</span><br><span class="line">           &#x2F;&#x2F; 判断类是否被加载</span><br><span class="line">           Class&lt;?&gt; c &#x3D; findLoadedClass(name);</span><br><span class="line">           if (c &#x3D;&#x3D; null) &#123;</span><br><span class="line">               long t0 &#x3D; System.nanoTime();</span><br><span class="line">               try &#123;</span><br><span class="line">                   if (parent !&#x3D; null) &#123;</span><br><span class="line">                       c &#x3D; parent.loadClass(name, false);</span><br><span class="line">                   &#125; else &#123;</span><br><span class="line">                       c &#x3D; findBootstrapClassOrNull(name);</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">                   &#x2F;&#x2F; ClassNotFoundException thrown if class not found</span><br><span class="line">                   &#x2F;&#x2F; from the non-null parent class loader</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               if (c &#x3D;&#x3D; null) &#123;</span><br><span class="line">                   &#x2F;&#x2F; If still not found, then invoke findClass in order</span><br><span class="line">                   &#x2F;&#x2F; to find the class.</span><br><span class="line">                   long t1 &#x3D; System.nanoTime();</span><br><span class="line">                   c &#x3D; findClass(name);</span><br><span class="line"></span><br><span class="line">                   &#x2F;&#x2F; this is the defining class loader; record the stats</span><br><span class="line">                   sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                   sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                   sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           if (resolve) &#123;</span><br><span class="line">               resolveClass(c);</span><br><span class="line">           &#125;</span><br><span class="line">           return c;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="双亲委派源码解析"><a href="#双亲委派源码解析" class="headerlink" title="双亲委派源码解析"></a>双亲委派源码解析</h1><blockquote>
+<p>默认类加载器 加载入口为 java.lang.ClassLoader#loadClass</p>
+</blockquote>
+<h2 id="loadClass-String-className"><a href="#loadClass-String-className" class="headerlink" title="loadClass(String className)"></a>loadClass(String className)</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public Class&lt;?&gt; loadClass(String name) throws ClassNotFoundException &#123;</span><br><span class="line">    return loadClass(name, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="loadClass-String-name-boolean-resolve"><a href="#loadClass-String-name-boolean-resolve" class="headerlink" title="loadClass(String name, boolean resolve)"></a>loadClass(String name, boolean resolve)</h2><blockquote>
+<p>java.lang.ClassLoader#loadClass(String name, boolean resolve)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">protected Class&lt;?&gt; loadClass(String name, boolean resolve)</span><br><span class="line">        throws ClassNotFoundException</span><br><span class="line">    &#123;</span><br><span class="line">        synchronized (getClassLoadingLock(name)) &#123;</span><br><span class="line">            &#x2F;&#x2F; First, check if the class has already been loaded</span><br><span class="line">            Class&lt;?&gt; c &#x3D; findLoadedClass(name);</span><br><span class="line">            if (c &#x3D;&#x3D; null) &#123;</span><br><span class="line">                long t0 &#x3D; System.nanoTime();</span><br><span class="line">                try &#123;</span><br><span class="line">                    &#x2F;&#x2F; 获取类加载器的parent 属性 根据上面的App及Ext类加载器初始化 过程</span><br><span class="line">                    &#x2F;&#x2F; 我们知道 AppClassLoader 的 parent 为 ExtClassLoader</span><br><span class="line">                    &#x2F;&#x2F; ExtClassLoader 的 parent 为 null</span><br><span class="line">    </span><br><span class="line">                    &#x2F;&#x2F; AppClassLoader parent 不等于null 所以会委托给 ExtClassLoader 加载类</span><br><span class="line">                    if (parent !&#x3D; null) &#123;</span><br><span class="line">                        c &#x3D; parent.loadClass(name, false);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        &#x2F;&#x2F;  ExtClassLoader类加载器的parent 为null 所以委托给 BootstrapClassLoader</span><br><span class="line">                        &#x2F;&#x2F; BootstrapClassLoader加载器是c++ 代码 所以 parent 为null 时就是</span><br><span class="line">                        &#x2F;&#x2F; 父加载器为BootstrapClassLoader</span><br><span class="line">                        c &#x3D; findBootstrapClassOrNull(name);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">                    &#x2F;&#x2F; ClassNotFoundException thrown if class not found</span><br><span class="line">                    &#x2F;&#x2F; from the non-null parent class loader</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;  如果通过父加载器都没有加载到类</span><br><span class="line">                &#x2F;&#x2F;  则自己加载类</span><br><span class="line">                if (c &#x3D;&#x3D; null) &#123;</span><br><span class="line">                    &#x2F;&#x2F; If still not found, then invoke findClass in order</span><br><span class="line">                    &#x2F;&#x2F; to find the class.</span><br><span class="line">                    long t1 &#x3D; System.nanoTime();</span><br><span class="line">                    &#x2F;&#x2F;  调用类加载器的 findClass 方法加载类</span><br><span class="line">                    c &#x3D; findClass(name);</span><br><span class="line"></span><br><span class="line">                    &#x2F;&#x2F; this is the defining class loader; record the stats</span><br><span class="line">                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (resolve) &#123;</span><br><span class="line">                &#x2F;&#x2F;  解析类</span><br><span class="line">                resolveClass(c);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 返回类信息</span><br><span class="line">            return c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#java" >
+    <span class="tag-code">java</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/essay/standard/">
+        <span class="nav-arrow">← </span>
+        
+          JAVA开发规范-阿里规约
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/middleware/zookeeper/index/">
+        
+          zookeeper介绍及基本使用
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">目录</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#java-启动流程"><span class="toc-nav-text">java 启动流程</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#JavaMain-void-args"><span class="toc-nav-text">JavaMain(void * _args)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#LoadMainClass"><span class="toc-nav-text">LoadMainClass</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GetLauncherHelperClass"><span class="toc-nav-text">GetLauncherHelperClass</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#CheckAndLoadMain"><span class="toc-nav-text">CheckAndLoadMain</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#GetStaticMethodID"><span class="toc-nav-text">GetStaticMethodID</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#执行启动类的main-方法"><span class="toc-nav-text">执行启动类的main 方法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#结束并销毁虚拟机"><span class="toc-nav-text">结束并销毁虚拟机</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#App及Ext类加载器初始化"><span class="toc-nav-text">App及Ext类加载器初始化</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#getSystemClassLoader"><span class="toc-nav-text">getSystemClassLoader()</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#initSystemClassLoader"><span class="toc-nav-text">initSystemClassLoader()</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Launcher-getLauncher"><span class="toc-nav-text">Launcher#getLauncher()</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Launcher-Launcher"><span class="toc-nav-text">Launcher#Launcher()</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#getExtClassLoader"><span class="toc-nav-text">getExtClassLoader()</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#createExtClassLoader"><span class="toc-nav-text">createExtClassLoader()</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#getAppClassLoader"><span class="toc-nav-text">getAppClassLoader</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#AppClassLoader"><span class="toc-nav-text">AppClassLoader</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#双亲委派源码解析"><span class="toc-nav-text">双亲委派源码解析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#loadClass-String-className"><span class="toc-nav-text">loadClass(String className)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#loadClass-String-name-boolean-resolve"><span class="toc-nav-text">loadClass(String name, boolean resolve)</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/java/jvm/classLoader_source/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+  <script>
+    let gitalk = new Gitalk({
+      clientID: '7c19a6dde1744eaa8c8e',
+      clientSecret: '689f2f34a11a1edad102d8b1c63c57e3ebb87512',
+      repo: 'blog-comment',
+      owner: 'zhangzhif',
+      admin: 'zhangzhif',
+      id: 'JDK源码级别理解双亲委派机制',
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render(document.getElementById('comments'));
+  </script>
+
+
+
+
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+<!--  <p class="copyright">-->
+<!--    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>-->
+<!--    <br>-->
+<!--    Theme by <a href="https://github.com/yanm1ng" target="_blank" rel="noopener">yanm1ng</a>-->
+<!--  </p>-->
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      hljs.configure({useBR: true});
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+
+  </body>
+</html>
