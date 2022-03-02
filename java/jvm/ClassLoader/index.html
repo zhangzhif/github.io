@@ -230,7 +230,7 @@
 <p>   <img src="/java/jvm/ClassLoader/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.jpg" alt="双亲委派图解">  </p>
 <h3 id="为什么设计双亲委派机制"><a href="#为什么设计双亲委派机制" class="headerlink" title="为什么设计双亲委派机制?"></a>为什么设计双亲委派机制?</h3><ol>
 <li>沙箱安全机制<blockquote>
-<p>自己写的java.lang.String.class类不会被加载，这样便可以防止核心。如下代码</p>
+<p>自己写的java.lang.String.class类不会被加载，这样便可以防止核心代码被篡改。如下代码</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package java.lang;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @author zhangzhifeng</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class String &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;测试自定义 java.lang.String 类 是否能加载!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <strong>运行结果:因为String 类是jdk自带的类 而它并没有main方法 所以报错</strong><br><img src="/java/jvm/ClassLoader/String.jpg" alt>  </li>
@@ -273,10 +273,10 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/java/concurrent/introduce/">
+      <a class="nav-left" href="/java/jvm/parameter/">
         <span class="nav-arrow">← </span>
         
-          并发应该学习什么
+          java常用启动参数
         
       </a>
     
