@@ -189,337 +189,72 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>  <em>JVM中有两种类型的类加载器，由C++编写的及由Java编写的。除了启动类加载器（Bootstrap Class Loader）是由C++编写的，其他都是由Java编写的。由Java编写的类加载器都继承自类java.lang.ClassLoader。各种类加载器之间存在逻辑上的父子关系，后面可以通过代码查看。</em><br>    <img src="/java/jvm/ClassLoader/%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB.jpg" alt="类加载器父子关系"></p>
-<h3 id="启动类加载器"><a href="#启动类加载器" class="headerlink" title="启动类加载器"></a>启动类加载器</h3><p>  <em>因为启动类加载器是由C++编写的，通过Java程序去查看显示的是null，因此，启动类加载器无法被Java程序调用启动类加载器不像其他类加载器有实体，它是没有实体的，JVM将C++处理类加载的一套逻辑定义为启动类加载器。</em></p>
-<pre><code>/**
- * 查看类加载器的默认加载路径  也可以通过-Xbootclasspath 自行指定
- */
- public class ClassLoaderTest2 {
+    <section class="markdown-content"><p><strong><em>传送门—&gt;&gt; <a href="/java/jvm/classLoader_source/">JDK源码级别理解双亲委派机制</a></em></strong></p>
+<h2 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h2><p><strong>一个类的加载过程有下面几步:加载 &gt;&gt; 验证 &gt;&gt; 准备 &gt;&gt; 解析 &gt;&gt; 初始化 &gt;&gt; 使用 &gt;&gt; 卸载</strong></p>
+<ol>
+<li>加载: 在硬盘上查找并通过IO读入字节码文件，使用到类时才会加载，例如调用类的 main()方法，new对象等等，在加载阶段会在内存中生成一个代表这个类的 java.lang.Class对象，存入方法区作为这个类的各种数据的访问入口。</li>
+<li>验证: 校验字节码文件的正确性</li>
+<li>准备: 给类的静态变量分配内存，并赋予默认值</li>
+<li>解析: 将符号引用替换为直接引用，该阶段会把一些静态方法(符号引用，比如main()方法)替换为指向数据所存内存的指针或句柄等(直接引用)，这是所谓的静态链接过 程(类加载期间完成)，动态链接是在程序运行期间完成的将符号引用替换为直接引用。</li>
+<li>初始化: 对类的静态变量初始化为指定的值，执行静态代码块</li>
+</ol>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>  <strong>JVM中有两种类型的类加载器，由C++编写的及由Java编写的。除了启动类加载器（Bootstrap Class Loader）是由C++编写的，其他都是由Java编写的。由Java编写的类加载器都继承自类java.lang.ClassLoader。各种类加载器之间存在逻辑上的父子关系，后面可以通过代码查看。</strong></p>
+<blockquote>
+<p>类加载器父子关系从左到右 BootstrapClassLoader-&gt;ExtClassLoader-&gt;AppClassLoader-&gt;自定义类加载器</p>
+</blockquote>
+<h3 id="启动类加载器"><a href="#启动类加载器" class="headerlink" title="启动类加载器"></a>启动类加载器</h3><p>  <strong>因为启动类加载器是由C++编写的，通过Java程序去查看显示的是null，因此，启动类加载器无法被Java程序调用启动类加载器不像其他类加载器有实体，它是没有实体的，JVM将C++处理类加载的一套逻辑定义为启动类加载器。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* 查看类加载器的默认加载路径  也可以通过-Xbootclasspath 自行指定</span><br><span class="line">*&#x2F;</span><br><span class="line">public class ClassLoaderTest &#123;</span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">       URL[] urls &#x3D; Launcher.getBootstrapClassPath().getURLs();</span><br><span class="line">       for (URL url:urls)&#123;</span><br><span class="line">           System.out.println(url);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">结果为固定路径:</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;resources.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;rt.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;sunrsasign.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;jsse.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;jce.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;charsets.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;jfr.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;classes</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>启动类加载器实际上是一段c++代码逻辑,具体看文章开头 源码级别理解类加载器。</p>
+</blockquote>
+<h3 id="拓展类加载器"><a href="#拓展类加载器" class="headerlink" title="拓展类加载器"></a>拓展类加载器</h3><blockquote>
+<p>查看拓展类加载路径 也可以通过java.ext.dirs指定</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    ClassLoader classLoader &#x3D; ClassLoader.getSystemClassLoader().getParent();</span><br><span class="line">    URLClassLoader urlClassLoader &#x3D; (URLClassLoader) classLoader;</span><br><span class="line">    URL[] urls &#x3D; urlClassLoader.getURLs();</span><br><span class="line">    for (URL url : urls) &#123;</span><br><span class="line">        System.out.println(url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">结果:</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;sunec.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;nashorn.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;cldrdata.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;jfxrt.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;dnsns.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;localedata.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;sunjce_provider.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;sunpkcs11.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;jaccess.jar</span><br><span class="line">file:&#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;lib&#x2F;ext&#x2F;zipfs.jar</span><br><span class="line">file:&#x2F;System&#x2F;Library&#x2F;Java&#x2F;Extensions&#x2F;MRJToolkit.jar</span><br></pre></td></tr></table></figure>
 
-    public static void main(String[] args) {
-        URL[] urls = Launcher.getBootstrapClassPath().getURLs();
-        for (URL url:urls){
-            System.out.println(url);
-        }
-    }
- }
- 结果为固定路径:
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/resources.jar
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/rt.jar
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/sunrsasign.jar
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/jsse.jar
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/jce.jar
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/charsets.jar
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/jfr.jar
- file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/classes</code></pre><p>   <em>启动类加载器实际上是一段c++代码逻辑 从openjdk源码体现如下:</em></p>
-<pre><code>int JNICALL
-JavaMain(void * _args)
-{
-    ……
-    mainClass = LoadMainClass(env, mode, what);
-    ……
-}
 
-static jclass
-LoadMainClass(JNIEnv *env, int mode, char *name)
-{
-    jmethodID mid;
-    jstring str;
-    jobject result;
-    jlong start, end;
-    jclass cls = GetLauncherHelperClass(env);
-    NULL_CHECK0(cls);
-    if (JLI_IsTraceLauncher()) {
-        start = CounterGet();
-    }
-    NULL_CHECK0(mid = (*env)-&gt;GetStaticMethodID(env, cls,
-                &quot;checkAndLoadMain&quot;,
-                &quot;(ZILjava/lang/String;)Ljava/lang/Class;&quot;));
+<h3 id="应用类加载器"><a href="#应用类加载器" class="headerlink" title="应用类加载器"></a>应用类加载器</h3><p><strong>默认加载用户程序的类加载器AppClassLoader</strong>        </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 查看加载路径  可以通过java.class.path指定    </span><br><span class="line"> *&#x2F;</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    String[] urls &#x3D; System.getProperty(&quot;java.class.path&quot;).split(&quot;:&quot;);</span><br><span class="line">    for (String url : urls) &#123;</span><br><span class="line">        System.out.println(url);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(&quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);</span><br><span class="line">    URLClassLoader classLoader &#x3D; (URLClassLoader) ClassLoader.getSystemClassLoader();</span><br><span class="line">    URL[] urls1 &#x3D; classLoader.getURLs();</span><br><span class="line">    for (URL url : urls1) &#123;</span><br><span class="line">        System.out.println(url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">结果为你项目本地包所在路径</span><br></pre></td></tr></table></figure>
 
-    str = NewPlatformString(env, name);
-    CHECK_JNI_RETURN_0(
-        result = (*env)-&gt;CallStaticObjectMethod(
-            env, cls, mid, USE_STDERR, mode, str));
+<h3 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h3><p><strong>自定义类加载器 继承类java.lang.ClassLoader</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class ClassLoadeTest1 extends ClassLoader&#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        ClassLoadeTest1 classLoadeTest1 &#x3D; new ClassLoadeTest1();</span><br><span class="line">        Class&lt;?&gt; aClass &#x3D; classLoadeTest1.loadClass(Demo1.class.getName());</span><br><span class="line">        System.out.println(aClass);</span><br><span class="line">        System.out.println(aClass.getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    protected Class&lt;?&gt; findClass(String name) throws ClassNotFoundException &#123;</span><br><span class="line">        System.out.println(&quot;findClass&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">结果：</span><br><span class="line">   class com.example.classloade.Demo1</span><br><span class="line">   sun.misc.Launcher$AppClassLoader@18b4aac2</span><br><span class="line"> 因为类加载中的双亲委派 所以打印出的加载类为AppClassLoader 这也是自定义的默认加载器</span><br></pre></td></tr></table></figure>
 
-    if (JLI_IsTraceLauncher()) {
-        end   = CounterGet();
-        printf(&quot;%ld micro seconds to load main class\n&quot;,
-               (long)(jint)Counter2Micros(end-start));
-        printf(&quot;----%s----\n&quot;, JLDEBUG_ENV_ENTRY);
-    }
+<p><strong>自定义类加载器也可以打破双亲委派，看源码 此处代码说明类加载器父子关系图</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#x2F;**</span><br><span class="line">    * 类加载过程如下 </span><br><span class="line">    * 自定义加载器只需要重写loadClass 在向上委托判断初改成自己加载逻辑即打破双亲委派</span><br><span class="line">    **&#x2F;</span><br><span class="line"> protected Class&lt;?&gt; loadClass(String name, boolean resolve)</span><br><span class="line">    throws ClassNotFoundException&#123;</span><br><span class="line">    </span><br><span class="line">    synchronized (getClassLoadingLock(name)) &#123;</span><br><span class="line">       &#x2F;&#x2F;判断类是否加载过</span><br><span class="line">        Class&lt;?&gt; c &#x3D; findLoadedClass(name); </span><br><span class="line">        &#x2F;&#x2F;&#x3D;&#x3D;null 没有加载</span><br><span class="line">        if (c &#x3D;&#x3D; null) &#123;</span><br><span class="line">            long t0 &#x3D; System.nanoTime();</span><br><span class="line">            try &#123;</span><br><span class="line">                &#x2F;&#x2F;判断是否有父级  (这块逻辑重写 为自己加载 即打破类双亲委派)</span><br><span class="line">                if (parent !&#x3D; null) &#123;  </span><br><span class="line">                    &#x2F;&#x2F;有父级委托父级加载 向上委派</span><br><span class="line">                    c &#x3D; parent.loadClass(name, false);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    &#x2F;&#x2F;没有的话直接使用启动类加载器 最后调用的是navicat方法 进入c++</span><br><span class="line">                    c &#x3D; findBootstrapClassOrNull(name);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">                &#x2F;&#x2F; ClassNotFoundException thrown if class not found</span><br><span class="line">                &#x2F;&#x2F; from the non-null parent class loader</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (c &#x3D;&#x3D; null) &#123;</span><br><span class="line">                &#x2F;&#x2F; If still not found, then invoke findClass in order</span><br><span class="line">                &#x2F;&#x2F; to find the class.</span><br><span class="line">                long t1 &#x3D; System.nanoTime();</span><br><span class="line">                c &#x3D; findClass(name);</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F; this is the defining class loader; record the stats</span><br><span class="line">                sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;类是否解析</span><br><span class="line">        if (resolve) &#123;</span><br><span class="line">            &#x2F;&#x2F;解析类</span><br><span class="line">            resolveClass(c);</span><br><span class="line">        &#125;</span><br><span class="line">        return c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    return (jclass)result;
-}
 
-jclass
-GetLauncherHelperClass(JNIEnv *env)
-{
-    if (helperClass == NULL) {
-        NULL_CHECK0(helperClass = FindBootStrapClass(env,
-                &quot;sun/launcher/LauncherHelper&quot;));
-    }
-    return helperClass;
-}
 
-jclass
-FindBootStrapClass(JNIEnv *env, const char* classname)
-{
-   if (findBootClass == NULL) {
-       findBootClass = (FindClassFromBootLoader_t *)dlsym(RTLD_DEFAULT,
-          &quot;JVM_FindClassFromBootLoader&quot;);
-       if (findBootClass == NULL) {
-           JLI_ReportErrorMessage(DLL_ERROR4,
-               &quot;JVM_FindClassFromBootLoader&quot;);
-           return NULL;
-       }
-   }
-   return findBootClass(env, classname);
-}
-
-JVM_ENTRY(jclass, JVM_FindClassFromBootLoader(JNIEnv* env,
-                                              const char* name))
-  JVMWrapper2(&quot;JVM_FindClassFromBootLoader %s&quot;, name);
-
-  // Java libraries should ensure that name is never null...
-  if (name == NULL || (int)strlen(name) &gt; Symbol::max_length()) {
-    // It&apos;s impossible to create this class;  the name cannot fit
-    // into the constant pool.
-    return NULL;
-  }
-
-  TempNewSymbol h_name = SymbolTable::new_symbol(name, CHECK_NULL);
-  Klass* k = SystemDictionary::resolve_or_null(h_name, CHECK_NULL);
-  if (k == NULL) {
-    return NULL;
-  }
-
-  if (TraceClassResolution) {
-    trace_class_resolution(k);
-  }
-  return (jclass) JNIHandles::make_local(env, k-&gt;java_mirror());
-JVM_END</code></pre><p>  <em>这套逻辑做的事情就是通过启动类加载器加载类sun.launcher.LauncherHelper，执行该类的方法checkAndLoadMain，加载main函数所在的类，启动扩展类加载器、应用类加载器也是在这个时候完成的</em></p>
-<h3 id="拓展类加载器"><a href="#拓展类加载器" class="headerlink" title="拓展类加载器"></a>拓展类加载器</h3><pre><code>/**
- * 查看拓展类加载路径 也可以通过java.ext.dirs指定
- */
-public static void main(String[] args) {
-    ClassLoader classLoader = ClassLoader.getSystemClassLoader().getParent();
-    URLClassLoader urlClassLoader = (URLClassLoader) classLoader;
-    URL[] urls = urlClassLoader.getURLs();
-    for (URL url : urls) {
-        System.out.println(url);
-    }
-}
-结果:
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/sunec.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/nashorn.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/cldrdata.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/jfxrt.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/dnsns.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/localedata.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/jaccess.jar
-file:/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home/jre/lib/ext/zipfs.jar
-file:/System/Library/Java/Extensions/MRJToolkit.jar</code></pre><h3 id="应用类加载器"><a href="#应用类加载器" class="headerlink" title="应用类加载器"></a>应用类加载器</h3><p>   <em>默认加载用户程序的类加载器</em></p>
-<pre><code>/**
- * 查看加载路径  可以通过java.class.path指定    
- */
-public static void main(String[] args) {
-    String[] urls = System.getProperty(&quot;java.class.path&quot;).split(&quot;:&quot;);
-    for (String url : urls) {
-        System.out.println(url);
-    }
-    System.out.println(&quot;================================&quot;);
-    URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-    URL[] urls1 = classLoader.getURLs();
-    for (URL url : urls1) {
-        System.out.println(url);
-    }
-}
-结果为你项目本地包所在路径</code></pre><h3 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h3><p>   <em>继承类java.lang.ClassLoader</em></p>
-<pre><code>public class ClassLoadeTest1 extends ClassLoader{
-    public static void main(String[] args) throws ClassNotFoundException {
-        ClassLoadeTest1 classLoadeTest1 = new ClassLoadeTest1();
-        Class&lt;?&gt; aClass = classLoadeTest1.loadClass(Demo1.class.getName());
-        System.out.println(aClass);
-        System.out.println(aClass.getClassLoader());
-    }
-    @Override
-    protected Class&lt;?&gt; findClass(String name) throws ClassNotFoundException {
-        System.out.println(&quot;findClass&quot;);
-        return null;
-    }
-}
-结果：
-   class com.example.classloade.Demo1
-   sun.misc.Launcher$AppClassLoader@18b4aac2
- 因为类加载中的双亲委派 所以打印出的加载类为AppClassLoader 这也是自定义的默认加载器</code></pre><p>   <em>自定义类加载器也可以打破双亲委派，看源码 此处代码说明类加载器父子关系图</em></p>
-<pre><code>/**
- * 类加载过程如下 
- * 自定义加载器只需要重写loadClass 在向上委托判断初改成自己加载逻辑即打破双亲委派
- **/
-  protected Class&lt;?&gt; loadClass(String name, boolean resolve)
-     throws ClassNotFoundException{
-
-     synchronized (getClassLoadingLock(name)) {
-        //判断类是否加载过
-         Class&lt;?&gt; c = findLoadedClass(name); 
-         //==null 没有加载
-         if (c == null) {
-             long t0 = System.nanoTime();
-             try {
-                 //判断是否有父级 
-                 if (parent != null) {  
-                     //有父级委托父级加载 向上委派
-                     c = parent.loadClass(name, false);
-                 } else {
-                     //没有的话直接使用启动类加载器 最后调用的是navicat方法 进入c++
-                     c = findBootstrapClassOrNull(name);
-                 }
-             } catch (ClassNotFoundException e) {
-                 // ClassNotFoundException thrown if class not found
-                 // from the non-null parent class loader
-             }
-
-             if (c == null) {
-                 // If still not found, then invoke findClass in order
-                 // to find the class.
-                 long t1 = System.nanoTime();
-                 c = findClass(name);
-
-                 // this is the defining class loader; record the stats
-                 sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
-                 sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
-                 sun.misc.PerfCounter.getFindClasses().increment();
-             }
-         }
-         //类是否解析
-         if (resolve) {
-             //解析类
-             resolveClass(c);
-         }
-         return c;
-     }
- }</code></pre><h2 id="类加载器创建链"><a href="#类加载器创建链" class="headerlink" title="类加载器创建链"></a>类加载器创建链</h2><p><em>刚才已经讲了启动类加载器是没有没有实体的，只是将一段c++代码逻辑命名成启动类加载器。启动类加载器做的事情是：<br>    加载类sun.launcher.LauncherHelper<br>    执行该类的方法checkAndLoadMain<br>    启动类、扩展类、应用类加载器逻辑上的父子关系就是在这个方法的调用链中生成</em></p>
-<p>1.\openjdk\jdk\src\share\classes\sun\launcher\LauncherHelper.java 核心代码</p>
-<pre><code>public enum LauncherHelper {
-……
-    private static final ClassLoader scloader = ClassLoader.
-                                        getSystemClassLoader();
-……
-    public static Class&lt;?&gt; checkAndLoadMain(boolean printToStderr,
-                                            int mode,
-                                            String what) {
-        ……
-        mainClass = scloader.loadClass(cn);
-        ……</code></pre><p>2.\openjdk\jdk\src\share\classes\java\lang\ClassLoader.java 核心代码sun.misc.Launcher.getLauncher();</p>
-<pre><code>public static ClassLoader getSystemClassLoader() {
-        initSystemClassLoader();
-        if (scl == null) {
-            return null;
-        }
-        SecurityManager sm = System.getSecurityManager();
-        if (sm != null) {
-            checkClassLoaderPermission(scl, Reflection.getCallerClass());
-        }
-        return scl;
-    }
-
-    private static synchronized void initSystemClassLoader() {
-        if (!sclSet) {
-            if (scl != null)
-                throw new IllegalStateException(&quot;recursive invocation&quot;);
-            sun.misc.Launcher l = sun.misc.Launcher.getLauncher();
-        ……</code></pre><p>3.\openjdk\jdk\src\share\classes\sun\misc\Launcher.java </p>
-<pre><code>核心代码：
-• private static Launcher launcher = new Launcher();
-• extcl = ExtClassLoader.getExtClassLoader();
-• loader = AppClassLoader.getAppClassLoader(extcl);
-• Thread.currentThread().setContextClassLoader(loader);//设置当前线程上下文类加载器
-
-public class Launcher {
-    private static URLStreamHandlerFactory factory = new Factory();
-    private static Launcher launcher = new Launcher();
-    private static String bootClassPath =
-        System.getProperty(&quot;sun.boot.class.path&quot;);
-
-    public static Launcher getLauncher() {
-        return launcher;
-    }
-
-    private ClassLoader loader;
-
-    public Launcher() {
-        // Create the extension class loader
-        ClassLoader extcl;
-        try {
-            extcl = ExtClassLoader.getExtClassLoader();
-        } catch (IOException e) {
-            throw new InternalError(
-                &quot;Could not create extension class loader&quot;, e);
-        }
-
-        // Now create the class loader to use to launch the application
-        try {
-            loader = AppClassLoader.getAppClassLoader(extcl);
-        } catch (IOException e) {
-            throw new InternalError(
-                &quot;Could not create application class loader&quot;, e);
-        }
-
-        // Also set the context class loader for the primordial thread.
-
-        Thread.currentThread().setContextClassLoader(loader);
-    ……</code></pre><p>4.扩展类加载器的创建流程</p>
-<pre><code> public static ExtClassLoader getExtClassLoader() throws IOException{
-     ……
-       return new ExtClassLoader(dirs);
-     ……
-
-//第二个参数传的是null，其实就是parent=null
-public ExtClassLoader(File[] dirs) throws IOException {
-          super(getExtURLs(dirs), null, factory);
-      }
- URLClassLoader(URL[] urls, ClassLoader parent,
-                 AccessControlContext acc) {</code></pre><p>5.应用类加载器的创建流程</p>
-<pre><code>public static ClassLoader getAppClassLoader(final ClassLoader extcl)
-            throws IOException {
-    final String s = System.getProperty(&quot;java.class.path&quot;);
-    final File[] path = (s == null) ? new File[0] : getClassPath(s);
-
-    // Note: on bugid 4256530
-    // Prior implementations of this doPrivileged() block supplied
-    // a rather restrictive ACC via a call to the private method
-    // AppClassLoader.getContext().This proved overly restrictive
-    // when loading  classes.Specifically it prevent
-    // accessClassInPackage.sun.* grants from being honored.
-    //
-    return AccessController.doPrivileged(
-        new PrivilegedAction&lt;AppClassLoader&gt;() {
-            public AppClassLoader run() {
-                URL[] urls =
-                    (s == null) ? new URL[0] : pathToURLs(path);
-                return new AppClassLoader(urls, extcl);
-            }
-        });
-}
-
-AppClassLoader(URL[] urls, ClassLoader parent) {
-    super(urls, parent, factory);
-}</code></pre><p>   <em>应用类、扩展类加载器的父子关系就是这样建立的.</em></p>
-<h2 id="类加载器加载完成后的存储"><a href="#类加载器加载完成后的存储" class="headerlink" title="类加载器加载完成后的存储"></a>类加载器加载完成后的存储</h2><p>   <em>类加载完成会存储在方法区 而不同的类加载器加载的类都有其相对应的一块区域。如果不同的加载器加载了同一个class 那么他们是两份数据当然也不是同一个类了</em></p>
-<h2 id="双亲委派"><a href="#双亲委派" class="headerlink" title="双亲委派"></a>双亲委派</h2><p>   <em>如果一个类加载器收到了加载某个类的请求,则该类加载器并不会去加载该类,而是把这个请求委派给父类加载器,每一个层次的类加载器都是如此,因此所有的类加载请求最终都会传送到顶端的启动类加载器;只有当父类加载器在其搜索范围内无法找到所需的类,并将该结果反馈给子类加载器,子类加载器会尝试去自己加载。</em>  </p>
+<h2 id="类加载器创建链"><a href="#类加载器创建链" class="headerlink" title="类加载器创建链"></a>类加载器创建链</h2><p><strong>刚才已经讲了启动类加载器是没有没有实体的，只是将一段c++代码逻辑命名成启动类加载器。具体父子关系建立 见 <a href="/java/jvm/classLoader_source/">JDK源码级别理解双亲委派机制</a></strong></p>
+<h2 id="类加载器加载完成后的存储"><a href="#类加载器加载完成后的存储" class="headerlink" title="类加载器加载完成后的存储"></a>类加载器加载完成后的存储</h2><p><strong>类加载完成会存储在方法区 而不同的类加载器加载的类都有其相对应的一块区域。如果不同的加载器加载了同一个class 那么他们是两份数据当然也不是同一个类了</strong></p>
+<h2 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h2><p><strong>如果一个类加载器收到了加载某个类的请求,则该类加载器并不会去加载该类,而是把这个请求委派给父类加载器,每一个层次的类加载器都是如此,因此所有的类加载请求最终都会传送到顶端的启动类加载器;只有当父类加载器在其搜索范围内无法找到所需的类,并将该结果反馈给子类加载器,子类加载器会尝试去自己加载。</strong>  </p>
 <p>   <img src="/java/jvm/ClassLoader/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE.jpg" alt="双亲委派图解">  </p>
-<h2 id="打破双亲委派"><a href="#打破双亲委派" class="headerlink" title="打破双亲委派"></a>打破双亲委派</h2><p><em>因为在某些情况下父类加载器需要委托子类加载器去加载class文件。受到加载范围的限制，父类加载器无法加载到需要的文件，以Driver接口为例，由于Driver接口定义在jdk当中的，而其实现由各个数据库的服务商来提供，比如mysql的就写了MySQL Connector，那么问题就来了，DriverManager（也由jdk提供）要加载各个实现了Driver接口的实现类，然后进行管理，但是DriverManager由启动类加载器加载，只能加载JAVA_HOME的lib下文件，而其实现是由服务商提供的，由系统类加载器加载，这个时候就需要启动类加载器来委托子类来加载Driver实现，从而破坏了双亲委派。<br>类似这样的情况就需要打破双亲委派。打破双亲委派的意思其实就是不委派、向下委派</em></p>
-<ul>
-<li>方式</li>
-</ul>
-<p>1.自定义类加载器<br>    <em>1.4 中代码有提及</em><br>2.SPI<br>    <em>是一种服务发现机制。它通过在ClassPath路径下的META-INF/services文件夹查找文件，自动加载文件里所定义的类。这一机制为很多框架扩展提供了可能，比如在Dubbo、JDBC中都使用到了SPI机制</em></p>
-<h2 id="线程上下文类加载器"><a href="#线程上下文类加载器" class="headerlink" title="线程上下文类加载器"></a>线程上下文类加载器</h2><p>1.是什么<br>   <em>一种特殊的类加载器，可以通过Thread获取，基于此可实现逆向委托加载</em><br>2.存在的理由<br>   <em>为了解决双亲委派的缺陷而生</em><br>3.如何使用</p>
-<pre><code>//获取
-Thread.currentThread().getContextClassLoader()
-//设置
-Thread.currentThread().setContextClassLoader(new Classloader_4());   </code></pre><h2 id="沙箱安全"><a href="#沙箱安全" class="headerlink" title="沙箱安全"></a>沙箱安全</h2><p>   <em>看openjdk源码会看到有这样的判断AccessController.doPrivileged.比如我定义了一个类名为String所在包为java.lang，因为这个类本来是属于jdk的，如果没有沙箱安全机制的话，这个类将会污染到我所有的String,但是由于沙箱安全机制，所以就委托顶层的bootstrap加载器查找这个类，如果没有的话就委托extsion,extsion没有就到aapclassloader，但是由于String就是jdk的源代码，所以在bootstrap那里就加载到了，先找到先使用，所以就使用bootstrap里面的String,后面的一概不能使用，这就保证了不被恶意代码污染.它的主要作用为保护核心类库</em></p>
+<h3 id="为什么设计双亲委派机制"><a href="#为什么设计双亲委派机制" class="headerlink" title="为什么设计双亲委派机制?"></a>为什么设计双亲委派机制?</h3><ol>
+<li>沙箱安全机制<blockquote>
+<p>自己写的java.lang.String.class类不会被加载，这样便可以防止核心。如下代码</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package java.lang;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @author zhangzhifeng</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class String &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(&quot;测试自定义 java.lang.String 类 是否能加载!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<strong>运行结果:因为String 类是jdk自带的类 而它并没有main方法 所以报错</strong><br><img src="/java/jvm/ClassLoader/String.jpg" alt>  </li>
+<li>避免类的重复加载:当父亲已经加载了该类时，就没有必要子ClassLoader再加载一次，保证被加载类的唯一性   <blockquote>
+<p>如果多个类加载器 的加载路径下面都存在同一个类，只需要向上委托加载一次即可.</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="打破双亲委派"><a href="#打破双亲委派" class="headerlink" title="打破双亲委派"></a>打破双亲委派</h3><p><strong>因为在某些情况下父类加载器需要委托子类加载器去加载class文件。受到加载范围的限制，父类加载器无法加载到需要的文件，以Driver接口为例，由于Driver接口定义在jdk当中的，而其实现由各个数据库的服务商来提供，比如mysql的就写了MySQL Connector，那么问题就来了，DriverManager（也由jdk提供）要加载各个实现了Driver接口的实现类，然后进行管理，但是DriverManager由启动类加载器加载，只能加载JAVA_HOME的lib下文件，而其实现是由服务商提供的，由系统类加载器加载，这个时候就需要启动类加载器来委托子类来加载Driver实现，从而破坏了双亲委派。类似这样的情况就需要打破双亲委派。打破双亲委派的意思其实就是不委派、向下委派</strong></p>
+<blockquote>
+<p>方式</p>
+</blockquote>
+<ol>
+<li>自定义类加载器<br> <em>继承类ClassLoder 重写loadClass 方法 将向上委派代码进行修改即可</em></li>
+<li>SPI<br> <em>是一种服务发现机制。它通过在ClassPath路径下的META-INF/services文件夹查找文件，自动加载文件里所定义的类。这一机制为很多框架扩展提供了可能，比如在Dubbo、JDBC中都使用到了SPI机制</em></li>
+</ol>
+<h2 id="线程上下文类加载器"><a href="#线程上下文类加载器" class="headerlink" title="线程上下文类加载器"></a>线程上下文类加载器</h2><ol>
+<li>是什么<br><em>一种特殊的类加载器，可以通过Thread获取，基于此可实现逆向委托加载</em></li>
+<li>存在的理由<br><em>为了解决双亲委派的缺陷而生</em></li>
+<li>如何使用<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;获取</span><br><span class="line">    Thread.currentThread().getContextClassLoader()</span><br><span class="line">    &#x2F;&#x2F;设置</span><br><span class="line">    Thread.currentThread().setContextClassLoader(new Classloader_4());</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="全盘负责委托机制"><a href="#全盘负责委托机制" class="headerlink" title="全盘负责委托机制"></a>全盘负责委托机制</h2><p>“全盘负责”是指当一个ClassLoder装载一个类时，除非显示的使用另外一个ClassLoder，该类 所依赖及引用的类也由这个ClassLoder载入。   </p>
 </section>
     <!-- Tags START -->
     
@@ -597,7 +332,7 @@ Thread.currentThread().setContextClassLoader(new Classloader_4());   </code></pr
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载器"><span class="toc-nav-text">类加载器</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#启动类加载器"><span class="toc-nav-text">启动类加载器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#拓展类加载器"><span class="toc-nav-text">拓展类加载器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#应用类加载器"><span class="toc-nav-text">应用类加载器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#自定义类加载器"><span class="toc-nav-text">自定义类加载器</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载器创建链"><span class="toc-nav-text">类加载器创建链</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载器加载完成后的存储"><span class="toc-nav-text">类加载器加载完成后的存储</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#双亲委派"><span class="toc-nav-text">双亲委派</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#打破双亲委派"><span class="toc-nav-text">打破双亲委派</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#线程上下文类加载器"><span class="toc-nav-text">线程上下文类加载器</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#沙箱安全"><span class="toc-nav-text">沙箱安全</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载过程"><span class="toc-nav-text">类加载过程</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载器"><span class="toc-nav-text">类加载器</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#启动类加载器"><span class="toc-nav-text">启动类加载器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#拓展类加载器"><span class="toc-nav-text">拓展类加载器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#应用类加载器"><span class="toc-nav-text">应用类加载器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#自定义类加载器"><span class="toc-nav-text">自定义类加载器</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载器创建链"><span class="toc-nav-text">类加载器创建链</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#类加载器加载完成后的存储"><span class="toc-nav-text">类加载器加载完成后的存储</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#双亲委派机制"><span class="toc-nav-text">双亲委派机制</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#为什么设计双亲委派机制"><span class="toc-nav-text">为什么设计双亲委派机制?</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#打破双亲委派"><span class="toc-nav-text">打破双亲委派</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#线程上下文类加载器"><span class="toc-nav-text">线程上下文类加载器</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#全盘负责委托机制"><span class="toc-nav-text">全盘负责委托机制</span></a></li></ol>
     
   </div>
 </aside>
