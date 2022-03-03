@@ -189,7 +189,46 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="堆大小"><a href="#堆大小" class="headerlink" title="堆大小"></a>堆大小</h2><h2 id="栈大小"><a href="#栈大小" class="headerlink" title="栈大小"></a>栈大小</h2><h2 id="方法区大小"><a href="#方法区大小" class="headerlink" title="方法区大小"></a>方法区大小</h2></section>
+    <section class="markdown-content"><h2 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h2><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-Xss</td>
+<td align="center">虚拟机栈大小</td>
+<td align="center">‐Xss512k</td>
+</tr>
+<tr>
+<td align="center">-Xms</td>
+<td align="center">堆的初始大小</td>
+<td align="center">-Xms1024m</td>
+</tr>
+<tr>
+<td align="center">-Xmx</td>
+<td align="center">堆可到达的最大值</td>
+<td align="center">-Xms20484m</td>
+</tr>
+<tr>
+<td align="center">-Xmn</td>
+<td align="center">堆中新生代的大小</td>
+<td align="center">-‐Xmn1024M</td>
+</tr>
+<tr>
+<td align="center">-XX:MaxMetaspaceSize</td>
+<td align="center">元空间最大值, 默认是-1,即不限制或者,只受限于本地内存大小</td>
+<td align="center">‐XX:MaxMetaspaceSize=256M</td>
+</tr>
+<tr>
+<td align="center">-XX:MetaspaceSize</td>
+<td align="center">元空间触发Fullgc的初始阈值,单位为字节, 默认21M</td>
+<td align="center">‐XX:MetaspaceSize=256M</td>
+</tr>
+</tbody></table>
+</section>
     <!-- Tags START -->
     
       <div class="tags">
@@ -266,7 +305,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#堆大小"><span class="toc-nav-text">堆大小</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#栈大小"><span class="toc-nav-text">栈大小</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#方法区大小"><span class="toc-nav-text">方法区大小</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行时数据区"><span class="toc-nav-text">运行时数据区</span></a></li></ol>
     
   </div>
 </aside>

@@ -183,6 +183,29 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/middleware/zookeeper/index/">zookeeper介绍及基本使用</a>
+      </h2>
+      <p class="article-date">February 7, 2021</p>
+      
+        
+  <a href="/tags#Zookeeper" >
+    <span class="tag-code">Zookeeper</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          zookeeper简介产生背景 从单体项目到分布式项目转变之后，会产生多个服务节点之间的协同问题。如
+每天的定时任务有哪个节点执行RPC调用时的服务发现如何保证并发请求的幂等性			...
+
+这些问题可以统一归纳为多节点协调问题，如果靠节点自身进行协调这是非常不可靠的，性能也不可取。必须由一 ...
+        
+      </div>
+      <a class="more" href="/middleware/zookeeper/index/">阅读更多</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/java/jvm/jvm_memory/">JVM内存模型</a>
       </h2>
       <p class="article-date">January 4, 2021</p>
@@ -354,7 +377,37 @@ BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的�
       
       <div class="article-summary">
         
-          堆大小栈大小方法区大小
+          运行时数据区
+
+
+参数
+说明
+示例
+
+
+
+-Xss
+虚拟机栈大小
+‐Xss512k
+
+
+-Xms
+堆的初始大小
+-Xms1024m
+
+
+-Xmx
+堆可到达的最大值
+-Xms20484m
+
+
+-Xmn
+堆中新生代的大小
+-‐Xmn1024M
+
+
+-XX:MaxMetaspaceSize
+元空间 ...
         
       </div>
       <a class="more" href="/java/jvm/parameter/">阅读更多</a>
@@ -385,28 +438,6 @@ BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的�
         
       </div>
       <a class="more" href="/java/concurrent/introduce/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/jvm/synchronized/">synchronized锁状态及性能对比</a>
-      </h2>
-      <p class="article-date">April 1, 2020</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          锁状态概述
-无锁 没有synchronized关键字修饰
-偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需 ...
-        
-      </div>
-      <a class="more" href="/java/jvm/synchronized/">阅读更多</a>
     </article>
   
 

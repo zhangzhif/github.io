@@ -10,7 +10,7 @@
   
   <title>
     
-      张治峰的博客
+      java/jvm/create_obj | 张治峰的博客
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -52,7 +52,7 @@
       
         <li class="list-item">
           
-            <a href="/" class="item-link active">主页</a>
+            <a href="/" class="item-link">主页</a>
           
         </li>
       
@@ -110,7 +110,7 @@
         
           <li class="menu-item">
             
-              <a href="/" class="menu-link mobile-active">主页</a>
+              <a href="/" class="menu-link">主页</a>
             
           </li>
         
@@ -179,167 +179,167 @@
   </div>
 </header>
 
-    <main class="app-body">
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/jvm/synchronized/">synchronized锁状态及性能对比</a>
-      </h2>
-      <p class="article-date">April 1, 2020</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          锁状态概述
-无锁 没有synchronized关键字修饰
-偏向锁  JVM开启偏向锁时只有单个线程调用同步代码（不存在竞争条件）且无法重新偏向（单个锁情况，不考虑批量重偏向^[t1线程实例化同一个类多个对象并加锁，t2线程也对其加锁 由于锁升级会进行多次锁撤销操作，JVM会认为接下来的对象需 ...
-        
-      </div>
-      <a class="more" href="/java/jvm/synchronized/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/jvm/introduce/">JVM虚拟机</a>
-      </h2>
-      <p class="article-date">March 15, 2020</p>
-      
-        
-  <a href="/tags#java" >
-    <span class="tag-code">java</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          java虚拟机(java virtual machine，JVM)，一种能够运行java字节码的虚拟机。作为一种编程语言的虚拟机，实际上不只是专用于Java语言，只要生成的编译文件匹配JVM对加载编译文件格式要求，任何语言都可以由JVM编译运行。比如kotlin、scala等。
-JVM组成J ...
-        
-      </div>
-      <a class="more" href="/java/jvm/introduce/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/framework/mybatis/index/">mybatis简介</a>
-      </h2>
-      <p class="article-date">January 17, 2020</p>
-      
-        
-  <a href="/tags#mybatis源码" >
-    <span class="tag-code">mybatis源码</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          mybatis简介
-
-        
-      </div>
-      <a class="more" href="/framework/mybatis/index/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/container/CopyOnWriteArrayList/">CopyOnWriteArrayList源码解析</a>
-      </h2>
-      <p class="article-date">December 8, 2019</p>
-      
-      <div class="article-summary">
-        
-          特性public class CopyOnWriteArrayList&lt;E&gt;    implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable
-特性基本与ArrayList一致，底层也是数组结构
- ...
-        
-      </div>
-      <a class="more" href="/java/container/CopyOnWriteArrayList/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/container/LinkedList/">LinkedList源码解析</a>
-      </h2>
-      <p class="article-date">December 3, 2019</p>
-      
-      <div class="article-summary">
-        
-          特性public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Seri ...
-        
-      </div>
-      <a class="more" href="/java/container/LinkedList/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/container/ArrayList/">ArrayList源码解析</a>
-      </h2>
-      <p class="article-date">December 1, 2019</p>
-      
-      <div class="article-summary">
-        
-          特性  实现了三个标记接口: RandomAccess, Cloneable, java.io.Serializable
-public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements List& ...
-        
-      </div>
-      <a class="more" href="/java/container/ArrayList/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/java/io/iomodul/">JAVAIO模型之NIO、BIO、AIO</a>
-      </h2>
-      <p class="article-date">December 1, 2019</p>
-      
-      <div class="article-summary">
-        
-          IO模型io模型就是各种数据使用相应通道进行发送和接收。Java共支持三种网络编程IO模式 BIO、NIO、AIO
-BIO （Blocking IO）同步阻塞模型,一个客户端连接对应一个处理线程。
-缺点
-1.IO代码里read是阻塞操作，如果连接不做读写操作会导致线程阻塞，浪费资源2.如果读 ...
-        
-      </div>
-      <a class="more" href="/java/io/iomodul/">阅读更多</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/framework/spring/ioc/">Spring容器及Spring Bean</a>
-      </h2>
-      <p class="article-date">December 1, 2019</p>
-      
-        
-  <a href="/tags#spring源码" >
-    <span class="tag-code">spring源码</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          Spring容器什么是容器官网解释
-The org.springframework.context.ApplicationContext interface represents the Spring IoC container and is responsible for instanti ...
-        
-      </div>
-      <a class="more" href="/framework/spring/ioc/">阅读更多</a>
-    </article>
-  
-
-  
-    <div class="guide-pager">
-  
-    <a href="/page/3/"><span class="page-arrow">← </span>Prev</a>
-  
-  
-    <a class="unvisible" href="/">Next <span class="page-arrow">→</span></a>
-  
+    <div id="article-banner">
+  <h2>java/jvm/create_obj</h2>
+  <p class="post-date">2022-03-03</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
 </div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"></section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/database/mysql/lock/">
+        <span class="nav-arrow">← </span>
+        
+          MySQL 锁机制
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
   
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">目录</strong>
+    
+      <ol class="nav">none</ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
 </main>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+  (function () {
+
+    var url = 'http://zev_gitee.gitee.io/java/jvm/create_obj/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', '/css/images/error_icon.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== '/css/images/error_icon.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+  <script>
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+  </script>
+
+
+
+
+
+  <script>
+    let gitalk = new Gitalk({
+      clientID: '7c19a6dde1744eaa8c8e',
+      clientSecret: '689f2f34a11a1edad102d8b1c63c57e3ebb87512',
+      repo: 'blog-comment',
+      owner: 'zhangzhif',
+      admin: 'zhangzhif',
+      id: 'java/jvm/create_obj',
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render(document.getElementById('comments'));
+  </script>
+
+
+
+
+
+
 
 
     <div class="scroll-top">
