@@ -189,7 +189,8 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h2 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h2><table>
+    <section class="markdown-content"><p>-X 表示稳定参数,在后期JDK版本可能被弃用,X越多表示🈷越不稳定。</p>
+<table>
 <thead>
 <tr>
 <th align="center">参数</th>
@@ -226,6 +227,68 @@
 <td align="center">-XX:MetaspaceSize</td>
 <td align="center">元空间触发Fullgc的初始阈值,单位为字节, 默认21M</td>
 <td align="center">‐XX:MetaspaceSize=256M</td>
+</tr>
+<tr>
+<td align="center">-XX:+UseAdaptiveSizePolicy</td>
+<td align="center">年轻代内存比例动态变化（默认开启）</td>
+<td align="center">-XX:+/- UseAdaptiveSizePolicy</td>
+</tr>
+<tr>
+<td align="center">-XX:MaxTenuringThreshold</td>
+<td align="center">年轻代移入老年代 年龄阈值（只能设置在0-15之间）</td>
+<td align="center">-XX:MaxTenuringThreshold=15</td>
+</tr>
+</tbody></table>
+<h2 id="逃逸分析相关"><a href="#逃逸分析相关" class="headerlink" title="逃逸分析相关"></a>逃逸分析相关</h2><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-XX:+/-DoEscapeAnalysis</td>
+<td align="center">是否开启逃逸分析(默认开启)</td>
+<td align="center">-XX:+DoEscapeAnalysis(开启) -XX:-DoEscapeAnalysis（关闭）</td>
+</tr>
+<tr>
+<td align="center">-XX:+/-EliminateAllocations</td>
+<td align="center">是否开启标量替换</td>
+<td align="center">-XX:+EliminateAllocations（开启） -XX:-EliminateAllocations（关闭）</td>
+</tr>
+</tbody></table>
+<h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-XX:+PrintGCDetails</td>
+<td align="center">打印GC日志</td>
+<td align="center">-XX:+PrintGCDetails</td>
+</tr>
+<tr>
+<td align="center">-XX:PretenureSizeThreshold</td>
+<td align="center">定义大对象的值，当对象大小超过该值会直接进入老年代.</td>
+<td align="center">-XX:PretenureSizeThreshold=1000000(单位字节)</td>
+</tr>
+</tbody></table>
+<h3 id="SerialGC"><a href="#SerialGC" class="headerlink" title="SerialGC"></a>SerialGC</h3><table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-XX:+UseSerialGC</td>
+<td align="center">使用 Serial 垃圾回收器</td>
+<td align="center">-XX:+UseSerialGC</td>
 </tr>
 </tbody></table>
 </section>
@@ -305,7 +368,7 @@
   <div class="toc-main">
     <strong class="toc-title">目录</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#运行时数据区"><span class="toc-nav-text">运行时数据区</span></a></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#逃逸分析相关"><span class="toc-nav-text">逃逸分析相关</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#GC"><span class="toc-nav-text">GC</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SerialGC"><span class="toc-nav-text">SerialGC</span></a></li></ol></li></ol>
     
   </div>
 </aside>

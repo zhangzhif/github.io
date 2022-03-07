@@ -183,7 +183,7 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/java/jvm/create_obj/">java 对象创建过程</a>
+        <a href="/java/jvm/create_obj/">java对象概述及创建过程</a>
       </h2>
       <p class="article-date">January 7, 2021</p>
       
@@ -195,7 +195,8 @@
       
       <div class="article-summary">
         
-          
+          对象结构java 对象主要分为三部分:对象头、实例数据、对齐填充。对象头又分为 mark word 和 Kclass word、数组长度（数组对象才有这块区域）,具体描述如下图:
+创建过程java对象在创建时主要有下面几个过程: 类加载检查-&gt;申请内存-&gt;初始化-&gt;设置对象 ...
         
       </div>
       <a class="more" href="/java/jvm/create_obj/">阅读更多</a>
@@ -374,7 +375,8 @@ BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的�
       
       <div class="article-summary">
         
-          运行时数据区
+          -X 表示稳定参数,在后期JDK版本可能被弃用,X越多表示🈷越不稳定。
+
 
 
 参数
@@ -400,11 +402,7 @@ BeanDefinitionBeanDefinition中保存了我们Bean的信息。声名式bean的�
 
 -Xmn
 堆中新生代的大小
--‐Xmn1024M
-
-
--XX:MaxMetaspaceSize
-元空间 ...
+-‐Xmn1 ...
         
       </div>
       <a class="more" href="/java/jvm/parameter/">阅读更多</a>
